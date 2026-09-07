@@ -36,13 +36,25 @@ These are **pointers for a user’s private library**, not files this project wi
 | **BYO-PDF at runtime** | Indexer code + user-local index | User keeps PDFs | **Default** |
 | Citation-only knowledge (no PDF) | Metadata + public syllabi | OK | Complements BYO |
 
+### OER seed candidates (ship only if redistribution licence is clear)
+
+| Resource | Domain | Licence caution |
+|----------|--------|-----------------|
+| Kuphaldt ModEL modules | Power / electronics modules | **CC BY 4.0** — strongest OSS seed candidate ([ModEL](https://ibiblio.org/kuphaldt/socratic/model/index.html)) |
+| Preetham *Introduction to power system engineering* | Power | Listed **CC BY** on OER Commons |
+| Fiore DC/AC circuit texts | Circuits | Often **NC** (non-commercial) — **not** a default OSS-bundled corpus |
+| Adams *Signals and Systems* | Signals | **BY-NC-ND** — free to read; not a redistributable OSS default |
+| LibreTexts EE bookshelf | Mixed | Verify **per-page** licence before bundling |
+
+**Rule:** bundled seed corpus must be commercially redistributable (e.g. CC BY / BY-SA / public domain). NC-licensed OER stays user-local or linked, not shipped in the repo.
+
 ### Stance (D3)
 
-**Default: BYO-PDF + optional OER packs.** The agent ships ingestion/retrieval software and skill prompts. Users point it at PDFs they have rights to read. No commercial book bytes in git.
+**Default: BYO-PDF + optional CC-BY (or equivalent) OER packs.** The agent ships ingestion/retrieval software and skill prompts. Users point it at PDFs they have rights to read. No commercial book bytes in git.
 
 ## Open questions
 
-- Which specific OER EE texts are high enough quality for undergrad cores (needs a later survey pass)?
+- Curate a minimal CC-BY seed list (ModEL + verified BY power notes) with SPDX metadata.
 - User CP-1 may expand to “we own licences for X” — then a private index is fine, still not for public redistribution.
 
 ## Sources
@@ -50,10 +62,12 @@ These are **pointers for a user’s private library**, not files this project wi
 - [GATE EE 2025 syllabus PDF](https://static.collegedekho.com/media/uploads/2024/07/01/gate-_ee_2025_syllabus.pdf) — retrieved 2026-09-07 — reliability: secondary (S11)
 - [IIT Roorkee EE Programmes](https://iitr.ac.in/Departments/Electrical%20Engineering%20Department/Academics/Programmes.html) — retrieved 2026-09-07 — reliability: primary (S12)
 - [ETH Electric Energy Engineering](https://ethz.ch/content/dam/ethz/special-interest/itet/department/Studies/Electric_Energy_Engineering.pdf) — retrieved 2026-09-07 — reliability: primary (S13)
+- [Kuphaldt ModEL](https://ibiblio.org/kuphaldt/socratic/model/index.html) — retrieved 2026-09-07 — reliability: primary
+- [Open Source Definition §6](https://opensource.org/osd) — retrieved 2026-09-07 — reliability: primary
 - Research plan non-goals (no book text in repo) — retrieved 2026-09-07 — reliability: primary
 
 ## Confidence
 
 Overall confidence for this note: high
 
-The licence-safe default does not depend on which edition a campus uses. OER quality survey remains medium-confidence unfinished work for a later spike, not a blocker for the recommendation.
+The licence-safe default does not depend on which edition a campus uses. Named OER seeds still need a short SPDX pass before any pack ships.

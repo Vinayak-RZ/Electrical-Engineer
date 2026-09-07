@@ -10,10 +10,13 @@ Claim | Evidence (URL) | Confidence
 --- | --- | ---
 Pi’s product thesis is “adapt Pi to your workflows” via extensions and packages, not fork-first | https://pi.dev/ | high
 RAG is a **first-class documented extension pattern** (inject/filter context each turn) | https://pi.dev/ | high
-MCP is **intentionally omitted** from core; add via an extension or use CLI tools wrapped as skills | https://pi.dev/ | high
+Extension hooks for RAG without forking: `before_agent_start`, `context`, `session_before_compact`, plus `registerTool` | https://pi.dev/docs/latest/extensions | high
+Existence proofs: community packages already ship RAG/context (`pi-mega-compact`, `pi-context-loader`) | https://pi.dev/packages/pi-mega-compact | high
+MCP is **intentionally omitted** from core; community adapters exist (e.g. `pi-mcp-adapter`) | https://pi.dev/ ; https://pi.dev/packages/pi-mcp-adapter | high
+Skills follow Agent Skills (`SKILL.md`); Pi can point at `~/.claude/skills` and `~/.codex/skills` | https://pi.dev/docs/latest/skills | high
 Sub-agents are omitted from core; community packages spawn child `pi` processes | https://pi.dev/ | high
 Four embed surfaces (interactive / print / RPC / SDK) support “works with others” | https://pi.dev/ | high
-Forking buys default EE constitution and UX but pays ongoing merge cost against Earendil upstream | https://pi.dev/ + general OSS practice | med
+Forking buys default EE constitution and UX but pays ongoing merge cost against Earendil upstream | https://pi.dev/ + https://arxiv.org/abs/2609.00006 | med
 A pure fork is unnecessary if EE value lives in **skills + RAG MCP/extension + MATLAB tooling** that other hosts can also load | https://pi.dev/ ; https://composio.dev/content/pi-agent-vs-codex | med
 
 ### Package / Fork / Hybrid scoring (qualitative)
@@ -61,6 +64,10 @@ A pure fork is unnecessary if EE value lives in **skills + RAG MCP/extension + M
 ## Sources
 
 - [Pi Coding Agent](https://pi.dev/) — retrieved 2026-09-07 — reliability: primary (S4)
+- [Pi Extensions docs](https://pi.dev/docs/latest/extensions) — retrieved 2026-09-07 — reliability: primary
+- [Pi Skills docs](https://pi.dev/docs/latest/skills) — retrieved 2026-09-07 — reliability: primary
+- [pi-mcp-adapter](https://pi.dev/packages/pi-mcp-adapter) — retrieved 2026-09-07 — reliability: primary
+- [pi-mega-compact](https://pi.dev/packages/pi-mega-compact) — retrieved 2026-09-07 — reliability: primary
 - [Pi vs Codex](https://composio.dev/content/pi-agent-vs-codex) — retrieved 2026-09-07 — reliability: secondary (S5)
 - [Harness Engineering](https://arxiv.org/abs/2609.00006) — retrieved 2026-09-07 — reliability: paper (S6)
 - [MATLAB MCP Server](https://github.com/matlab/matlab-mcp-server) — retrieved 2026-09-07 — reliability: primary (S7)

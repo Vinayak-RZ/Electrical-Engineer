@@ -16,11 +16,14 @@ EE PDFs uniquely stress **equations**, **phasor/circuit diagrams**, and **worked
 
 | Tool | Strength | Weakness for EE | Notes |
 |------|----------|-----------------|-------|
-| **PyMuPDF (fitz)** | Fast text+blocks, positions | Formulae often become broken Unicode; limited structure | Good baseline / coordinates |
-| **Marker** | Formula-preserving markdown-oriented parse (cited in technical RAG work) | Heavier; quality varies by PDF producer | Strong candidate for books |
-| **Docling** | Structured doc conversion, tables | Need EE-specific eval | Emerging stack |
-| **Unstructured** | Broad connectors, element types | Easy to over-chunk; maths uneven | Useful for pipelines |
-| **Nougat / VLM captioners** | Math/figure understanding | Costly; may hallucinate glyphs | Optional second pass for figures |
+| **PyMuPDF (fitz)** | Fast text+blocks, positions, TOC/page maps | No real formula extraction; maths become pictures or broken linear text | Good geometry baseline |
+| **Docling** | Layout + tables; typed document with page/bbox provenance (MIT) | Formula quality weaker than science-specialized stacks on dense math | Strong structure/provenance default |
+| **MinerU** | Formulas → LaTeX; tables → HTML; multi-column / OCR path | Heavier stack; watch current licence terms | Strong LaTeX-emitting candidate |
+| **Marker** | High-throughput Markdown/JSON; optional LLM cleanup | Formula fidelity without LLM pass is uneven; check model-weight terms | Throughput candidate |
+| **Unstructured** | Element types include Formula/Table/FigureCaption | Formula typed but not a full LaTeX reconstructor | Useful pipeline glue |
+| **VLM captioners** | Circuit/Bode figure descriptions | Costly; may invent topology | Optional secondary caption only |
+
+Practical pipeline lean: **PyMuPDF for TOC/page maps → MinerU or Docling for body → keep page crops for figures.**
 
 ### Formula strategies
 
@@ -50,6 +53,9 @@ EE PDFs uniquely stress **equations**, **phasor/circuit diagrams**, and **worked
 
 - [Decompose, Retrieve, Cite (RAG4Reports)](https://aclanthology.org/2026.rag4reports-1.4.pdf) — retrieved 2026-09-07 — reliability: paper (S16)
 - [Engineering RAG for the enterprise (Red Hat)](https://www.redhat.com/en/resources/engineering-rag-enterprise-ebook) — retrieved 2026-09-07 — reliability: vendor (S23)
+- [Docling paper](https://arxiv.org/abs/2408.09869) — retrieved 2026-09-07 — reliability: paper
+- [MinerU paper](https://arxiv.org/abs/2409.18839) — retrieved 2026-09-07 — reliability: paper
+- [PyMuPDF formula limitation discussion](https://github.com/pymupdf/pymupdf4llm/discussions/390) — retrieved 2026-09-07 — reliability: primary
 - [agentic-system-design skill](.cursor/skills/agentic-system-design/SKILL.md) — retrieved 2026-09-07 — reliability: primary (S3)
 
 ## Confidence

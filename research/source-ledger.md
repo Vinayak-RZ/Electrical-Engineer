@@ -28,6 +28,14 @@ Every external or authoritative source used in research notes. Add a row when yo
 | S22 | Earendil Pi GitHub org (coding-agent) | https://github.com/earendil-works/pi | 2026-09-07 | primary |
 | S23 | Red Hat: Engineering RAG for the enterprise | https://www.redhat.com/en/resources/engineering-rag-enterprise-ebook | 2026-09-07 | vendor |
 | S24 | IIT Madras EE course descriptions (Jan–May 2026) | https://www.ee.iitm.ac.in/assets/documents/2026-Jan-May-Course-description.pdf | 2026-09-07 | primary |
+| S25 | Pi Extensions docs | https://pi.dev/docs/latest/extensions | 2026-09-07 | primary |
+| S26 | Pi Skills docs | https://pi.dev/docs/latest/skills | 2026-09-07 | primary |
+| S27 | pi-mcp-adapter package | https://pi.dev/packages/pi-mcp-adapter | 2026-09-07 | primary |
+| S28 | pi-mega-compact package | https://pi.dev/packages/pi-mega-compact | 2026-09-07 | primary |
+| S29 | Kuphaldt ModEL (CC BY 4.0) | https://ibiblio.org/kuphaldt/socratic/model/index.html | 2026-09-07 | primary |
+| S30 | Docling technical report | https://arxiv.org/abs/2408.09869 | 2026-09-07 | paper |
+| S31 | MinerU technical report | https://arxiv.org/abs/2409.18839 | 2026-09-07 | paper |
+| S32 | Open Source Definition | https://opensource.org/osd | 2026-09-07 | primary |
 
 ## Reliability tiers
 

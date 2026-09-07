@@ -27,10 +27,14 @@ Undergrad EE labs typically need subsets of Control System Toolbox, Simscape Ele
 ### Failure modes
 
 - No MATLAB licence / installation on the machine.
-- Missing toolbox → cryptic failures; detect toolboxes first.
-- Tool timeout too short for load-flow or long transients.
+- Network/VPN licence failures when MCP starts MATLAB (hangs or opaque errors).
+- Missing shared session (`existing`/`shareMATLABSession`) → empty workspace / wrong models.
+- Missing toolbox → cryptic failures; call `detect_matlab_toolboxes` first.
+- Tool timeout too short for load-flow or long transients (Codex docs often raise to ≥600s).
+- Multi-user shared MCP conflicts with MathWorks licence expectations.
 - Agent claims “simulated” results without calling MCP (policy must forbid).
 - Destructive clears / overwriting student models without approval.
+- Curriculum note: Specialized Power Systems libraries migrate toward native Simscape Electrical on newer releases — skill packs must track that.
 
 ### Stance (D5 leaning)
 
