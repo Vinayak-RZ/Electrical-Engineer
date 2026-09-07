@@ -9,13 +9,19 @@ Live status for the Electrical-Engineer **research phase** on branch `cursor/ee-
 | B RAG | done | D8–D12 notes |
 | C Verification | done | D13/D14 notes |
 | D Capability | done | D15/D16 notes |
-| E Synthesis | in progress | Scoring + memo |
-| F README | pending | readable + extensive |
+| E Synthesis | done | Scoring + memo + ADR seeds |
+| F README | done | readable + extensive |
 | S Spikes | skipped | No user approval |
-| N Hardening | pending | Citation sweep |
+| N Hardening | done | validate --full PASS; see PHASE_N_COMPLETION.md |
 
 ## Assumptions
 
 - CP-1: BYO-PDF + OER default while user rights list pending.
 - CP-2: MATLAB intended primary; OSS researched in parallel.
 - Phase S cancelled until explicitly approved.
+
+## Handoff
+
+Recommendation: [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md)  
+ADRs: [`DECISIONS.md`](DECISIONS.md) (status `proposed`)  
+Stop: no PRD and no product scaffold without a new instruction.
