@@ -1,0 +1,46 @@
+# Research phase — map
+
+This directory holds the **research-only** phase of Electrical-Engineer.
+Nothing here is product code. The goal is to decide *what to build* (harness base,
+EE textbook RAG, verification surface, capability framing) and write a recommendation memo.
+
+> Full internals of the repo (every folder and important file): see the eventual
+> companion at [`docs/EXTENSIVE.md`](../docs/EXTENSIVE.md) after Phase F.
+
+## How to read these notes
+
+1. Start with [`question-bank.md`](question-bank.md) — every open research question.
+2. Check [`DECISION_REGISTER.md`](DECISION_REGISTER.md) — options and current stances.
+3. Read domain notes under [`notes/`](notes/).
+4. End with [`synthesis/recommendation.md`](synthesis/recommendation.md) when it exists.
+5. Sources are catalogued in [`source-ledger.md`](source-ledger.md).
+
+## Note shape
+
+Copy [`NOTE.template.md`](NOTE.template.md). Every committed note must include
+`## Sources` and `## Confidence`. The gate
+[`scripts/research/validate-research.sh`](../scripts/research/validate-research.sh)
+rejects unfinished-work tokens, missing sections, PRD language in the
+memo, and (heuristically) verbatim book text.
+
+## Workstreams
+
+| ID | Topic | Primary artifacts |
+|----|-------|-------------------|
+| WS-A | Harness base | `notes/harness-landscape.md`, `notes/pi-feasibility.md` |
+| WS-B | EE textbook RAG | `notes/ee-corpus-and-licensing.md`, `notes/rag-*.md` |
+| WS-C | Verification | `notes/matlab-simulink-surface.md`, `notes/open-source-verification.md` |
+| WS-D | Capability & evals | `notes/ee-task-taxonomy-draft.md`, `notes/capability-eval-design.md` |
+| WS-E | Synthesis | `synthesis/option-scoring.md`, `synthesis/recommendation.md` |
+| WS-F | README compilation | root `README.md`, `docs/EXTENSIVE.md` |
+
+## Assumptions while blockers are open
+
+- **Textbook rights (CP-1):** default stance is **bring-your-own-PDF (BYO)** plus open educational resources. No commercial textbook PDFs are committed or redistributed from this repo.
+- **MATLAB licence (CP-2):** research covers MathWorks MCP as the *intended* primary verifier; open-source verification is researched in parallel in case a licence is unavailable.
+- **agent-patterns MCP:** unreachable in this cloud environment; architecture pattern IDs are marked `MCP-PENDING` where relevant.
+
+## What you learned (scaffold)
+
+- A research phase needs a failable gate, not just good intentions.
+- Separating question bank, decision register, and source ledger keeps notes from becoming the only source of truth.
