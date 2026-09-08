@@ -34,3 +34,14 @@ ADR seeds from the research phase. Status values: `proposed` | `accepted` | `sup
 - **Consequences:** Licence dependency for full fidelity; policy to refuse unverified “simulation” claims.
 - **Alternatives:** OSS-primary; simulation optional.
 - **Sources:** `research/notes/matlab-simulink-surface.md`, `research/notes/open-source-verification.md`
+
+---
+
+## ADR-0004 — Multimodal RAG ingest engine
+
+- **Status:** proposed
+- **Context:** EE textbooks mix text, equations, tables, figures, and multi-column layout; text-only RAG fails. User flagged [RAG-Anything](https://github.com/HKUDS/RAG-Anything) as a candidate all-in-one stack.
+- **Decision:** Use **RAG-Anything (MinerU default) as the ingest + index engine** behind a portable **EE RAG MCP server**; distribute via **GitHub Releases** as an installable sidecar with local Ollama/LM Studio backends. Do **not** adopt it as the agent harness or skip the MCP wrapper.
+- **Consequences:** Heavy Python/MinerU dependency chain; user-local index and BYO PDFs; spike on one owned EE chapter required before `accepted`. Fallback: MinerU/Docling + thin custom MCP if spike fails.
+- **Alternatives:** Thin MinerU+MCP only; Docling+LlamaIndex; VLM-only chunking; commercial parsers; Microsoft GraphRAG as primary spine.
+- **Sources:** `research/notes/rag-anything-evaluation.md`, `research/synthesis/rag-stack-recommendation.md`, `research/notes/rag-parsing-formulae-figures.md`, `research/notes/rag-agent-integration.md`

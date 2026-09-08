@@ -12,7 +12,7 @@ EE textbook RAG, verification surface, capability framing) and write a recommend
 1. Start with [`question-bank.md`](question-bank.md) — every open research question.
 2. Check [`DECISION_REGISTER.md`](DECISION_REGISTER.md) — options and current stances.
 3. Read domain notes under [`notes/`](notes/).
-4. End with [`synthesis/recommendation.md`](synthesis/recommendation.md) when it exists.
+4. End with [`synthesis/recommendation.md`](synthesis/recommendation.md) and [`synthesis/rag-stack-recommendation.md`](synthesis/rag-stack-recommendation.md) when evaluating RAG engine choice.
 5. Sources are catalogued in [`source-ledger.md`](source-ledger.md).
 
 ## Note shape
@@ -28,10 +28,10 @@ memo, and (heuristically) verbatim book text.
 | ID | Topic | Primary artifacts |
 |----|-------|-------------------|
 | WS-A | Harness base | `notes/harness-landscape.md`, `notes/pi-feasibility.md` |
-| WS-B | EE textbook RAG | `notes/ee-corpus-and-licensing.md`, `notes/rag-*.md`, `notes/local-package-and-embedding-release.md` |
+| WS-B | EE textbook RAG | `notes/ee-corpus-and-licensing.md`, `notes/rag-*.md`, `notes/local-package-and-embedding-release.md`, `notes/rag-anything-evaluation.md` |
 | WS-C | Verification | `notes/matlab-simulink-surface.md`, `notes/open-source-verification.md`, `notes/photo-to-schematic-to-simulink.md` |
 | WS-D | Capability & evals | `notes/ee-task-taxonomy-draft.md`, `notes/capability-eval-design.md` |
-| WS-E | Synthesis | `synthesis/option-scoring.md`, `synthesis/recommendation.md` |
+| WS-E | Synthesis | `synthesis/option-scoring.md`, `synthesis/recommendation.md`, `synthesis/rag-stack-recommendation.md` |
 | WS-F | README compilation | root `README.md`, `docs/EXTENSIVE.md` |
 
 ## Assumptions while blockers are open
