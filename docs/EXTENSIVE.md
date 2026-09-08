@@ -76,6 +76,8 @@ When a future implementation phase starts, expect MCP servers and skill packs to
 | `matlab-simulink-surface.md` | MathWorks MCP/toolkits | WS-C primary verifier |
 | `open-source-verification.md` | SPICE/Python fallback | WS-C licence-free tier |
 | `local-package-and-embedding-release.md` | Local package + GitHub embedding packs + Chroma | WS-B/E local-first RAG |
+| `rag-anything-evaluation.md` | RAG-Anything features, implementation, EE fit | WS-B library choice |
+| `rag-anything-local-releases.md` | Local/Ollama + Release-pack join | WS-B local-first runtime |
 | `photo-to-schematic-to-simulink.md` | Photo → editable schematic → Simulink/ngspice | WS-C circuit vision |
 | `ee-task-taxonomy-draft.md` | Genres × GATE sections | WS-D capability map |
 | `capability-eval-design.md` | Rubrics without SLAs | WS-D measurement design |
@@ -86,6 +88,7 @@ When a future implementation phase starts, expect MCP servers and skill packs to
 |------|--------------|---------------|
 | `option-scoring.md` | O1–O4 scored on 8 criteria | Force comparable trade-offs |
 | `recommendation.md` | Chosen path + spikes + non-decisions | Handoff out of research |
+| `rag-stack-recommendation.md` | RAG-Anything ingest-only vs whole-stack | ADR-0004 memo |
 
 ### File map — `research/spikes/`
 

@@ -25,9 +25,11 @@ Live status for the Electrical-Engineer **research phase** on branch `cursor/ee-
 | Date | Change |
 |------|--------|
 | 2026-09-08 | Local-first package + GitHub embedding packs (Chroma) + photo→schematic→Simulink research notes; Q16–Q17, D9–D10 |
+| 2026-09-08 | RAG-Anything evaluated; proposed as ingest/enrichment library only (ADR-0004, D11, Q18–Q19) |
 
 ## Handoff
 
 Recommendation: [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md)  
+RAG library: [`research/synthesis/rag-stack-recommendation.md`](research/synthesis/rag-stack-recommendation.md)  
 ADRs: [`DECISIONS.md`](DECISIONS.md) (status `proposed`)  
 Stop: no PRD and no product scaffold without a new instruction.

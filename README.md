@@ -13,7 +13,7 @@
 ## TL;DR
 
 - Research recommends a **local-first, package-first hybrid**: portable EE skills + local textbook RAG + MATLAB/Simulink verification, optionally wrapped as a Pi package — **not** a hard fork of Pi and not a greenfield harness.
-- Grounding bet: **curated embedding packs** (from licensed books) published via **GitHub Release** into a **local Chroma** (or sqlite-vec) store — no commercial PDFs in git; BYO remains the fallback until rights are clear.
+- Grounding bet: **curated embedding packs** (from licensed books) published via **GitHub Release** into a **local Chroma** (or sqlite-vec) store — no commercial PDFs in git; BYO remains the fallback until rights are clear. Ingest lean: **RAG-Anything** for parse/table/equation enrichment, not as the student runtime ([`rag-stack-recommendation.md`](research/synthesis/rag-stack-recommendation.md)).
 - Numbers should come from **MATLAB/Simulink MCP** when licensed, with an open-source SPICE/Python fallback documented.
 - Circuit photos: reconstruct → **editable schematic UI** → simulate (Simulink preferred) only after user confirmation.
 - Read the memo: [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md).

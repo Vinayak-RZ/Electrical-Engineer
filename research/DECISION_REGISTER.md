@@ -14,6 +14,7 @@ Stances for this research phase. Status: `open` | `leaning` | `proposed` | `defe
 | D8 | Recommended build path | O1–O4 | **proposed: O1 (runner-up O3)** | Phase E | `synthesis/recommendation.md` |
 | D9 | Vector store | Chroma / sqlite-vec / LanceDB | **leaning: Chroma default, sqlite-vec optional** | 2026-09-08 | `notes/local-package-and-embedding-release.md` |
 | D10 | Circuit vision pipeline | VLM-only / structured detect+netlist / hybrid | **leaning: structured netlist + UI edit gate** | 2026-09-08 | `notes/photo-to-schematic-to-simulink.md` |
+| D11 | RAG library | RAG-Anything whole-stack / ingest-only / parse-only / ColPali | **proposed: RAG-Anything ingest-only** | 2026-09-08 | ADR-0004; `synthesis/rag-stack-recommendation.md` |
 
 ## Sources
 

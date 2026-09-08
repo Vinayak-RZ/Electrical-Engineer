@@ -21,6 +21,8 @@ Every open research question for this phase. Status: `open` | `answered` | `defe
 | Q15 | Map PG/PhD genres now? | WS-D | deferred | Light stretch map only; undergrad primary |
 | Q16 | Ship curated embeddings via GitHub Release into local Chroma? | WS-B | answered | Feasible; Chroma default; split packs &lt;2 GiB; licence review required — `notes/local-package-and-embedding-release.md` |
 | Q17 | Photo of circuit → editable UI → Simulink sim? | WS-C | answered | Feasible via netlist intermediate + UI gate; Simulink/SPICE backends — `notes/photo-to-schematic-to-simulink.md` |
+| Q18 | Is RAG-Anything the best RAG for mixed EE documents? | WS-B | answered | Best **library** for ingest/enrichment; not the whole runtime — `notes/rag-anything-evaluation.md`, `synthesis/rag-stack-recommendation.md` |
+| Q19 | Can RAG-Anything run entirely locally with GitHub Release packs? | WS-B | answered | Yes as curator/BYO ingest (Ollama + cached models); runtime stays Chroma packs — `notes/rag-anything-local-releases.md` |
 
 ## Sources
 

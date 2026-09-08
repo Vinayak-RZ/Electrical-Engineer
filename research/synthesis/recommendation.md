@@ -11,7 +11,7 @@ Recommend what to build next for Electrical-Engineer after the research phase. T
 Build (when a later implementation phase starts):
 
 1. **Portable EE skill packs** (circuits, power, control, machines; tutor/co-solver/reviewer modes).
-2. **Local textbook RAG**: curator builds embedding packs from licensed books; publish packs as **GitHub Release assets**; setup downloads into a **local vector store** (Chroma default; sqlite-vec optional). No commercial PDFs in git.
+2. **Local textbook RAG**: curator (or BYO) ingest via **RAG-Anything** for layout/table/equation enrichment; publish packs as **GitHub Release assets**; setup downloads into a **local vector store** (Chroma default; sqlite-vec optional). No commercial PDFs in git. See [`rag-stack-recommendation.md`](rag-stack-recommendation.md).
 3. **Verification wiring** to MathWorks MATLAB/Simulink MCP when licensed, plus a documented OSS fallback (SPICE MCP, pandapower/python-control/sympy).
 4. An optional **Pi package** that installs EE defaults, local RAG tools, and an MCP bridge — without hard-forking Pi.
 5. **Circuit vision path**: photo/screenshot → draft netlist → **editable schematic UI** → Simulink (or ngspice) simulation only after user confirmation.
@@ -33,7 +33,7 @@ Build (when a later implementation phase starts):
 
 1. Stub local RAG MCP: load a tiny Chroma/sqlite-vec fixture; measure citation round-trip offline.
 2. Prototype Release download + checksum into a local Chroma collection (empty or toy vectors).
-3. Formula-preserving parse of **one owned** EE chapter (metrics only; no corpus commit).
+3. Formula-preserving parse of **one owned** EE chapter through RAG-Anything vs Docling-only (metrics only; no corpus commit).
 4. MATLAB MCP smoke: evaluate a trivial expression if a licence exists; optional Linear Circuit Wizard / netlist path probe.
 5. Photo → draft netlist → render-in-UI round-trip on **one clean textbook schematic** (no sim claim without edit).
 6. Probe Pi MCP-via-extension path for package feasibility.
