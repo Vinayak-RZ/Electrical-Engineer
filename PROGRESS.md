@@ -27,6 +27,7 @@ Live status for the Electrical-Engineer **research phase** on branch `cursor/ee-
 |------|--------|
 | 2026-09-08 | Local-first package + GitHub embedding packs (Chroma) + photo→schematic→Simulink research notes; Q16–Q17, D9–D10 |
 | 2026-09-08 | RAG-Anything evaluation + ADR-0004; D11 multimodal ingest engine |
+| 2026-09-08 | AI-in-core-engineering landscape research; target capabilities defined in README + research notes |
 
 ## Handoff
 

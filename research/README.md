@@ -30,7 +30,7 @@ memo, and (heuristically) verbatim book text.
 | WS-A | Harness base | `notes/harness-landscape.md`, `notes/pi-feasibility.md` |
 | WS-B | EE textbook RAG | `notes/ee-corpus-and-licensing.md`, `notes/rag-*.md`, `notes/local-package-and-embedding-release.md`, `notes/rag-anything-evaluation.md` |
 | WS-C | Verification | `notes/matlab-simulink-surface.md`, `notes/open-source-verification.md`, `notes/photo-to-schematic-to-simulink.md` |
-| WS-D | Capability & evals | `notes/ee-task-taxonomy-draft.md`, `notes/capability-eval-design.md` |
+| WS-D | Capability & evals | `notes/ee-task-taxonomy-draft.md`, `notes/capability-eval-design.md`, `notes/target-capabilities.md`, `notes/ai-core-engineering-landscape.md` |
 | WS-E | Synthesis | `synthesis/option-scoring.md`, `synthesis/recommendation.md`, `synthesis/rag-stack-recommendation.md` |
 | WS-F | README compilation | root `README.md`, `docs/EXTENSIVE.md` |
 

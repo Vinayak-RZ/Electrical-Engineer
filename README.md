@@ -1,12 +1,59 @@
-# Electrical-Engineer — research toward an undergrad EE agent
+# Electrical-Engineer — open-source agent for undergrad EE
 
 > Full internals (every package, file map, how the repo runs): [Extensive README](docs/EXTENSIVE.md)
 
-**What it is.** A workspace to design an agentic system that helps with undergraduate electrical engineering — circuits, power systems, control, and machines — grounded in textbooks and checked with simulators.
+**What it is.** An open-source project to build — and honestly evaluate — an agentic system that helps **undergraduate and postgraduate electrical engineering students** (India, global) with coursework, exam prep, labs, and design problems. It grounds answers in textbooks the user has rights to use and **verifies numbers with simulators**, not model memory.
 
-**What it is not (yet).** There is **no shipped agent, no chat product, and no textbook index** in this repository. Right now the valuable output is a finished **research phase**: notes, a recommendation, and decision seeds.
+**What it is not (yet).** There is **no shipped agent, no chat product, and no textbook index** in this repository. Right now the valuable output is a finished **research phase** plus a clear **capability target**: notes, a recommendation, decision seeds, and eval framing.
+
+**Why this matters.** Most AI effort goes to software. Core engineering — electrical, mechanical, civil, manufacturing — needs the same agentic revolution, but with **reliability first**: wrong code can be patched; wrong fault current or stability margin cannot. This project explores how far today’s models can go when wrapped in a proper harness, and publishes what works and what fails.
 
 **Primary interface today:** Markdown under [`research/`](research/) plus a small validation script. Agent hosts (Pi, Claude Code, Cursor, Codex) and MATLAB MCP appear in the research as *candidates*, not as installed runtime.
+
+---
+
+## Target capabilities — what success looks like
+
+These are the outcomes that would qualify the project as **successful**. Full detail: [`research/notes/target-capabilities.md`](research/notes/target-capabilities.md).
+
+### North star
+
+Behave like a **strong undergrad electrical engineer**: solve problems correctly, explain clearly, work from diagrams, and **never present unverified numbers as results**.
+
+### Core capabilities (UG focus)
+
+| # | Capability | What the student gets |
+|---|------------|------------------------|
+| 1 | **Solve** | Correct answers on assignments and exam-style questions (circuits, power, control, machines, signals, EM fields, measurements, power electronics) — **tool-checked** where numbers matter |
+| 2 | **Explain** | Step-by-step reasoning, assumptions stated, citations to textbook passages or standard identities; optional Socratic mode that teaches instead of dumping answers |
+| 3 | **Assignments** | End-to-end help on coursework: approach → verified calculation/simulation → structured write-up (lab reports, design memos) |
+| 4 | **Diagrams** | Ingest **circuit schematics** and **control block diagrams** (photo, PDF, screenshot) → editable draft → user confirms → simulate |
+| 5 | **Simulate & design** | Build and run SPICE / MATLAB / Simulink / open-source models; controller and circuit design checked against specs |
+| 6 | **Ground** | Retrieve from local textbook RAG (BYO PDFs or licensed embedding packs) — no pirate corpora |
+| 7 | **Review** | Critique student solutions; catch sign errors, wrong methods, unstable designs |
+
+### Reliability principles (non-negotiable)
+
+- **Verify before present** — simulators and solvers compute; the LLM orchestrates and explains.
+- **Human edit gate on vision** — schematic-from-photo is a draft until the student confirms.
+- **Cite or derive** — explanations without a source or derivation fail eval.
+- **Eval-driven claims** — capability claims tied to benchmarks (GATE-aligned tasks, EngDesign/CircuitSense-style checks), not vibes.
+
+### Scope and forks
+
+| Tier | Audience | Notes |
+|------|----------|-------|
+| **UG core (v1)** | B.Tech / BE; GATE aspirants | Primary product vision — classroom-safe, syllabus-aligned |
+| **PG stretch** | M.Tech; research projects | Deeper design, parametric studies — later |
+| **Bounded UG fork** | Institutions wanting a frozen syllabus helper | Experimental mainline continues; UG fork stays stable |
+
+### Explicit non-goals (v1)
+
+Licensed professional sign-off, autonomous hardware control, redistributed commercial textbooks, or “100% of all EE” without a defined eval set.
+
+### Landscape research
+
+How AI is reshaping **core engineering** (not just software), where EE sits today, and why reliability changes everything: [`research/notes/ai-core-engineering-landscape.md`](research/notes/ai-core-engineering-landscape.md).
 
 ---
 
@@ -32,12 +79,17 @@
 
 ### What it is
 
-The long-term idea is an agent that behaves like a strong undergrad electrical engineer: it can reason about circuits and power/control/machines coursework, retrieve concepts from books the user has rights to use, and verify calculations in MATLAB/Simulink or open-source simulators. The first concrete step — completed in this repo — was to research *what to build* rather than invent a product specification up front.
+An **open-source** agent harness that helps UG/PG electrical engineering students learn and complete work faster — with **verified** answers and **honest** explanations. It explores a question the industry is only starting to ask: *how capable is AI for core engineering when reliability is mandatory?*
+
+The agent should reason about circuits, power, control, and machines; retrieve concepts from books the user has rights to use; ingest schematics and block diagrams; and verify calculations in MATLAB/Simulink or open-source simulators. The first concrete step in this repo was to research *what to build* and define *what success means* — see [Target capabilities](#target-capabilities--what-success-looks-like).
+
+**Student impact.** India’s GATE EE syllabus and global EE curricula give a bounded, testable scope. A reliable local-first helper could reduce dependence on expensive tutoring and licence-only toolchains — especially where faculty bandwidth is thin.
 
 ### What it is not
 
-- Not a finished coding agent binary.
+- Not a finished coding agent binary (yet).
 - Not a redistributed library of copyrighted textbooks.
+- Not a substitute for licensed professional engineering judgment.
 - Not a PRD or launch checklist (those wait for a later phase if you accept the recommendation).
 
 ## 2. Ideas worth understanding
