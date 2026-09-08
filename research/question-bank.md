@@ -7,7 +7,7 @@ Every open research question for this phase. Status: `open` | `answered` | `defe
 | Q1 | Is a Pi **package** enough for EE specialization, or is a **fork** required? | WS-A | answered | Package-first hybrid; fork only if extension APIs fail — `notes/pi-feasibility.md` |
 | Q2 | Can RAG plug into Pi without forking? | WS-A | answered | Yes — Pi documents dynamic context RAG via extensions — `notes/harness-landscape.md` |
 | Q3 | How portable are Pi skills to Claude Code / Codex / Cursor? | WS-A | answered | Skill formats converging; treat MCP+skills as portable core — `notes/harness-landscape.md` |
-| Q4 | Which EE textbooks can we legally index? | WS-B | deferred | Default **BYO-PDF + OER**; CP-1 pending — `notes/ee-corpus-and-licensing.md` |
+| Q4 | Which EE textbooks can we legally index? | WS-B | deferred | Intended: curator-licensed **embedding packs**; until licence review, **BYO + OER** — `notes/ee-corpus-and-licensing.md`, `notes/local-package-and-embedding-release.md` |
 | Q5 | How should formulae and circuit figures be preserved? | WS-B | answered | Layout/formula-aware parse; LaTeX/MathML preferred; figures via caption+image — `notes/rag-parsing-formulae-figures.md` |
 | Q6 | What chunking/retrieval design fits EE? | WS-B | answered | Structure-aware + parent-child + hybrid dense/BM25 — `notes/rag-chunking-and-retrieval.md` |
 | Q7 | Should RAG enter as MCP, middleware, or multi-hop? | WS-B | answered | MCP portable core + skill multi-hop; optional Pi middleware — `notes/rag-agent-integration.md` |
@@ -17,8 +17,10 @@ Every open research question for this phase. Status: `open` | `answered` | `defe
 | Q11 | What task genres define undergrad-EE-capable? | WS-D | answered | Seven genres × GATE sections — `notes/ee-task-taxonomy-draft.md` |
 | Q12 | How to measure capability without a PRD? | WS-D | answered | Rubrics + verified/judgement split — `notes/capability-eval-design.md` |
 | Q13 | Among O1–O4, which path? | WS-E | answered | O1 hybrid; runner-up O3 — `synthesis/recommendation.md` |
-| Q14 | Local/offline models first-class? | WS-E | deferred | API-hosted assumed unless user elevates privacy |
+| Q14 | Local/offline models first-class? | WS-E | answered | Yes — local-first package + local vector store; API optional — `notes/local-package-and-embedding-release.md` |
 | Q15 | Map PG/PhD genres now? | WS-D | deferred | Light stretch map only; undergrad primary |
+| Q16 | Ship curated embeddings via GitHub Release into local Chroma? | WS-B | answered | Feasible; Chroma default; split packs &lt;2 GiB; licence review required — `notes/local-package-and-embedding-release.md` |
+| Q17 | Photo of circuit → editable UI → Simulink sim? | WS-C | answered | Feasible via netlist intermediate + UI gate; Simulink/SPICE backends — `notes/photo-to-schematic-to-simulink.md` |
 
 ## Sources
 

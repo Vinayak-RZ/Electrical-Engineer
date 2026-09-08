@@ -58,9 +58,9 @@ When a future implementation phase starts, expect MCP servers and skill packs to
 |------|--------------|---------------|
 | `research/README.md` | Map of the research phase | Onboarding without opening every note |
 | `research/NOTE.template.md` | Required note headings | Keeps validator and authors aligned |
-| `research/question-bank.md` | Q1–Q15 with status | Prevents silent unresolved questions |
-| `research/DECISION_REGISTER.md` | D1–D8 stances | Compact decision index |
-| `research/source-ledger.md` | S1–S24 sources + tiers | Citation cross-check backbone |
+| `research/question-bank.md` | Q1–Q17 with status | Prevents silent unresolved questions |
+| `research/DECISION_REGISTER.md` | D1–D10 stances | Compact decision index |
+| `research/source-ledger.md` | S1–S42 sources + tiers | Citation cross-check backbone |
 
 ### File map — `research/notes/`
 
@@ -75,6 +75,8 @@ When a future implementation phase starts, expect MCP servers and skill packs to
 | `rag-eval-methodology.md` | Eval design + 20 case titles | WS-B quality |
 | `matlab-simulink-surface.md` | MathWorks MCP/toolkits | WS-C primary verifier |
 | `open-source-verification.md` | SPICE/Python fallback | WS-C licence-free tier |
+| `local-package-and-embedding-release.md` | Local package + GitHub embedding packs + Chroma | WS-B/E local-first RAG |
+| `photo-to-schematic-to-simulink.md` | Photo → editable schematic → Simulink/ngspice | WS-C circuit vision |
 | `ee-task-taxonomy-draft.md` | Genres × GATE sections | WS-D capability map |
 | `capability-eval-design.md` | Rubrics without SLAs | WS-D measurement design |
 

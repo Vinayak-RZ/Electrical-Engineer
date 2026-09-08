@@ -36,6 +36,16 @@ Every external or authoritative source used in research notes. Add a row when yo
 | S30 | Docling technical report | https://arxiv.org/abs/2408.09869 | 2026-09-07 | paper |
 | S31 | MinerU technical report | https://arxiv.org/abs/2409.18839 | 2026-09-07 | paper |
 | S32 | Open Source Definition | https://opensource.org/osd | 2026-09-07 | primary |
+| S33 | GitHub About releases | https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases | 2026-09-08 | primary |
+| S34 | sqlite-vec vs LanceDB vs Chroma | https://dreaming.press/posts/sqlite-vec-vs-lancedb-vs-chroma-embedded-vector-store-solo-builder.html | 2026-09-08 | secondary |
+| S35 | Chroma vs LanceDB | https://dreaming.press/posts/chroma-vs-lancedb.html | 2026-09-08 | secondary |
+| S36 | SINA schematic to netlist | https://arxiv.org/html/2607.01609 | 2026-09-08 | paper |
+| S37 | MathWorks SPICE netlist to linear circuit | https://www.mathworks.com/help/msblks/ug/model-linear-circuit-response-from-spice-netlist.html | 2026-09-08 | primary |
+| S38 | subcircuit2ssc | https://www.mathworks.com/help/sps/ref/subcircuit2ssc.html | 2026-09-08 | primary |
+| S39 | add_block (Simulink) | https://www.mathworks.com/help/simulink/slref/add_block.html | 2026-09-08 | primary |
+| S40 | PCBnet schematic to SPICE | https://arxiv.org/html/2608.27923 | 2026-09-08 | paper |
+| S41 | OmniSch PCB schematic benchmark | https://doi.org/10.48550/arxiv.2604.00270 | 2026-09-08 | paper |
+| S42 | Hermes knowledgebase RAG (sqlite-vec) | https://github.com/NousResearch/hermes-agent/issues/844 | 2026-09-08 | secondary |
 
 ## Reliability tiers
 

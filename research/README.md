@@ -28,15 +28,15 @@ memo, and (heuristically) verbatim book text.
 | ID | Topic | Primary artifacts |
 |----|-------|-------------------|
 | WS-A | Harness base | `notes/harness-landscape.md`, `notes/pi-feasibility.md` |
-| WS-B | EE textbook RAG | `notes/ee-corpus-and-licensing.md`, `notes/rag-*.md` |
-| WS-C | Verification | `notes/matlab-simulink-surface.md`, `notes/open-source-verification.md` |
+| WS-B | EE textbook RAG | `notes/ee-corpus-and-licensing.md`, `notes/rag-*.md`, `notes/local-package-and-embedding-release.md` |
+| WS-C | Verification | `notes/matlab-simulink-surface.md`, `notes/open-source-verification.md`, `notes/photo-to-schematic-to-simulink.md` |
 | WS-D | Capability & evals | `notes/ee-task-taxonomy-draft.md`, `notes/capability-eval-design.md` |
 | WS-E | Synthesis | `synthesis/option-scoring.md`, `synthesis/recommendation.md` |
 | WS-F | README compilation | root `README.md`, `docs/EXTENSIVE.md` |
 
 ## Assumptions while blockers are open
 
-- **Textbook rights (CP-1):** default stance is **bring-your-own-PDF (BYO)** plus open educational resources. No commercial textbook PDFs are committed or redistributed from this repo.
+- **Textbook rights (CP-1):** default remains **no commercial PDFs in git**. Intended delivery is **curator-licensed embedding packs** via GitHub Release into a local vector store; until each title’s licence is reviewed, treat packs as blocked and fall back to BYO + OER.
 - **MATLAB licence (CP-2):** research covers MathWorks MCP as the *intended* primary verifier; open-source verification is researched in parallel in case a licence is unavailable.
 - **agent-patterns MCP:** unreachable in this cloud environment; architecture pattern IDs are marked `MCP-PENDING` where relevant.
 
