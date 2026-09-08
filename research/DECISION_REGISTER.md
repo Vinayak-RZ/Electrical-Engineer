@@ -15,6 +15,7 @@ Stances for this research phase. Status: `open` | `leaning` | `proposed` | `defe
 | D9 | Vector store | Chroma / sqlite-vec / LanceDB | **leaning: Chroma default, sqlite-vec optional** | 2026-09-08 | `notes/local-package-and-embedding-release.md` |
 | D10 | Circuit vision pipeline | VLM-only / structured detect+netlist / hybrid | **leaning: structured netlist + UI edit gate** | 2026-09-08 | `notes/photo-to-schematic-to-simulink.md` |
 | D11 | Multimodal RAG engine | RAG-Anything / thin MinerU+MCP / commercial | **proposed: RAG-Anything behind MCP** | Spike gate | ADR-0004; `rag-stack-recommendation.md` |
+| D12 | Success bar / product promise | vibe / exam-only / verified capability list | **proposed: UG-bounded verified capabilities + later research fork** | 2026-09-08 | ADR-0005; landscape note + README |
 
 ## Sources
 

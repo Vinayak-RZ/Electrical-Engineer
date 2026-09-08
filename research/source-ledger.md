@@ -49,6 +49,31 @@ Every external or authoritative source used in research notes. Add a row when yo
 | S43 | RAG-Anything (HKUDS) | https://github.com/HKUDS/RAG-Anything | 2026-09-08 | primary |
 | S44 | RAG-Anything technical report (arXiv 2510.12323) | http://arxiv.org/abs/2510.12323 | 2026-09-08 | paper |
 | S45 | LightRAG (HKUDS) | https://github.com/HKUDS/LightRAG | 2026-09-08 | primary |
+| S46 | MATLAB Copilot product page | https://www.mathworks.com/products/matlab-copilot.html | 2026-09-08 | vendor |
+| S47 | MathWorks MATLAB Copilot newsroom | https://www.mathworks.com/company/newsroom/mathworks-launches-generative-ai-powered-matlab-copilot-to-boost-productivity-and-accelerate-development-for-engineers-scientists-and-researchers.html | 2026-09-08 | vendor |
+| S48 | Siemens Eigen Engineering Agent | https://www.siemens.com/eigen-engineering-agent | 2026-09-08 | vendor |
+| S49 | Ansys 2025 R2 Engineering Copilot | https://investors.ansys.com/news-releases/news-release-details/ansys-2025-r2-enables-next-level-productivity-leveraging-ai/ | 2026-09-08 | vendor |
+| S50 | Synopsys DSO.ai | https://www.synopsys.com/ai/ai-powered-eda/dso-ai.html | 2026-09-08 | vendor |
+| S51 | Cadence Cerebrus AI Studio | https://www.cadence.com/en_US/home/tools/digital-design-and-signoff/soc-implementation-and-floorplanning/cadence-cerebrus-ai-studio.html | 2026-09-08 | vendor |
+| S52 | AnalogCoder GitHub | https://github.com/laiyao1/analogcoder | 2026-09-08 | primary |
+| S53 | AnalogCoder AAAI 2025 PDF | https://ojs.aaai.org/index.php/AAAI/article/download/32016/34171 | 2026-09-08 | paper |
+| S54 | AnalogMaster arXiv 2604.20916 | https://doi.org/10.48550/arxiv.2604.20916 | 2026-09-08 | paper |
+| S55 | AaLLM analog design | https://arxiv.org/html/2608.13472 | 2026-09-08 | paper |
+| S56 | EXPLORE analog topology | https://arxiv.org/html/2607.13416v1 | 2026-09-08 | paper |
+| S57 | PHIA power-electronics agent | https://kwanhui.github.io/publications/2026-AAAI-PHIAphyInformed.pdf | 2026-09-08 | paper |
+| S58 | PowerAgentBench | https://github.com/Power-Agent/PowerAgentBench | 2026-09-08 | primary |
+| S59 | PowerAgentBench-SS | https://arxiv.org/html/2606.18789 | 2026-09-08 | paper |
+| S60 | PowerAgentBench-Dyn | https://arxiv.org/html/2606.20401 | 2026-09-08 | paper |
+| S61 | CoDyControlBench | https://arxiv.org/abs/2608.07004 | 2026-09-08 | paper |
+| S62 | ARCHER BIM compliance | https://arxiv.org/html/2607.25566v1 | 2026-09-08 | paper |
+| S63 | Verification-driven structural design | https://arxiv.org/html/2608.07978 | 2026-09-08 | paper |
+| S64 | LLM4PLC | https://arxiv.org/html/2401.05443 | 2026-09-08 | paper |
+| S65 | P&ID-grounded process-control validation | https://link.springer.com/article/10.1007/s43684-026-00136-1 | 2026-09-08 | paper |
+| S66 | OpenAI o3 Wikipedia | https://en.wikipedia.org/wiki/OpenAI_o3 | 2026-09-08 | secondary |
+| S67 | AISHE branch mix (Indian Express) | https://indianexpress.com/article/education/computer-engineering-emerges-as-indias-most-popular-branch-aishe-report-mehanical-civil-electrical-iit-jee-10780107/ | 2026-09-08 | secondary |
+| S68 | India Today IIT Kanpur assignments interview | https://www.indiatoday.in/education-today/news/story/ai-in-iit-education-manindra-agarwal-says-assignments-are-dead-maths-training-must-grow-2980802-2026-08-29 | 2026-09-08 | secondary |
+| S69 | WEF Future of Jobs Report 2025 | https://reports.weforum.org/docs/WEF_Future_of_Jobs_Report_2025.pdf | 2026-09-08 | secondary |
+| S70 | AI core-engineering landscape note | `research/notes/ai-core-engineering-landscape.md` | 2026-09-08 | primary |
 
 ## Reliability tiers
 
