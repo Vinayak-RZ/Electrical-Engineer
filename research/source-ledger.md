@@ -46,6 +46,12 @@ Every external or authoritative source used in research notes. Add a row when yo
 | S40 | PCBnet schematic to SPICE | https://arxiv.org/html/2608.27923 | 2026-09-08 | paper |
 | S41 | OmniSch PCB schematic benchmark | https://doi.org/10.48550/arxiv.2604.00270 | 2026-09-08 | paper |
 | S42 | Hermes knowledgebase RAG (sqlite-vec) | https://github.com/NousResearch/hermes-agent/issues/844 | 2026-09-08 | secondary |
+| S43 | RAG-Anything repository | https://github.com/HKUDS/RAG-Anything | 2026-09-08 | primary |
+| S44 | RAG-Anything technical report | https://arxiv.org/abs/2510.12323 | 2026-09-08 | paper |
+| S45 | LightRAG repository | https://github.com/HKUDS/LightRAG | 2026-09-08 | primary |
+| S46 | MinerU Open Source License | https://github.com/opendatalab/MinerU/blob/master/LICENSE.md | 2026-09-08 | primary |
+| S47 | RAG-Anything Ollama example | https://github.com/HKUDS/RAG-Anything/blob/main/examples/ollama_integration_example.py | 2026-09-08 | primary |
+| S48 | RAG-Anything offline setup | https://github.com/HKUDS/RAG-Anything/blob/main/docs/offline_setup.md | 2026-09-08 | primary |
 
 ## Reliability tiers
 
