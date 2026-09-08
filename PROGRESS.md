@@ -16,9 +16,15 @@ Live status for the Electrical-Engineer **research phase** on branch `cursor/ee-
 
 ## Assumptions
 
-- CP-1: BYO-PDF + OER default while user rights list pending.
+- CP-1: No commercial PDFs in git; embedding-pack Release intended after licence review; BYO + OER meanwhile.
 - CP-2: MATLAB intended primary; OSS researched in parallel.
 - Phase S cancelled until explicitly approved.
+
+## Refinement log
+
+| Date | Change |
+|------|--------|
+| 2026-09-08 | Local-first package + GitHub embedding packs (Chroma) + photo→schematic→Simulink research notes; Q16–Q17, D9–D10 |
 
 ## Handoff
 

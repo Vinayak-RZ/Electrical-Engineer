@@ -12,9 +12,10 @@
 
 ## TL;DR
 
-- Research recommends a **package-first hybrid**: portable EE skills + textbook RAG MCP + MATLAB/Simulink verification, optionally wrapped as a Pi package — **not** a hard fork of Pi and not a greenfield harness.
-- Grounding bet: **bring-your-own textbook RAG** (no commercial PDFs in git).
+- Research recommends a **local-first, package-first hybrid**: portable EE skills + local textbook RAG + MATLAB/Simulink verification, optionally wrapped as a Pi package — **not** a hard fork of Pi and not a greenfield harness.
+- Grounding bet: **curated embedding packs** (from licensed books) published via **GitHub Release** into a **local Chroma** (or sqlite-vec) store — no commercial PDFs in git; BYO remains the fallback until rights are clear.
 - Numbers should come from **MATLAB/Simulink MCP** when licensed, with an open-source SPICE/Python fallback documented.
+- Circuit photos: reconstruct → **editable schematic UI** → simulate (Simulink preferred) only after user confirmation.
 - Read the memo: [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md).
 
 ## Table of contents
@@ -57,13 +58,13 @@ The long-term idea is an agent that behaves like a strong undergrad electrical e
 
 **The problem.** Undergrad EE lives in equations, assumptions, and worked examples that general models blur.
 
-**How it works.** Retrieval over **user-provided** PDFs (and optional open texts), with layout/formula-aware parsing, structure-aware chunks, and citations. Concepts come from books; numbers still need tools. See [`research/notes/ee-corpus-and-licensing.md`](research/notes/ee-corpus-and-licensing.md) and the `rag-*.md` notes.
+**How it works.** Prefer a **local** vector store loaded from a GitHub Release of precomputed embeddings (Chroma default). Until redistribution rights are reviewed per title, fall back to user-provided PDFs and optional open texts. Layout/formula-aware parsing, structure-aware chunks, and citations still apply. Concepts come from books; numbers still need tools. See [`research/notes/local-package-and-embedding-release.md`](research/notes/local-package-and-embedding-release.md), [`research/notes/ee-corpus-and-licensing.md`](research/notes/ee-corpus-and-licensing.md), and the `rag-*.md` notes.
 
 **Like.** An open-book exam where the book is searchable — but you still need a calculator lab.
 
-**Limits.** Bad PDF parsing destroys maths; illegal corpora are off-limits.
+**Limits.** Bad PDF parsing destroys maths; embedding packs are not automatically copyright-safe; illegal corpora are off-limits.
 
-**Read next.** [Technical-doc RAG (ACL Anthology)](https://aclanthology.org/2026.rag4reports-1.4.pdf)
+**Read next.** [Technical-doc RAG (ACL Anthology)](https://aclanthology.org/2026.rag4reports-1.4.pdf) · [GitHub Releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
 
 ### 2.3 Simulation is the verifier
 
@@ -123,9 +124,10 @@ Then read, in order:
 
 Nothing to configure for reading. Future runtime work will need (not wired here):
 
-- Paths to **user-owned** textbook PDFs for BYO RAG
-- MATLAB/Simulink install + MCP registration when using MathWorks tools
-- Model API credentials for whatever host agent you choose
+- GitHub Release URL + checksum for an embedding pack, or paths to **user-owned** textbook PDFs for BYO RAG
+- Local vector store (Chroma / sqlite-vec) and the **same embedding model** used to build the pack
+- MATLAB/Simulink install + MCP registration when using MathWorks tools (local licence)
+- Optional local LLM runtime; otherwise model API credentials for the host agent
 
 ## 6. Further reading
 
@@ -135,25 +137,31 @@ Nothing to configure for reading. Future runtime work will need (not wired here)
 
 ## 7. Future advancements
 
-### 7.1 Implement the O1 hybrid (skills + RAG MCP + MATLAB wiring)
+### 7.1 Implement the O1 hybrid (skills + local RAG MCP + MATLAB wiring)
 
-**Why.** Research ranked this path highest for speed and portability.  
-**What would land.** Skill packs, a RAG MCP server, host setup docs.  
-**Done when.** A host agent can cite a BYO passage and verify a trivial numeric check with tools.
+**Why.** Research ranked this path highest for speed, portability, and local-first use.  
+**What would land.** Skill packs, Release→Chroma setup, RAG MCP server, host setup docs.  
+**Done when.** A host agent can cite a local-pack (or BYO) passage and verify a trivial numeric check with tools.
 
-### 7.2 Formula-preserving ingest spike on one owned chapter
+### 7.2 Circuit photo → editable schematic → Simulink/ngspice
+
+**Why.** Engineers often start from a photo or textbook figure, not a netlist.  
+**What would land.** Vision→draft netlist, local schematic UI edit gate, Simulink or ngspice export.  
+**Done when.** One clean schematic survives photo→edit→sim without trusting raw vision output.
+
+### 7.3 Formula-preserving ingest spike on one owned chapter
 
 **Why.** Parser ranking is still medium confidence.  
 **What would land.** Metrics only (no corpus in git).  
 **Done when.** Equation and example boundaries survive a measured parse.
 
-### 7.3 Eval harness from the twenty RAG case titles
+### 7.4 Eval harness from the twenty RAG case titles
 
 **Why.** Without gold tasks, RAG quality is anecdotal.  
 **What would land.** Fixtures + retrieval/citation checks.  
 **Done when.** Nightly or PR-optional jobs can fail on citation fabrications.
 
-### 7.4 Optional standalone app later
+### 7.5 Optional standalone app later
 
 **Why.** Multi-agent MCP/skills come first; a UI can wrap the same SDK later.  
 **What would land.** Thin client over threads, artifacts, approvals.  
