@@ -34,7 +34,8 @@ When a future implementation phase starts, expect MCP servers and skill packs to
 
 | Path | Role |
 |------|------|
-| `README.md` | Readable research compilation |
+| `README.md` | Readable research compilation + published success-bar capabilities |
+| `PROJECT_OVERVIEW.md` | Purpose, intended architecture, constraints |
 | `AGENTS.md` | Instructions for coding agents in this repo |
 | `PROGRESS.md` | Phase status log |
 | `DECISIONS.md` | ADR seeds (`proposed`) |
@@ -58,9 +59,9 @@ When a future implementation phase starts, expect MCP servers and skill packs to
 |------|--------------|---------------|
 | `research/README.md` | Map of the research phase | Onboarding without opening every note |
 | `research/NOTE.template.md` | Required note headings | Keeps validator and authors aligned |
-| `research/question-bank.md` | Q1–Q17 with status | Prevents silent unresolved questions |
-| `research/DECISION_REGISTER.md` | D1–D10 stances | Compact decision index |
-| `research/source-ledger.md` | S1–S42 sources + tiers | Citation cross-check backbone |
+| `research/question-bank.md` | Q1–Q18 with status | Prevents silent unresolved questions |
+| `research/DECISION_REGISTER.md` | D1–D12 stances | Compact decision index |
+| `research/source-ledger.md` | S1–S70 sources + tiers | Citation cross-check backbone |
 
 ### File map — `research/notes/`
 
@@ -79,6 +80,8 @@ When a future implementation phase starts, expect MCP servers and skill packs to
 | `photo-to-schematic-to-simulink.md` | Photo → editable schematic → Simulink/ngspice | WS-C circuit vision |
 | `ee-task-taxonomy-draft.md` | Genres × GATE sections | WS-D capability map |
 | `capability-eval-design.md` | Rubrics without SLAs | WS-D measurement design |
+| `ai-core-engineering-landscape.md` | AI in EE / manufacturing / civil; student + reliability implications | WS-D success-bar evidence |
+| `rag-anything-evaluation.md` | RAG-Anything as ingest engine | WS-B multimodal RAG |
 
 ### File map — `research/synthesis/`
 
@@ -86,6 +89,7 @@ When a future implementation phase starts, expect MCP servers and skill packs to
 |------|--------------|---------------|
 | `option-scoring.md` | O1–O4 scored on 8 criteria | Force comparable trade-offs |
 | `recommendation.md` | Chosen path + spikes + non-decisions | Handoff out of research |
+| `rag-stack-recommendation.md` | RAG-Anything vs alternatives | WS-B engine choice |
 
 ### File map — `research/spikes/`
 
