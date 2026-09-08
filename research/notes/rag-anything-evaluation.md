@@ -8,16 +8,16 @@ Evaluate [HKUDS/RAG-Anything](https://github.com/HKUDS/RAG-Anything) as the mult
 
 Claim | Evidence (URL or ledger ID) | Confidence
 --- | --- | ---
-RAG-Anything targets exactly the document class we care about: interleaved text, images, tables, equations, charts | S33 README architecture section | high
-It is a Python library built on LightRAG, not a portable MCP server | S33 `raganything/raganything.py`, S3 `rag-agent-integration.md` | high
-Default parser is MinerU (formula → LaTeX, tables → HTML, multi-column OCR path) — aligns with our prior parser lean | S33 `config.py`, S31 | high
-Alternative parsers: Docling, PaddleOCR — matches our Docling vs MinerU spike plan | S33 `parser.py` | high
-Fully local text RAG is supported via Ollama or LM Studio examples; vision/multimodal captioning needs a separate VLM endpoint | S33 `examples/ollama_integration_example.py`, `examples/lmstudio_integration_example.py` | high
-Core stack is heavy: Python ≥3.10, `mineru[core]`, `lightrag-hku`, HuggingFace model downloads, optional LibreOffice for Office formats | S33 `pyproject.toml`, README | high
-MIT licence on RAG-Anything; MinerU model/terms remain a separate compliance check | S33 repo licence, S31 | med
-LightRAG adds a knowledge-graph layer (entity/relation extraction) beyond our earlier “hybrid BM25 + dense + rerank” sketch | S33 README §Multimodal Knowledge Graph; S34 paper | med
+RAG-Anything targets exactly the document class we care about: interleaved text, images, tables, equations, charts | S43 README architecture section | high
+It is a Python library built on LightRAG, not a portable MCP server | S43 `raganything/raganything.py`, S3 `rag-agent-integration.md` | high
+Default parser is MinerU (formula → LaTeX, tables → HTML, multi-column OCR path) — aligns with our prior parser lean | S43 `config.py`, S31 | high
+Alternative parsers: Docling, PaddleOCR — matches our Docling vs MinerU spike plan | S43 `parser.py` | high
+Fully local text RAG is supported via Ollama or LM Studio examples; vision/multimodal captioning needs a separate VLM endpoint | S43 `examples/ollama_integration_example.py`, `examples/lmstudio_integration_example.py` | high
+Core stack is heavy: Python ≥3.10, `mineru[core]`, `lightrag-hku`, HuggingFace model downloads, optional LibreOffice for Office formats | S43 `pyproject.toml`, README | high
+MIT licence on RAG-Anything; MinerU model/terms remain a separate compliance check | S43 repo licence, S31 | med
+LightRAG adds a knowledge-graph layer (entity/relation extraction) beyond our earlier “hybrid BM25 + dense + rerank” sketch | S43 README §Multimodal Knowledge Graph; S44 paper | med
 No EE-specific metadata schema, citation contract, or MCP tool surface — must be wrapped | S3, `rag-chunking-and-retrieval.md` | high
-RAG-Anything is integrated upstream into LightRAG (2026) — reduces fork risk if we adopt LightRAG family | S33 README News | med
+RAG-Anything is integrated upstream into LightRAG (2026) — reduces fork risk if we adopt LightRAG family | S43 README News | med
 
 ### Main features → implementation map
 
@@ -122,10 +122,10 @@ Text-only local path: Ollama example sets `enable_image_processing=False` — ac
 
 ## Sources
 
-- [RAG-Anything README](https://github.com/HKUDS/RAG-Anything) — retrieved 2026-09-08 — reliability: primary (S33)
-- [RAG-Anything pyproject.toml](https://github.com/HKUDS/RAG-Anything/blob/main/pyproject.toml) — retrieved 2026-09-08 — reliability: primary (S33)
-- [RAG-Anything technical report arXiv:2510.12323](http://arxiv.org/abs/2510.12323) — retrieved 2026-09-08 — reliability: paper (S34)
-- [LightRAG](https://github.com/HKUDS/LightRAG) — retrieved 2026-09-08 — reliability: primary (S35)
+- [RAG-Anything README](https://github.com/HKUDS/RAG-Anything) — retrieved 2026-09-08 — reliability: primary (S43)
+- [RAG-Anything pyproject.toml](https://github.com/HKUDS/RAG-Anything/blob/main/pyproject.toml) — retrieved 2026-09-08 — reliability: primary (S43)
+- [RAG-Anything technical report arXiv:2510.12323](http://arxiv.org/abs/2510.12323) — retrieved 2026-09-08 — reliability: paper (S44)
+- [LightRAG](https://github.com/HKUDS/LightRAG) — retrieved 2026-09-08 — reliability: primary (S45)
 - [MinerU paper](https://arxiv.org/abs/2409.18839) — retrieved 2026-09-07 — reliability: paper (S31)
 - [rag-parsing-formulae-figures.md](rag-parsing-formulae-figures.md) — retrieved 2026-09-08 — reliability: primary
 - [rag-chunking-and-retrieval.md](rag-chunking-and-retrieval.md) — retrieved 2026-09-08 — reliability: primary

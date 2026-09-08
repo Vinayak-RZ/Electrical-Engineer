@@ -116,4 +116,4 @@ Strategic fit is strong; lock-in awaits EE-chapter spike and MCP wrapper feasibi
 - [rag-anything-evaluation.md](../notes/rag-anything-evaluation.md) — retrieved 2026-09-08 — reliability: primary
 - [recommendation.md](recommendation.md) — retrieved 2026-09-08 — reliability: primary
 - [option-scoring.md](option-scoring.md) — retrieved 2026-09-08 — reliability: primary
-- [RAG-Anything](https://github.com/HKUDS/RAG-Anything) — retrieved 2026-09-08 — reliability: primary (S33)
+- [RAG-Anything](https://github.com/HKUDS/RAG-Anything) — retrieved 2026-09-08 — reliability: primary (S43)
