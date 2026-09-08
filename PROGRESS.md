@@ -13,6 +13,7 @@ Live status for the Electrical-Engineer **research phase** on branch `cursor/ee-
 | F README | done | readable + extensive |
 | S Spikes | skipped | No user approval |
 | N Hardening | done | validate --full PASS; see PHASE_N_COMPLETION.md |
+| R RAG-Anything eval | done | `rag-anything-evaluation.md`, `rag-stack-recommendation.md`, ADR-0004 |
 
 ## Assumptions
 

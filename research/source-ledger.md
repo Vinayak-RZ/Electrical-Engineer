@@ -36,6 +36,9 @@ Every external or authoritative source used in research notes. Add a row when yo
 | S30 | Docling technical report | https://arxiv.org/abs/2408.09869 | 2026-09-07 | paper |
 | S31 | MinerU technical report | https://arxiv.org/abs/2409.18839 | 2026-09-07 | paper |
 | S32 | Open Source Definition | https://opensource.org/osd | 2026-09-07 | primary |
+| S33 | RAG-Anything (HKUDS) | https://github.com/HKUDS/RAG-Anything | 2026-09-08 | primary |
+| S34 | RAG-Anything technical report (arXiv 2510.12323) | http://arxiv.org/abs/2510.12323 | 2026-09-08 | paper |
+| S35 | LightRAG (HKUDS) | https://github.com/HKUDS/LightRAG | 2026-09-08 | primary |
 
 ## Reliability tiers
 

@@ -12,6 +12,7 @@ Stances for this research phase. Status: `open` | `leaning` | `proposed` | `defe
 | D6 | Distribution | sealed app / multi-agent | **proposed: multi-agent first** | Phase A | |
 | D7 | Capability framing | exams / task genres | **proposed: task genres × verification** | Phase D | |
 | D8 | Recommended build path | O1–O4 | **proposed: O1 (runner-up O3)** | Phase E | `synthesis/recommendation.md` |
+| D9 | Multimodal RAG engine | RAG-Anything / thin MinerU+MCP / commercial | **proposed: RAG-Anything behind MCP** | Spike gate | ADR-0004; `rag-stack-recommendation.md` |
 
 ## Sources
 
