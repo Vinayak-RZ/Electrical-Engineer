@@ -42,7 +42,7 @@ When a future implementation phase starts, expect MCP servers and skill packs to
 | `skills-manifest.json` | Inventory of vendored skills |
 | `research/` | Research-phase artifacts (authority for “what to build”) |
 | `scripts/` | Helper scripts (research validator; Cursor config installers) |
-| `docs/` | Docs including this file and `cursor-config/` guides |
+| `docs/` | Docs including this file, `PID.md` (draft identity), and `cursor-config/` guides |
 | `.cursor/` | Vendored rules, skills, MCP config |
 
 ---
@@ -147,6 +147,7 @@ notes/* ──cite──► source-ledger
 notes/* ──stance──► DECISION_REGISTER ──ADR──► DECISIONS.md
 notes/* ──feed──► option-scoring ──feed──► recommendation
 recommendation ──summarised-by──► README.md
+PID.md (draft) ──waiting-on──► PID_DECISION_SHEET.md
 all research files ──mapped-by──► docs/EXTENSIVE.md
 validate-research.sh ──gates──► notes + recommendation + READMEs
 ```
@@ -165,7 +166,7 @@ validate-research.sh ──gates──► notes + recommendation + READMEs
 
 ## Future advancements
 
-1. **Implementation phase** following ADR-0001..0003 once accepted.
+1. **Accepted PID** then implementation phase following locked harness + ADRs.
 2. **Real CI job** running `validate-research.sh --full` on PRs.
 3. **Spike folder population** only after explicit approval (Pi MCP bridge, parse metrics, MATLAB smoke).
 4. **Application packages** (`skills/`, MCP servers) when research exits.

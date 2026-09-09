@@ -8,7 +8,12 @@ The project is also an experiment: how far current AI can go on **core engineeri
 
 ## System overview (today)
 
-Greenfield / research-complete. There is no shipped agent. Authority for “what to build” lives under [`research/`](research/). The human pitch and **success-bar capabilities** live at the top of [`README.md`](README.md). Internals map: [`docs/EXTENSIVE.md`](docs/EXTENSIVE.md).
+Greenfield / research-complete; **product identity in draft**. There is no shipped agent. Authority for “what to build” is split:
+
+- Research: [`research/`](research/)
+- Success-bar capabilities (proposed): [`README.md`](README.md)
+- Product identity (OPEN until you accept): [`docs/PID.md`](docs/PID.md)
+- Internals map: [`docs/EXTENSIVE.md`](docs/EXTENSIVE.md)
 
 ## High-level architecture (intended, not implemented)
 

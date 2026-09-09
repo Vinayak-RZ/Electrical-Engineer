@@ -4,9 +4,9 @@
 
 **What it is.** An open-source project to build — and to *measure* — an agent that can do the work of a strong undergraduate (and later postgraduate) electrical engineer: solve the questions, explain them, ingest the diagrams, and refuse to invent numbers.
 
-**What it is not (yet).** There is **no shipped agent, no chat product, and no textbook index** in this repository. Right now the valuable output is a finished **research phase**: notes, a recommendation, a landscape of AI in core engineering, and the success bar below.
+**What it is not (yet).** There is **no shipped agent, no chat product, and no textbook index** in this repository. Right now the valuable output is a finished **research phase** plus a **draft Product Identity Document** waiting for owner decisions: [`docs/PID.md`](docs/PID.md) · [`docs/PID_DECISION_SHEET.md`](docs/PID_DECISION_SHEET.md).
 
-**Primary interface today:** Markdown under [`research/`](research/) plus a small validation script. Agent hosts (Pi, Claude Code, Cursor, Codex) and MATLAB MCP appear in the research as *candidates*, not as installed runtime.
+**Primary interface today:** Markdown under [`research/`](research/) plus a small validation script. Agent hosts (Pi, Claude Code, Cursor, Codex) and MATLAB MCP appear in the research as *candidates*, not as installed runtime. Harness choice (MCP pack vs CLI vs Electric Pi fork vs custom) is **OPEN** in the PID.
 
 ---
 
@@ -69,11 +69,13 @@ Measurement design lives in [`research/notes/capability-eval-design.md`](researc
 - Numbers should come from **MATLAB/Simulink MCP** when licensed, with an open-source SPICE/Python fallback documented.
 - Circuit photos: reconstruct → **editable schematic UI** → simulate (Simulink preferred) only after user confirmation.
 - Core-engineering AI in the wider world already uses that same verify-loop (vendor copilots + academic SPICE/BIM/PLC agents). This repo’s gap is an **open student harness**, not another plant-floor copilot. Read [`research/notes/ai-core-engineering-landscape.md`](research/notes/ai-core-engineering-landscape.md).
-- Read the build memo: [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md).
+- **Product identity is not locked.** Draft PID (UG-bounded, expandable architecture, harness trade-offs H1–H5): [`docs/PID.md`](docs/PID.md). Answer [`docs/PID_DECISION_SHEET.md`](docs/PID_DECISION_SHEET.md) before implementation.
+- Research *advice* (not owner decision): [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md).
 
 ## Table of contents
 
 - [Target capabilities (what success looks like)](#target-capabilities-what-success-looks-like)
+- [Draft PID](docs/PID.md)
 - [1. Vision](#1-vision)
 - [2. Ideas worth understanding](#2-ideas-worth-understanding)
 - [3. How the research works](#3-how-the-research-works)
@@ -202,6 +204,8 @@ Nothing to configure for reading. Future runtime work will need (not wired here)
 
 ## 6. Further reading
 
+- [`docs/PID.md`](docs/PID.md) — draft product identity (owner decisions open)
+- [`docs/PID_DECISION_SHEET.md`](docs/PID_DECISION_SHEET.md) — questions to lock the PID
 - [`research/notes/ai-core-engineering-landscape.md`](research/notes/ai-core-engineering-landscape.md)
 - [`research/synthesis/option-scoring.md`](research/synthesis/option-scoring.md)
 - [`AGENTS.md`](AGENTS.md) — how agents should work in this repo

@@ -17,5 +17,10 @@ approved nawab plan carried out on branch `cursor/ee-research-phase-7e0c`.
 - Root [`README.md`](README.md) — target capabilities C1–C8 as the published success bar
 - ADR-0005 (proposed) — UG-bounded product + later research fork
 
-**Next:** accept or revise [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md) and ADR-0005.
-Do not start product implementation from this file until a new plan is approved.
+**Also delivered (2026-09-09 PID draft):**
+
+- [`docs/PID.md`](docs/PID.md) — product identity draft (UG-bounded, expandable, harness trade-offs)
+- [`docs/PID_DECISION_SHEET.md`](docs/PID_DECISION_SHEET.md) — owner questions (P0/P1/P2)
+
+**Next:** owner answers the decision sheet → Accepted PID → nawab/Spec Kit implementation plan.
+Do not start product implementation until that plan is approved.

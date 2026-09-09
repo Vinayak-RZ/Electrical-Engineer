@@ -15,6 +15,7 @@ Live status for the Electrical-Engineer **research phase** on branch `cursor/ee-
 | N Hardening | done | validate --full PASS; see PHASE_N_COMPLETION.md |
 | R RAG-Anything eval | done | `rag-anything-evaluation.md`, `rag-stack-recommendation.md`, ADR-0004 |
 | G Core-EE landscape + success bar | done | `ai-core-engineering-landscape.md`, README capabilities C1–C8, ADR-0005 |
+| P Product identity draft | in progress | `docs/PID.md` + decision sheet; waiting on owner answers |
 
 ## Assumptions
 
@@ -29,9 +30,10 @@ Live status for the Electrical-Engineer **research phase** on branch `cursor/ee-
 | 2026-09-08 | Local-first package + GitHub embedding packs (Chroma) + photo→schematic→Simulink research notes; Q16–Q17, D9–D10 |
 | 2026-09-08 | RAG-Anything evaluation + ADR-0004; D11 multimodal ingest engine |
 | 2026-09-08 | AI-in-core-engineering landscape + README success-bar capabilities; Q18, D12, ADR-0005 |
+| 2026-09-09 | Draft PID + decision sheet; harness H1–H5 left OPEN for owner |
 
 ## Handoff
 
 Recommendation: [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md)  
 ADRs: [`DECISIONS.md`](DECISIONS.md) (status `proposed`)  
-Stop: no PRD and no product scaffold without a new instruction. Success-bar capabilities in `README.md` are targets, not a build order.
+Stop: no product scaffold until an **Accepted PID** (`docs/PID.md`) and a new implementation plan. Draft PID is in progress; harness H1–H5 is OPEN.
