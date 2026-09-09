@@ -1,5 +1,50 @@
 # PID decision sheet — answer these
 
+**P0 status:** answered 2026-09-09 and locked in [`PID.md`](PID.md).  
+**P1 status:** not answered by owner; PRD records **proposed defaults** for review.  
+**P2 status:** unanswered (deferred).
+
+## Owner answers (P0)
+
+| ID | Answer |
+|----|--------|
+| Q1 | Electrical Engineer (repo `Electrical-Engineer`; CLI default `electrical-engineer`) |
+| Q2 | India first; must not lack globally |
+| Q3 | Apache License 2.0 (owner said 2.2; 2.0 is the current Apache licence, confirmed) |
+| Q4 | Local-first CLI; also Cursor / Claude Code / OpenAI; BYO API key; local models |
+| Q5 | Forever OSS; no paid product in this repo |
+| Q6 | Thesis rewritten (see PID §1) |
+| Q7 | Not GATE-bounded; GATE is an eval check; bound = UG courses at multiple Indian and global institutes |
+| Q8 | PG not a public promise |
+| Q9 | One repo only |
+| Q10 | Civil / mechanical never |
+| Q-H | **H3** (branded CLI wrapping portable H1 core) |
+| Q-H2 | Yes — policy in CLI + skills (not a Pi fork constitution) |
+| Q-H3 | N/A (not H4) |
+| Q-H4 | N/A for v1 (H3; Cursor/Claude/OpenAI are first-class hosts) |
+| Q-S | CLI **and** existing coding harnesses (Cursor, Claude Code, OpenAI) |
+| Q-S2 | Yes — student need not use Cursor |
+| Q-S3 | `electrical-engineer` |
+| Q-R1 | B — label unchecked |
+| Q-R2 | A — co-solver |
+| Q-R3 | A — no faculty features in v1 |
+| Q-R4 | Exam-style items in-scope; **git will not commit third-party copyrighted PDFs**; BYO allowed (legal policy in PRD) |
+
+## P1 proposed defaults (owner may override at PRD review)
+
+| ID | Proposed |
+|----|----------|
+| Q-V1 / Q-V2 | MATLAB if present; OSS first-class; design for mixed licences |
+| Q-K1 | Local RAG (BYO PDFs; no commercial books in git) |
+| Q-C | C1–C3 + C6–C7 in first slice; C4 P1; C5 after C4 |
+| Q-D1 | Circuits first, then control |
+| Q-E3 | Same repo, PG unpublished (not a second fork) |
+| Q-N2 | A — no civil/mechanical packs |
+
+Original questions follow for traceability.
+
+---
+
 Reply in chat by ID (example: `Q1 = B`, `Q-H = H4`, comments after).  
 **P0** = do not lock the PID without this. **P1** = needed before v1 code. **P2** = can wait.
 
