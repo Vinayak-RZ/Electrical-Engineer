@@ -21,6 +21,7 @@ Every open research question for this phase. Status: `open` | `answered` | `defe
 | Q15 | Map PG/PhD genres now? | WS-D | deferred | Light stretch map only; undergrad primary |
 | Q16 | Ship curated embeddings via GitHub Release into local Chroma? | WS-B | answered | Feasible; Chroma default; split packs &lt;2 GiB; licence review required — `notes/local-package-and-embedding-release.md` |
 | Q17 | Photo of circuit → editable UI → Simulink sim? | WS-C | answered | Feasible via netlist intermediate + UI gate; Simulink/SPICE backends — `notes/photo-to-schematic-to-simulink.md` |
+| Q18 | How far has AI come in core engineering (EE, manufacturing, civil), and what success bar should this OSS student project claim? | WS-D | answered | Tool-using verify loops are the real progress; UG-bounded tutor + later research fork — `notes/ai-core-engineering-landscape.md`, root `README.md` |
 
 ## Sources
 

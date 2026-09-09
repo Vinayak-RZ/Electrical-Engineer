@@ -45,3 +45,14 @@ ADR seeds from the research phase. Status values: `proposed` | `accepted` | `sup
 - **Consequences:** Heavy Python/MinerU dependency chain; user-local index and BYO PDFs; spike on one owned EE chapter required before `accepted`. Fallback: MinerU/Docling + thin custom MCP if spike fails.
 - **Alternatives:** Thin MinerU+MCP only; Docling+LlamaIndex; VLM-only chunking; commercial parsers; Microsoft GraphRAG as primary spine.
 - **Sources:** `research/notes/rag-anything-evaluation.md`, `research/synthesis/rag-stack-recommendation.md`, `research/notes/rag-parsing-formulae-figures.md`, `research/notes/rag-agent-integration.md`
+
+---
+
+## ADR-0005 — UG-bounded success bar and later research fork
+
+- **Status:** proposed
+- **Context:** The project needs a public definition of “we succeeded” that matches a student-first vision (solve + explain + diagrams + reliability) without claiming a shipped agent, and without competing with licence-locked plant-floor or EDA copilots.
+- **Decision:** Publish a **verified capability list** (C1–C8) at the top of `README.md` as the success bar. Keep the public product **UG/PG-coursework bounded**. Use a later **fork or parallel track** to explore PG/operational/analog-search limits. Reliability = tools own numbers; vision drafts are not truth until edited.
+- **Consequences:** Eval design must eventually instantiate C1–C8; marketing language that implies a finished tutor is forbidden until those evals exist. The landscape note is the evidence that this bar matches how core-engineering AI actually works in 2025–2026.
+- **Alternatives:** Exam-score-only bar; “any question, no refuse path”; plant-floor industrial scope; closed-source student app.
+- **Sources:** `research/notes/ai-core-engineering-landscape.md`, `research/notes/ee-task-taxonomy-draft.md`, `research/notes/capability-eval-design.md`, `README.md`
