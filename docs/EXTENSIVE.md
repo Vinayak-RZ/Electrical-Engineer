@@ -2,7 +2,7 @@
 
 Companion to the human overview in [`README.md`](../README.md). This file maps **what exists in the tree today**, how the research phase runs, and why each important file is there.
 
-**Repo kind:** greenfield product idea + **completed research-phase documentation**. No application packages (`packages/`) yet. Vendored Cursor coding config lives under `.cursor/`.
+**Repo kind:** greenfield product idea + **completed research-phase documentation** + **Accepted PID** + **draft PRD**. No application packages (`packages/`) yet. Vendored Cursor coding config lives under `.cursor/`.
 
 ---
 
@@ -26,7 +26,7 @@ sequenceDiagram
   Author->>Git: commit on research branch
 ```
 
-When a future implementation phase starts, expect MCP servers and skill packs to appear; they are **not** in the tree yet. The recommendation describing them is [`research/synthesis/recommendation.md`](../research/synthesis/recommendation.md).
+When a future implementation phase starts, expect a thin `electrical-engineer` CLI plus MCP servers and skill packs; they are **not** in the tree yet. Product shape is H3 in [`../docs/PRD.md`](PRD.md). The research memo [`research/synthesis/recommendation.md`](../research/synthesis/recommendation.md) is historical O1 advice.
 
 ---
 
@@ -34,15 +34,16 @@ When a future implementation phase starts, expect MCP servers and skill packs to
 
 | Path | Role |
 |------|------|
-| `README.md` | Readable research compilation + published success-bar capabilities |
-| `PROJECT_OVERVIEW.md` | Purpose, intended architecture, constraints |
+| `README.md` | Readable overview + C1–C8 success bar (H3 identity; no shipped agent) |
+| `PROJECT_OVERVIEW.md` | Purpose, intended H3 architecture, constraints |
 | `AGENTS.md` | Instructions for coding agents in this repo |
 | `PROGRESS.md` | Phase status log |
-| `DECISIONS.md` | ADR seeds (`proposed`) |
+| `DECISIONS.md` | ADRs (0001/0005/0006 accepted; others proposed) |
+| `LICENSE` | Apache License 2.0 |
 | `skills-manifest.json` | Inventory of vendored skills |
 | `research/` | Research-phase artifacts (authority for “what to build”) |
 | `scripts/` | Helper scripts (research validator; Cursor config installers) |
-| `docs/` | Docs including this file, `PID.md` (draft identity), and `cursor-config/` guides |
+| `docs/` | Internals map, Accepted PID, draft PRD, curriculum map, cursor-config guides |
 | `.cursor/` | Vendored rules, skills, MCP config |
 
 ---
@@ -113,6 +114,10 @@ When a future implementation phase starts, expect MCP servers and skill packs to
 | Path | What it does | Why it exists |
 |------|--------------|---------------|
 | `docs/EXTENSIVE.md` | This internals map | extensive-readme companion |
+| `docs/PID.md` | Accepted product identity | P0 locks (H3, Apache-2.0, UG bound) |
+| `docs/PRD.md` | Product requirements | Draft until owner accepts |
+| `docs/curriculum-map.md` | UG programme union | GATE is eval overlay only |
+| `docs/PID_DECISION_SHEET.md` | Owner question trace | P0 answered; P1 proposed |
 | `docs/cursor-config/*` | Guides for MCP, Spec Kit, skills, learning | Document the vendored `.cursor/` workflow |
 
 ---
@@ -146,8 +151,9 @@ question-bank ──answered-by──► notes/*
 notes/* ──cite──► source-ledger
 notes/* ──stance──► DECISION_REGISTER ──ADR──► DECISIONS.md
 notes/* ──feed──► option-scoring ──feed──► recommendation
-recommendation ──summarised-by──► README.md
-PID.md (draft) ──waiting-on──► PID_DECISION_SHEET.md
+recommendation ──historical-advice──► README.md (do not treat as harness lock)
+PID.md (Accepted) ──requirements──► PRD.md (draft for owner)
+curriculum-map.md ──defines──► UG bound (GATE = eval)
 all research files ──mapped-by──► docs/EXTENSIVE.md
 validate-research.sh ──gates──► notes + recommendation + READMEs
 ```
@@ -166,10 +172,10 @@ validate-research.sh ──gates──► notes + recommendation + READMEs
 
 ## Future advancements
 
-1. **Accepted PID** then implementation phase following locked harness + ADRs.
+1. **Owner accepts PRD** then a new implementation nawab plan for the H3 CLI (no product code until then).
 2. **Real CI job** running `validate-research.sh --full` on PRs.
-3. **Spike folder population** only after explicit approval (Pi MCP bridge, parse metrics, MATLAB smoke).
-4. **Application packages** (`skills/`, MCP servers) when research exits.
+3. **Spike folder population** only after explicit approval (parse metrics, MATLAB smoke).
+4. **Application packages** (thin CLI, `skills/`, MCP servers) after PRD accept.
 
 ---
 

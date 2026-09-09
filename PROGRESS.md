@@ -1,6 +1,6 @@
 # PROGRESS
 
-Live status for the Electrical-Engineer **research phase** on branch `cursor/ee-research-phase-7e0c`.
+Live status. Research phase completed on `cursor/ee-research-phase-7e0c`. Product identity + PRD work is on `cursor/product-identity-draft-82c4`.
 
 | Phase | Status | Notes |
 |-------|--------|-------|
@@ -14,14 +14,17 @@ Live status for the Electrical-Engineer **research phase** on branch `cursor/ee-
 | S Spikes | skipped | No user approval |
 | N Hardening | done | validate --full PASS; see PHASE_N_COMPLETION.md |
 | R RAG-Anything eval | done | `rag-anything-evaluation.md`, `rag-stack-recommendation.md`, ADR-0004 |
-| G Core-EE landscape + success bar | done | `ai-core-engineering-landscape.md`, README capabilities C1–C8, ADR-0005 |
-| P Product identity draft | in progress | `docs/PID.md` + decision sheet; waiting on owner answers |
+| G Core-EE landscape + success bar | done | `ai-core-engineering-landscape.md`, README capabilities C1–C8 |
+| P Product identity | done (P0) | `docs/PID.md` **Accepted**; Apache-2.0 `LICENSE`; H3 locked |
+| Curriculum map | done | `docs/curriculum-map.md` — UG India+global; GATE = eval overlay |
+| PRD | **draft — owner review** | `docs/PRD.md` complete; P1 checkboxes open; say “PRD accepted” or list edits |
 
 ## Assumptions
 
-- CP-1: No commercial PDFs in git; embedding-pack Release intended after licence review; BYO + OER meanwhile.
-- CP-2: MATLAB intended primary; OSS researched in parallel.
+- CP-1: No commercial PDFs in git; BYO + licence-clean reconstructions; exam-style items in-scope without committing third-party papers.
+- CP-2: MATLAB if present; OSS first-class (P1 proposed, not locked).
 - Phase S cancelled until explicitly approved.
+- Research `recommendation.md` O1/H2 is historical advice; product harness is H3.
 
 ## Refinement log
 
@@ -29,11 +32,17 @@ Live status for the Electrical-Engineer **research phase** on branch `cursor/ee-
 |------|--------|
 | 2026-09-08 | Local-first package + GitHub embedding packs (Chroma) + photo→schematic→Simulink research notes; Q16–Q17, D9–D10 |
 | 2026-09-08 | RAG-Anything evaluation + ADR-0004; D11 multimodal ingest engine |
-| 2026-09-08 | AI-in-core-engineering landscape + README success-bar capabilities; Q18, D12, ADR-0005 |
+| 2026-09-08 | AI-in-core-engineering landscape + README success-bar capabilities; Q18, D12, ADR-0005 seed |
 | 2026-09-09 | Draft PID + decision sheet; harness H1–H5 left OPEN for owner |
+| 2026-09-09 | P0 locks accepted: H3 CLI, Apache-2.0, UG coursework bound, co-solver, label-unchecked, one repo |
+| 2026-09-09 | PRD written; ADRs 0001/0005/0006 accepted; README identity aligned |
 
 ## Handoff
 
-Recommendation: [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md)  
-ADRs: [`DECISIONS.md`](DECISIONS.md) (status `proposed`)  
-Stop: no product scaffold until an **Accepted PID** (`docs/PID.md`) and a new implementation plan. Draft PID is in progress; harness H1–H5 is OPEN.
+PID: [`docs/PID.md`](docs/PID.md) (Accepted)  
+PRD: [`docs/PRD.md`](docs/PRD.md) (**waiting on owner**: accept or request edits)  
+ADRs: [`DECISIONS.md`](DECISIONS.md)  
+Curriculum: [`docs/curriculum-map.md`](docs/curriculum-map.md)  
+Research advice (historical): [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md)
+
+**Stop:** no CLI / MCP / skill implementation until the owner accepts the PRD and a new implementation nawab plan is approved.

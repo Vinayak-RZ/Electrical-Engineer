@@ -2,47 +2,53 @@
 
 ## Purpose
 
-**Electrical-Engineer** is an open-source workspace to design — and later build — an agent that can do undergraduate (then postgraduate) electrical-engineering work: solve assignment-style questions correctly, explain them, ingest circuit and control diagrams, and verify numbers with simulators rather than invent them.
+**Electrical-Engineer** is an Apache-2.0 workspace for a **UG electrical engineering co-solver**: a branded local CLI (`electrical-engineer`) that also plugs into Cursor, Claude Code, or OpenAI. It solves and explains coursework, checks numbers with simulators when it can, and **labels unchecked** numbers it did not check. GATE is an eval instrument, not the bound. PG, civil, and mechanical are out of the public promise.
 
 The project is also an experiment: how far current AI can go on **core engineering** (not only software), and where it still fails.
 
 ## System overview (today)
 
-Greenfield / research-complete; **product identity in draft**. There is no shipped agent. Authority for “what to build” is split:
+Greenfield / research-complete; **PID accepted**; **PRD draft for owner review**. There is no shipped agent. Authority:
 
-- Research: [`research/`](research/)
-- Success-bar capabilities (proposed): [`README.md`](README.md)
-- Product identity (OPEN until you accept): [`docs/PID.md`](docs/PID.md)
+- Identity: [`docs/PID.md`](docs/PID.md)
+- Requirements: [`docs/PRD.md`](docs/PRD.md)
+- UG bound: [`docs/curriculum-map.md`](docs/curriculum-map.md)
+- Research history: [`research/`](research/)
+- Success-bar capabilities: [`README.md`](README.md)
 - Internals map: [`docs/EXTENSIVE.md`](docs/EXTENSIVE.md)
 
 ## High-level architecture (intended, not implemented)
 
 ```
-Student question / diagram
-        ↓
-Harness (portable skills + MCP, optional Pi package)
-        ↓
-Local textbook RAG (BYO / licensed embedding pack)
-        ↓
-Verifier (MATLAB/Simulink MCP preferred; SPICE/Python fallback)
-        ↓
-Explanation + evidence  |  or explicit refusal
+Student
+  ├─ electrical-engineer CLI  (H3: policy, glue, eval)
+  └─ Cursor / Claude Code / OpenAI
+           ↓
+     EE skill packs + MCP (H1 layer)
+           ↓
+     models: host | BYOK | local
+           ↓
+     verifiers: OSS first-class; MATLAB if present
+           ↓
+     Explanation + evidence  |  or labelled unchecked
 ```
 
-Diagram ingest: vision → draft netlist → **student-edited schematic** → simulate.
+Diagram ingest (later slice): vision → draft netlist → **student-edited schematic** → simulate.
 
 ## Constraints
 
-- No commercial textbook PDFs in git.
-- No fabricated simulation numbers.
-- Open source; local-first path required.
-- UG-bounded public promise; harder PG/limit-finding work is a later fork.
-- Academic integrity is the institution’s policy; the product still shows work.
+- Apache-2.0; forever OSS in this repo; no paid tier.
+- No commercial textbook PDFs or third-party exam PDFs in git.
+- No fabricated simulation numbers; unverified values labelled **unchecked**.
+- Local-first; no product cloud.
+- UG coursework public promise; one repo; PG not advertised.
+- Academic integrity is the institution’s policy; default mode is co-solver.
 
 ## Sources of truth
 
+- Identity / requirements: `docs/PID.md`, `docs/PRD.md`
 - Capabilities / vision: `README.md`
 - Landscape research: `research/notes/ai-core-engineering-landscape.md`
-- Build recommendation: `research/synthesis/recommendation.md`
-- ADR seeds: `DECISIONS.md`
+- Historical build advice (not the harness lock): `research/synthesis/recommendation.md`
+- ADRs: `DECISIONS.md` (ADR-0001 = H3)
 - Live phase status: `PROGRESS.md`
