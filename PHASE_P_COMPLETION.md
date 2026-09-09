@@ -23,7 +23,7 @@ None in code. Product architecture **specified** as H3 (CLI wrapping portable sk
 
 ## Validation
 
-`./scripts/research/validate-research.sh --full` (Phase D). README still has extensive banner + Future advancements; no product-landing bait.
+`./scripts/research/validate-research.sh --full` → **PASS** (2026-09-09). README still has extensive banner + Future advancements; no product-landing bait. Research notes still have Sources/Confidence and no TODO/TBD/FIXME placeholders.
 
 ## Outstanding issues
 

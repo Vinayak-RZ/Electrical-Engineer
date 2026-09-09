@@ -18,6 +18,7 @@ Live status. Research phase completed on `cursor/ee-research-phase-7e0c`. Produc
 | P Product identity | done (P0) | `docs/PID.md` **Accepted**; Apache-2.0 `LICENSE`; H3 locked |
 | Curriculum map | done | `docs/curriculum-map.md` — UG India+global; GATE = eval overlay |
 | PRD | **draft — owner review** | `docs/PRD.md` complete; P1 checkboxes open; say “PRD accepted” or list edits |
+| Validator | PASS | `./scripts/research/validate-research.sh --full` 2026-09-09 |
 
 ## Assumptions
 
