@@ -224,3 +224,18 @@ PG is not a public promise. Optional unpublished profile may exist later in **th
 | [`curriculum-map.md`](curriculum-map.md) | UG bound |
 | [`../DECISIONS.md`](../DECISIONS.md) | ADRs |
 | [`../research/synthesis/recommendation.md`](../research/synthesis/recommendation.md) | Historical O1 *advice*; product chose H3 |
+
+---
+
+## Owner review checkpoint
+
+This PRD is **not accepted** until the owner says so. Confirm or override:
+
+- [ ] Thesis, H3 CLI, Apache-2.0, forever OSS, India-first global UG
+- [ ] GATE is eval only; bound = [`curriculum-map.md`](curriculum-map.md)
+- [ ] Co-solver default; **unchecked** labels; no faculty v1
+- [ ] Exam-style in-scope; **no** third-party copyrighted PDFs in git
+- [ ] P1 defaults in §10 (MATLAB/OSS, RAG, C1–C7 slice, circuits-then-control)
+- [ ] **PRD accepted** — or listed edits
+
+Do not start an implementation nawab plan until this checkpoint is closed.
