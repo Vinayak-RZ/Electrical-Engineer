@@ -26,7 +26,7 @@ sequenceDiagram
   Author->>Git: commit on research branch
 ```
 
-When a future implementation phase starts, expect a thin `electrical-engineer` CLI plus MCP servers and skill packs; they are **not** in the tree yet. Product shape is H3 in [`../docs/PRD.md`](PRD.md). The research memo [`research/synthesis/recommendation.md`](../research/synthesis/recommendation.md) is historical O1 advice.
+When a future implementation phase starts, expect a thin `electrical-engineer` CLI plus MCP servers and skill packs; they are **not** in the tree yet. Product shape is H3 in [`PRD.md`](PRD.md). The research memo [`research/synthesis/recommendation.md`](../research/synthesis/recommendation.md) is historical O1 advice.
 
 ---
 
