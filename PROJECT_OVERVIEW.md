@@ -24,7 +24,7 @@ Greenfield / research-complete; **PID accepted**; **PRD draft**; **architecture 
 ```
 Student
   ├─ electrical-engineer CLI  (H3: YAML DAG runner, policy, eval)
-  ├─ persistent localhost UI  (127.0.0.1; shared understanding)
+  ├─ persistent localhost UI  (127.0.0.1; DESIGN-coinbase tokens; Inter + mono)
   └─ Cursor / Claude Code / OpenAI
            ↓
      EE skill packs + MCP (H1 layer)
