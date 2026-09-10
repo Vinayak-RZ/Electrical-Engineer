@@ -15,7 +15,7 @@ Historical research-phase notes are in the appendix at the bottom. They are **no
 |-------|-------|
 | **Profile** | project |
 | **Mode** | project |
-| **Stack** | Python 3.11+ (`uv` + hatchling) CLI/runner; FastAPI + Vite/React + Zustand slot UI; stdio MCP; local OpenAI-compatible LLM; RAG facade (LightRAG 1.5 spike) |
+| **Stack** | Python 3.11+ (`uv` + hatchling) CLI/runner; FastAPI + Vite/React + Zustand slot UI using [`docs/design/DESIGN-coinbase.md`](docs/design/DESIGN-coinbase.md) tokens (Inter + JetBrains/Geist Mono); stdio MCP; local OpenAI-compatible LLM; RAG facade (LightRAG 1.5 spike) |
 | **Base branch** | `main` |
 | **Feature branch** | `cursor/product-execution-plan-eb74` (single branch) |
 | **User commit budget** | 60–80 (owner: 40–50 or more; all-pack solve/explain needs the upper band) |
@@ -39,7 +39,7 @@ A student can install `electrical-engineer` locally, run named workflows from CL
 
 - Python package + CLI commands: `run`, `workflows`, `mcp`, `eval`, `ui`, `rag`, `memory`
 - Deterministic YAML DAG runner, gates, run dirs
-- FastAPI + React slot UI (DSH-inspired, no Cordis)
+- FastAPI + React slot UI (DSH-inspired slots, no Cordis) styled from [`docs/design/DESIGN-coinbase.md`](docs/design/DESIGN-coinbase.md)
 - stdio MCP: `list_workflows`, `run_workflow`
 - Local OpenAI-compatible LLM adapter (BYOK later)
 - RAG facade after measured spike (LightRAG 1.5 / Docling / BM25+dense)
@@ -101,6 +101,9 @@ A student can install `electrical-engineer` locally, run named workflows from CL
 | Cannot-do | `docs/CANNOT_DO.md` | Honest capability holes |
 | Progress | `PROGRESS.md` | Wave checkpoint |
 | Gate 0 | `docs/planning/GATE_0_RESEARCH.md` | Closed research |
+| Design system | `docs/design/DESIGN-coinbase.md` | UI visual authority (U1/B_UI/T1) |
+| Design lock | `docs/planning/DESIGN_LOCK.md` | Closed visual contract (does not start Wave 0) |
+| ADR-0008 | `DECISIONS.md` | UI stack + DESIGN-coinbase (proposed; A1 accepts) |
 
 **Read-only for subagents:** PID P0 locks, ARCHITECTURE runner law, this plan’s non-goals.  
 **Writable per node:** only that node’s write-path globs.
@@ -240,7 +243,10 @@ flowchart LR
 todos:
   - id: persist-graph
     content: "Graph + node plans on disk (this commit set)"
-    status: in_progress
+    status: completed
+  - id: design-lock
+    content: "DESIGN-coinbase visual lock + ADR-0008 seed"
+    status: completed
   - id: wave0-docs
     content: "D0 + A1 authority + Spec Kit"
     status: pending
@@ -324,7 +330,7 @@ Rows 9–14, 15–18, 25–32, etc. **split** into one logical commit each when 
 | Topic | Options | Choice | Source | Record |
 |-------|---------|--------|--------|--------|
 | Harness | H1–H5 | H3 | PID | ADR-0001 |
-| UI | HTMX vs React slots | FastAPI+React slots, no Cordis | owner + DSH AGENTS.md (inspire) | ADR-0008 (A1) |
+| UI | HTMX vs React slots | FastAPI+React slots, no Cordis; visual system = DESIGN-coinbase (Inter/mono substitutes) | owner + DSH slots + uploaded DESIGN-coinbase.md | ADR-0008 (A1) |
 | RAG | RAG-Anything vs LightRAG 1.5 vs Docling vs BM25 | Spike LightRAG 1.5; decide after numbers | HKUDS v1.5 notes; QUALITY>SPEED | ADR-0004 update |
 | LLM | BYOK vs local vs host | Host + local OpenAI-compat; BYOK later | owner | A1 |
 | Spec Kit | skip vs keep | constitution + specify | owner | D0 |
@@ -412,7 +418,7 @@ N/A — no existing consumer to switch. First ship is this repo’s CLI+UI. Roll
 
 ## §18 Execution protocol
 
-If **§19 is filled** (it is), do not run a linear-only loop. On approval: the graph is the plan you read.
+If **§19 is filled** (it is), do not run a linear-only loop. After the owner says start / build / implement: the graph is the plan you read. Review of this document alone does not start Wave 0.
 
 ```text
 1. Node plans already on disk — load EXECUTION_GRAPH.md
@@ -461,7 +467,7 @@ If **§19 is filled** (it is), do not run a linear-only loop. On approval: the g
 | D1 | Docs-out | [plans/nodes/D1.md](plans/nodes/D1.md) |
 | H1 | Harden | [plans/nodes/H1.md](plans/nodes/H1.md) |
 
-Approving this plan (graph filled) **starts wave execution**. Node plans are already written.
+The graph and node plans are already written. **Owner review of this file does not start Wave 0.** Product `src/` / `ui/` start only when the owner explicitly says start / build / implement / execute.
 
 ---
 
@@ -473,7 +479,9 @@ None blocking compile. Spike-owned: final RAG engine; exact workflow id strings;
 
 ## Approval
 
-**Mode:** project. Graph compiled. Approve / continue to run **Wave 0** ([D0](plans/nodes/D0.md) → [A1](plans/nodes/A1.md)).
+**Mode:** project. Graph compiled. Design lock closed ([`docs/planning/DESIGN_LOCK.md`](docs/planning/DESIGN_LOCK.md)).
+
+**Review now.** After you have read [`EXECUTION_GRAPH.md`](EXECUTION_GRAPH.md), say **start** / **build** / **implement** to run Wave 0 ([D0](plans/nodes/D0.md) → [A1](plans/nodes/A1.md)). A silent or review-only approval does not start execution.
 
 ---
 

@@ -13,7 +13,7 @@
 | **Objective** | Ship H3 Electrical Engineer end-to-end (P0–P2 in this graph), proven by boot + Cursor trials + docs-out |
 | **Topology mix** | chain (docs) + fan-out (surfaces) + diamond (M1) |
 | **Depth** | 2 |
-| **Graph-engineering** | named — approving starts execution |
+| **Graph-engineering** | named — owner review now; execute only on explicit start / build / implement |
 | **Cheap model** | `composer-2.5` |
 | **Judge model** | `cursor-grok-4.6-high` |
 | **Branch** | `cursor/product-execution-plan-eb74` |
@@ -143,11 +143,11 @@ flowchart TB
 | B_PKG | uv/hatchling + Ubuntu CI | [B_PKG](plans/nodes/B_PKG.md) | generalPurpose | composer-2.5 | `pyproject.toml`, `src/electrical_engineer/__init__.py`, `.github/workflows/**`, `scripts/validate.sh` |
 | B_CORE | YAML runner + CLI | [B_CORE](plans/nodes/B_CORE.md) | generalPurpose | grok-high | `src/electrical_engineer/{cli,runner,gates,router}/**` |
 | B_NODES | Register EE activities + cannot-do | [B_NODES](plans/nodes/B_NODES.md) | generalPurpose | grok-high | `src/electrical_engineer/nodes/**`, `docs/CANNOT_DO.md` |
-| U1 | UI IA | [U1](plans/nodes/U1.md) | generalPurpose | grok-high | `docs/ui-ia.md`, `docs/frontend-architecture.md` |
+| U1 | UI IA + DESIGN-coinbase token map | [U1](plans/nodes/U1.md) | generalPurpose | grok-high | `docs/ui-ia.md`, `docs/frontend-architecture.md` |
 | B_MCP | stdio MCP | [B_MCP](plans/nodes/B_MCP.md) | generalPurpose | composer-2.5 | `src/electrical_engineer/mcp/**` |
 | B_MEM | Memory CLI | [B_MEM](plans/nodes/B_MEM.md) | generalPurpose | composer-2.5 | `src/electrical_engineer/memory/**` |
 | B_WF_CROSS | unmatched + compose | [B_WF_CROSS](plans/nodes/B_WF_CROSS.md) | generalPurpose | grok-high | `workflows/_cross/**`, `skills/_cross/**` |
-| B_UI | FastAPI+React slots | [B_UI](plans/nodes/B_UI.md) | generalPurpose | grok-high | `ui/**`, `src/electrical_engineer/ui_server/**` |
+| B_UI | FastAPI+React slots + DESIGN-coinbase tokens | [B_UI](plans/nodes/B_UI.md) | generalPurpose | grok-high | `ui/**`, `src/electrical_engineer/ui_server/**` |
 | B_WF_CIRCUITS | Circuits YAML+skills | [B_WF_CIRCUITS](plans/nodes/B_WF_CIRCUITS.md) | generalPurpose | grok-high | `workflows/circuits/**`, `skills/circuits/**` |
 | B_RAG_SPIKE | Measure RAG engines | [B_RAG_SPIKE](plans/nodes/B_RAG_SPIKE.md) | generalPurpose | grok-high | `src/electrical_engineer/rag/**`, `research/notes/rag-spike-*` |
 | B_WF_CONTROL | Control YAML+skills | [B_WF_CONTROL](plans/nodes/B_WF_CONTROL.md) | generalPurpose | grok-high | `workflows/control/**`, `skills/control/**` |
@@ -236,4 +236,6 @@ See IMPLEMENTATION_PLAN §9. Each node plan lists its own rows. Lead commits. Po
 
 ## Approval implication
 
-Approving this graph starts Wave 0. No second wait. No wait per node unless that node plan marks a human checkpoint (copyright / non-localhost bind only).
+This graph is ready for **owner review**. Reviewing it does **not** start Wave 0.
+
+Execution starts only when the owner explicitly says start / build / implement / execute. Then Wave 0 runs ([D0](plans/nodes/D0.md) → [A1](plans/nodes/A1.md)) with no second compile wait. No wait per node unless that node plan marks a human checkpoint (copyright / non-localhost bind only).
