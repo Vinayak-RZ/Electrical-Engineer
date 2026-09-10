@@ -1,9 +1,8 @@
 # Product Requirements Document — Electrical Engineer
 
-**Status:** Draft for owner review (identity locked in [`PID.md`](PID.md); shape aligned to Proposed [`ARCHITECTURE.md`](ARCHITECTURE.md)).  
+**Status:** Accepted for this graph (D0, 2026-09-10). Identity locked in [`PID.md`](PID.md).  
 **Date:** 2026-09-10  
-**Licence of this product’s code (when it exists):** Apache License 2.0  
-**Not implemented:** there is no CLI, MCP server, UI, or agent in the repository yet.
+**Licence of this product’s code:** Apache License 2.0
 
 ---
 
@@ -15,7 +14,7 @@
 |-------|-------------|
 | Name | Electrical Engineer |
 | Repo | `Electrical-Engineer` |
-| CLI | `electrical-engineer` (`run`, `workflows`, `mcp`, `eval`, `ui`, `rag`) |
+| CLI | `electrical-engineer` (`run`, `workflows`, `mcp`, `eval`, `ui`, `rag`, `memory`) |
 | UI | Persistent localhost workspace on `127.0.0.1` (critical surface) |
 | Licence | Apache-2.0 for *our* code; textbooks never redistributed in git |
 | Commercial | Forever OSS in this repo; no paid tier |
@@ -57,7 +56,7 @@
 |----------------------|-----------------------------------------------|
 | UG coursework co-solver | Optional `--profile` for PG; not advertised |
 | H3 CLI + MCP + **persistent localhost UI** | Full C4 simulate-after-confirm; C5 control figures |
-| Named circuits (+ specified control) workflows | Remaining pack recipes to union coverage |
+| Named circuits + control + **solve+explain for every curriculum pack** | Deeper gold / BYOK / HTTP MCP |
 | OSS verifiers first-class; MATLAB optional | Deeper MATLAB/Simulink when licence exists |
 | Photo-to-netlist **stub** (UI confirm, no sim) | Simulate the confirmed netlist |
 | `eval/gold/` layout + `electrical-engineer eval` | Larger gold bank (still licence-clean) |
@@ -68,7 +67,7 @@
 
 **FR2 Label unchecked.** If a number did not come from a verifier, the student-facing answer **and** the run summary must contain the exact token `unchecked`. Synonyms are not the contract. Never present it as a simulation or lab result.
 
-**FR3 Branded CLI.** A student can run `electrical-engineer` on Linux, macOS, or Windows (`pip`, Python 3.11+) for the same EE tasks without Cursor. Commands in the first slice: `run`, `workflows`, `mcp`, `eval`, `ui`, `rag`.
+**FR3 Branded CLI.** A student can run `electrical-engineer` on Linux, macOS, or Windows (`pip` / `uv`, Python 3.11+) for the same EE tasks without Cursor. Commands: `run`, `workflows`, `mcp`, `eval`, `ui`, `rag`, `memory`.
 
 **FR4 Host adapters.** The same skill packs (`skills/<pack>/SKILL.md`) and MCP tools load in Cursor, Claude Code, and OpenAI/Codex.
 
@@ -210,19 +209,19 @@ This is a **legal** policy, not a pedagogy policy. Students may still *use* thei
 
 ---
 
-## 10. Open P1 defaults (proposed, not locked)
+## 10. P1 defaults (accepted for this graph)
 
-Owner may override at PRD review. Until then, implementers treat these as **working defaults**, not PID locks.
+Owner start/execute (2026-09-10) accepts these as **working defaults** for this graph. Not PID P0 locks.
 
-| Topic | Proposed default | Owner review |
-|-------|------------------|--------------|
-| MATLAB vs OSS | MATLAB if present; OSS first-class otherwise; product and CI work without MATLAB | - [ ] Accept  - [ ] Override: ____ |
-| RAG | Local store; BYO PDFs/scans; inventory + book/chapter/folder tags (ADR-0002/0004 still proposed for engine) | - [ ] Accept  - [ ] Override: ____ |
-| v1 slice | C1–C3, C6–C7, persistent UI, eval layout; C4 photo **stub**; C5 stub in catalog; C8 not a student UX promise | - [ ] Accept  - [ ] Override: ____ |
-| First pack depth | Circuits first, then control — named recipes in [`WORKFLOWS.md`](WORKFLOWS.md) | - [ ] Accept  - [ ] Override: ____ |
-| Orchestrator | YAML DAG runner + hybrid router as in [`ARCHITECTURE.md`](ARCHITECTURE.md) | - [ ] Accept  - [ ] Override: ____ |
+| Topic | Default | Status |
+|-------|------------------|--------|
+| MATLAB vs OSS | MATLAB if present; OSS first-class otherwise; product and CI work without MATLAB | accepted |
+| RAG | Local store; BYO PDFs/scans; inventory + book/chapter/folder tags; spike LightRAG 1.5 then decide | accepted |
+| v1 slice | C1–C3, C6–C7, persistent UI, eval layout; C4 photo **stub**; C5 stub in catalog; C8 not a student UX promise | accepted |
+| Pack depth | Circuits first, then control, then **solve+explain for every remaining pack** or a cannot-do row | accepted |
+| Orchestrator | YAML DAG runner + hybrid router as in [`ARCHITECTURE.md`](ARCHITECTURE.md) | accepted |
 
-**PRD status:** Draft until the owner says “PRD accepted” (or lists edits). Identity (P0) is already accepted in [`PID.md`](PID.md). Architecture remains **Proposed** until that separate checkpoint.
+**PRD status:** Accepted for this graph. Identity (P0) remains accepted in [`PID.md`](PID.md). Architecture freeze is A1.
 
 ---
 
@@ -260,14 +259,12 @@ PG is not a public promise. Optional unpublished profile may exist later in **th
 
 ## Owner review checkpoint
 
-This PRD is **not accepted** until the owner says so. Confirm or override:
+Closed D0 2026-09-10 (owner: start / execute this graph):
 
-- [ ] Thesis, H3 CLI, Apache-2.0, forever OSS, India-first global UG
-- [ ] GATE is eval only; bound = [`curriculum-map.md`](curriculum-map.md)
-- [ ] Co-solver default; exact token **unchecked**; no faculty v1
-- [ ] Named workflows + persistent UI + tagged RAG + eval/gold (FR10–FR16)
-- [ ] Exam-style in-scope; **no** third-party copyrighted PDFs in git
-- [ ] P1 defaults in §10 (MATLAB/OSS, RAG tags, C1–C7 + UI, circuits-then-control, orchestrator)
-- [ ] **PRD accepted** — or listed edits
-
-Do not start an implementation nawab plan until this checkpoint is closed.
+- [x] Thesis, H3 CLI, Apache-2.0, forever OSS, India-first global UG
+- [x] GATE is eval only; bound = [`curriculum-map.md`](curriculum-map.md)
+- [x] Co-solver default; exact token **unchecked**; no faculty v1
+- [x] Named workflows + persistent UI + tagged RAG + eval/gold (FR10–FR16)
+- [x] Exam-style in-scope; **no** third-party copyrighted PDFs in git
+- [x] P1 defaults in §10 (MATLAB/OSS, RAG tags, C1–C7 + UI, all-pack solve+explain, orchestrator)
+- [x] **PRD accepted** for this graph
