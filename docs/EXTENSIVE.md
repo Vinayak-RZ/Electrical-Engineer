@@ -34,7 +34,7 @@ When a future implementation phase starts, expect a thin `electrical-engineer` C
 
 | Path | Role |
 |------|------|
-| `README.md` | Readable overview + C1–C8 success bar (H3 identity; no shipped agent) |
+| `README.md` | Readable overview: thesis, named workflows + UI, C1–C8 (no shipped agent) |
 | `PROJECT_OVERVIEW.md` | Purpose, intended H3 architecture, constraints |
 | `AGENTS.md` | Instructions for coding agents in this repo |
 | `PROGRESS.md` | Phase status log |
