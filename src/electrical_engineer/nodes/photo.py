@@ -2,9 +2,24 @@
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import Any
 
 from electrical_engineer.nodes.registry import register
+from electrical_engineer.unchecked import UNCHECKED
+
+
+def _problem(spec: dict[str, Any]) -> dict[str, Any]:
+    p = spec.get("problem")
+    if isinstance(p, dict) and p:
+        return p
+    run_dir = spec.get("run_dir")
+    if run_dir:
+        path = Path(run_dir) / "problem.json"
+        if path.is_file():
+            return json.loads(path.read_text())
+    return {}
 
 
 @register("detect-components")
@@ -23,23 +38,71 @@ def ocr_labels(_spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
 
 
 @register("draft-netlist")
-def draft_netlist(_spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
-    return {"cir": "* draft\n", "graph": {"nodes": [], "edges": []}, **inputs}
+def draft_netlist(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
+    cir = "* draft\n"
+    graph = {"nodes": [], "edges": []}
+    run_dir = spec.get("run_dir")
+    if run_dir:
+        Path(run_dir, "draft.cir").write_text(cir)
+        Path(run_dir, "graph.json").write_text(json.dumps(graph))
+    return {"cir": cir, "graph": graph, **inputs}
 
 
 @register("confirm-topology")
-def confirm_topology(_spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
-    return {"confirmed": False, "simulate": False, **inputs}
+def confirm_topology(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
+    run_dir = spec.get("run_dir")
+    confirmed = False
+    if run_dir and Path(run_dir, "confirmed.json").is_file():
+        confirmed = True
+    return {"confirmed": confirmed, "simulate": False, **inputs}
 
 
 @register("retrieve-passage")
-def retrieve_passage(_spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
-    return {"passages": [], "empty": True}
+def retrieve_passage(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
+    try:
+        from electrical_engineer.rag.retrieve import retrieve
+    except ImportError:
+        return {"passages": [], "empty": True}
+    filters = _problem(spec).get("filters") or spec.get("filters") or {}
+    return retrieve(filters)
 
 
 @register("solve-explain")
-def solve_explain(_spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
-    return {"text": "unchecked", "unchecked": True}
+def solve_explain(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
+    problem = _problem(spec)
+    value = _solve_value(problem)
+    if value is not None:
+        return {
+            "text": f"value={value}",
+            "value": value,
+            "unchecked": False,
+            "law": problem.get("kind") or "numeric",
+        }
+    return {"text": UNCHECKED, "unchecked": True, "token": UNCHECKED}
+
+
+def _solve_value(problem: dict[str, Any]) -> float | None:
+    kind = str(problem.get("kind") or "")
+    if kind == "ohms_law" and "v" in problem and "r" in problem:
+        r = float(problem["r"])
+        if r == 0:
+            return None
+        return float(problem["v"]) / r
+    if {"vin", "r1", "r2"} <= set(problem) or kind == "voltage_divider":
+        r1, r2 = float(problem["r1"]), float(problem["r2"])
+        if r1 + r2 == 0:
+            return None
+        return float(problem["vin"]) * r2 / (r1 + r2)
+    if kind == "symbolic":
+        try:
+            import sympy as sp
+        except ImportError:
+            return None
+        try:
+            return float(sp.sympify(str(problem.get("expr", "0"))))
+        except (TypeError, ValueError, SyntaxError, AttributeError):
+            return None
+    return None
 
 
 @register("ask-human")
@@ -49,4 +112,4 @@ def ask_human(_spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
 
 @register("run-recipe")
 def run_recipe(_spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
-    return {"child": inputs.get("recipe_id"), "paths": []}
+    return {"child": inputs.get("recipe_id") or _spec.get("child"), "paths": []}

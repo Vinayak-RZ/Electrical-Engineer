@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Mapping
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 DEFAULT_TIMEOUT_S = 120
@@ -25,6 +25,7 @@ class NodeSpec:
     needs: tuple[str, ...] = ()
     optional: bool = False
     timeout_s: int = DEFAULT_TIMEOUT_S
+    extras: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -42,12 +43,15 @@ def parse_recipe(data: Mapping[str, Any]) -> Recipe:
         timeout = min(timeout, MAX_TIMEOUT_S)
         timeout = max(timeout, 1)
         needs = tuple(body.get("needs") or [])
+        skip = {"activity", "needs", "optional", "timeout_s"}
+        extras = {k: v for k, v in body.items() if k not in skip}
         nodes[str(nid)] = NodeSpec(
             id=str(nid),
             activity=str(body["activity"]),
             needs=needs,
             optional=bool(body.get("optional", False)),
             timeout_s=timeout,
+            extras=extras,
         )
     if len(nodes) > MAX_PARENT_NODES:
         raise RunnerError(f"parent cap {MAX_PARENT_NODES} nodes")
@@ -114,7 +118,8 @@ def run_fsm(
 
 
 def _call(fn: Activity, spec: NodeSpec, inputs: dict[str, Any]) -> dict[str, Any]:
-    out = fn({"id": spec.id, "optional": spec.optional}, inputs)
+    payload = {"id": spec.id, "optional": spec.optional, **spec.extras}
+    out = fn(payload, inputs)
     if not isinstance(out, dict):
         raise RunnerError(f"{spec.id} must return dict")
     return out

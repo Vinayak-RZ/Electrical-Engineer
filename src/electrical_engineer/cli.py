@@ -36,6 +36,23 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd is None:
         parser.print_help()
         return 0
+    if args.cmd == "run":
+        import json
+        from pathlib import Path
+
+        from electrical_engineer.runner.execute import execute
+
+        if not args.workflow_id:
+            print("usage: electrical-engineer run <workflow_id>", file=sys.stderr)
+            return 2
+        problem = None
+        problem_path = Path("problem.json")
+        if problem_path.is_file():
+            problem = json.loads(problem_path.read_text())
+        out = execute(args.workflow_id, allow_all=args.allow_all, problem=problem)
+        print(out["run_id"])
+        print(json.dumps(out["summary"], indent=2))
+        return 0
     if args.cmd == "mcp":
         from electrical_engineer.mcp.server import serve
 
@@ -58,7 +75,12 @@ def main(argv: list[str] | None = None) -> int:
 
         import uvicorn
 
-        from electrical_engineer.ui_server.app import BIND_HOST, BIND_PORT, create_app, should_open_browser
+        from electrical_engineer.ui_server.app import (
+            BIND_HOST,
+            BIND_PORT,
+            create_app,
+            should_open_browser,
+        )
 
         if should_open_browser():
             webbrowser.open(f"http://{BIND_HOST}:{BIND_PORT}/")
