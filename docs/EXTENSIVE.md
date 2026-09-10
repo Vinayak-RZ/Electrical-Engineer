@@ -2,7 +2,7 @@
 
 Companion to the human overview in [`README.md`](../README.md). This file maps **what exists in the tree today**, how the research phase runs, and why each important file is there.
 
-**Repo kind:** greenfield product idea + **completed research-phase documentation** + **Accepted PID** + **draft PRD**. No application packages (`packages/`) yet. Vendored Cursor coding config lives under `.cursor/`.
+**Repo kind:** greenfield product idea + **completed research-phase documentation** + **Accepted PID** + **draft PRD** + **Proposed technical architecture**. No application packages (`packages/`) yet. Vendored Cursor coding config lives under `.cursor/`.
 
 ---
 
@@ -26,7 +26,7 @@ sequenceDiagram
   Author->>Git: commit on research branch
 ```
 
-When a future implementation phase starts, expect a thin `electrical-engineer` CLI plus MCP servers and skill packs; they are **not** in the tree yet. Product shape is H3 in [`PRD.md`](PRD.md). The research memo [`research/synthesis/recommendation.md`](../research/synthesis/recommendation.md) is historical O1 advice.
+When a future implementation phase starts, expect a thin `electrical-engineer` CLI plus MCP servers, skill packs, a persistent localhost UI, and `eval/gold/` tasks; they are **not** in the tree yet. Product shape is H3 in [`PRD.md`](PRD.md). Proposed runner and catalog: [`ARCHITECTURE.md`](ARCHITECTURE.md), [`WORKFLOWS.md`](WORKFLOWS.md). The research memo [`research/synthesis/recommendation.md`](../research/synthesis/recommendation.md) is historical O1 advice.
 
 ---
 
@@ -38,12 +38,13 @@ When a future implementation phase starts, expect a thin `electrical-engineer` C
 | `PROJECT_OVERVIEW.md` | Purpose, intended H3 architecture, constraints |
 | `AGENTS.md` | Instructions for coding agents in this repo |
 | `PROGRESS.md` | Phase status log |
-| `DECISIONS.md` | ADRs (0001/0005/0006 accepted; others proposed) |
+| `DECISIONS.md` | ADRs (0001/0005/0006 accepted; 0002–0004 and **0007** proposed) |
 | `LICENSE` | Apache License 2.0 |
 | `skills-manifest.json` | Inventory of vendored skills |
 | `research/` | Research-phase artifacts (authority for “what to build”) |
+| `eval/gold/` | Specified gold-task layout; empty packs; no runner |
 | `scripts/` | Helper scripts (research validator; Cursor config installers) |
-| `docs/` | Internals map, Accepted PID, draft PRD, curriculum map, cursor-config guides |
+| `docs/` | Internals map, Accepted PID, draft PRD, **Proposed** architecture/workflows, curriculum map, cursor-config guides |
 | `.cursor/` | Vendored rules, skills, MCP config |
 
 ---
@@ -60,9 +61,9 @@ When a future implementation phase starts, expect a thin `electrical-engineer` C
 |------|--------------|---------------|
 | `research/README.md` | Map of the research phase | Onboarding without opening every note |
 | `research/NOTE.template.md` | Required note headings | Keeps validator and authors aligned |
-| `research/question-bank.md` | Q1–Q18 with status | Prevents silent unresolved questions |
-| `research/DECISION_REGISTER.md` | D1–D12 stances | Compact decision index |
-| `research/source-ledger.md` | S1–S70 sources + tiers | Citation cross-check backbone |
+| `research/question-bank.md` | Q1–Q30 with status | Prevents silent unresolved questions |
+| `research/DECISION_REGISTER.md` | D1–D13 stances | Compact decision index |
+| `research/source-ledger.md` | S1–S85 sources + tiers | Citation cross-check backbone |
 
 ### File map — `research/notes/`
 
@@ -83,6 +84,10 @@ When a future implementation phase starts, expect a thin `electrical-engineer` C
 | `capability-eval-design.md` | Rubrics without SLAs | WS-D measurement design |
 | `ai-core-engineering-landscape.md` | AI in EE / manufacturing / civil; student + reliability implications | WS-D success-bar evidence |
 | `rag-anything-evaluation.md` | RAG-Anything as ingest engine | WS-B multimodal RAG |
+| `spatiotemporal-composability.md` | Cordis/DSH/Temporal paradigm mapping (not a fork) | Architecture research |
+| `light-dag-fsm-and-language.md` | Light DAG/FSM and language TRADEOFF | Architecture research |
+| `ee-workflow-catalog-draft.md` | Historical catalog names (not the frozen API) | Architecture research |
+| `architecture-qa-gate.md` | Owner architecture answers | Architecture research |
 
 ### File map — `research/synthesis/`
 
@@ -97,6 +102,17 @@ When a future implementation phase starts, expect a thin `electrical-engineer` C
 | Path | What it does | Why it exists |
 |------|--------------|---------------|
 | `.gitkeep` | Placeholder | Reserved for optional throwaway spikes (none approved yet) |
+
+---
+
+## Package: `eval/`
+
+**What it is for.** Specified home for gold tasks (`eval/gold/`). Layout only; no runner and no gold items yet.
+
+| Path | What it does | Why it exists |
+|------|--------------|---------------|
+| `eval/gold/README.md` | Scoring seam + directory contract | Architecture pass Q56 |
+| `eval/gold/circuits/` etc. | Empty pack folders | First circuits items have a home |
 
 ---
 
@@ -116,6 +132,8 @@ When a future implementation phase starts, expect a thin `electrical-engineer` C
 | `docs/EXTENSIVE.md` | This internals map | extensive-readme companion |
 | `docs/PID.md` | Accepted product identity | P0 locks (H3, Apache-2.0, UG bound) |
 | `docs/PRD.md` | Product requirements | Draft until owner accepts |
+| `docs/ARCHITECTURE.md` | Technical architecture | **Proposed** until owner accepts |
+| `docs/WORKFLOWS.md` | Named workflow catalog | **Proposed**; ids renamable until CLI ships |
 | `docs/curriculum-map.md` | UG programme union | GATE is eval overlay only |
 | `docs/PID_DECISION_SHEET.md` | Owner question trace | P0 answered; P1 proposed |
 | `docs/cursor-config/*` | Guides for MCP, Spec Kit, skills, learning | Document the vendored `.cursor/` workflow |
@@ -153,6 +171,7 @@ notes/* ──stance──► DECISION_REGISTER ──ADR──► DECISIONS.md
 notes/* ──feed──► option-scoring ──feed──► recommendation
 recommendation ──historical-advice──► README.md (do not treat as harness lock)
 PID.md (Accepted) ──requirements──► PRD.md (draft for owner)
+ARCHITECTURE.md / WORKFLOWS.md (Proposed) ──locks──► architecture-qa-gate.md
 curriculum-map.md ──defines──► UG bound (GATE = eval)
 all research files ──mapped-by──► docs/EXTENSIVE.md
 validate-research.sh ──gates──► notes + recommendation + READMEs
@@ -172,10 +191,10 @@ validate-research.sh ──gates──► notes + recommendation + READMEs
 
 ## Future advancements
 
-1. **Owner accepts PRD** then a new implementation nawab plan for the H3 CLI (no product code until then).
+1. **Owner accepts PRD** then **accepts or edits architecture**, then a new implementation nawab plan for the H3 CLI (no product code until then).
 2. **Real CI job** running `validate-research.sh --full` on PRs.
 3. **Spike folder population** only after explicit approval (parse metrics, MATLAB smoke).
-4. **Application packages** (thin CLI, `skills/`, MCP servers) after PRD accept.
+4. **Application packages** (thin CLI, `skills/`, MCP servers, persistent localhost UI, `eval/gold/` items) after PRD accept.
 
 ---
 
