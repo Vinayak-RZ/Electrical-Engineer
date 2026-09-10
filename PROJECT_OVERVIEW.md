@@ -2,7 +2,7 @@
 
 ## Purpose
 
-**Electrical-Engineer** is an Apache-2.0 workspace for a **UG electrical engineering co-solver**: a branded local CLI (`electrical-engineer`) that also plugs into Cursor, Claude Code, or OpenAI. It solves and explains coursework, checks numbers with simulators when it can, and **labels unchecked** numbers it did not check. GATE is an eval instrument, not the bound. PG, civil, and mechanical are out of the public promise.
+**Electrical-Engineer** is an Apache-2.0 workspace for a **UG electrical engineering co-solver**: a branded local CLI (`electrical-engineer`) plus a **persistent localhost UI**, also usable from Cursor, Claude Code, or OpenAI. Named workflows make retrieval, citations, and verified numbers better. It checks numbers with simulators when it can, and labels unverified numbers with the exact token **unchecked**. GATE is an eval instrument, not the bound. PG, civil, and mechanical are out of the public promise.
 
 The project is also an experiment: how far current AI can go on **core engineering** (not only software), and where it still fails.
 
@@ -42,8 +42,9 @@ Named YAML recipes; router never invents a DAG. Diagram ingest (stub): vision â†
 
 - Apache-2.0; forever OSS in this repo; no paid tier.
 - No commercial textbook PDFs or third-party exam PDFs in git.
-- No fabricated simulation numbers; unverified values labelled **unchecked**.
-- Local-first; no product cloud.
+- No fabricated simulation numbers; unverified values use the exact token **unchecked**.
+- Local-first; no product cloud; UI binds to `127.0.0.1`.
+- Named YAML workflows; router never invents a DAG.
 - UG coursework public promise; one repo; PG not advertised.
 - Academic integrity is the institutionâ€™s policy; default mode is co-solver.
 
