@@ -32,3 +32,4 @@ Honest holes. Prefer a row here over fake gold. Expanded by B_NODES and later pa
 | CD-MEAS-BENCH | Driving a physical instrument bench | UG OSS bound | Error-budget algebra |
 | CD-EM-HFSS | Commercial full-wave solvers as the product path | UG OSS bound | Analytic UG identities |
 | CD-PE-HIL | Hardware-in-the-loop converter benches | UG OSS bound | Averaged models / unchecked |
+| CD-MATHS-CAS | A full CAS replacement for every exam identity | UG OSS bound | sympy when present else unchecked |

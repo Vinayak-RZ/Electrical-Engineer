@@ -1,0 +1,16 @@
+id: solve-maths-for-ee
+nodes:
+  retrieve:
+    activity: retrieve-passage
+  solve:
+    activity: solve-explain
+    needs: [retrieve]
+  check:
+    activity: check-numeric
+    needs: [solve]
+  label:
+    activity: label-unchecked
+    needs: [check]
+  summary:
+    activity: write-run-summary
+    needs: [label]
