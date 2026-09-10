@@ -20,7 +20,7 @@ Live status. Research phase completed on `cursor/ee-research-phase-7e0c`. Produc
 | PRD | **draft — owner review** | FR10–FR16 (workflows, UI, RAG tags, memory, gates, figures, photo stub) |
 | Architecture research | done | composability, DAG/language, catalog draft |
 | Technical architecture | **Proposed — owner review** | `docs/ARCHITECTURE.md`, `docs/WORKFLOWS.md`, ADR-0007 |
-| Product execution plan | **Gate 0 — waiting on owner questions** | [`docs/planning/GATE_0_RESEARCH.md`](docs/planning/GATE_0_RESEARCH.md). Nawab §0–§18 + `EXECUTION_GRAPH.md` not compiled yet (graph-engineering). |
+| Product execution plan | **Graph compiled — Wave 0 pending** | [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) · [`EXECUTION_GRAPH.md`](EXECUTION_GRAPH.md) · [`plans/nodes/`](plans/nodes/) |
 | Validator | PASS | `./scripts/research/validate-research.sh --full` |
 
 ## Assumptions
@@ -45,6 +45,7 @@ Live status. Research phase completed on `cursor/ee-research-phase-7e0c`. Produc
 | 2026-09-10 | PID/PRD/README upgraded to that architecture (exact `unchecked`, named workflows, UI, FR10–FR16) |
 | 2026-09-10 | Vendored `cursor-config-coding` @ `280dbc5` (nawab lite default, Spec Kit v1.0.6, opt-in graph-engineering) |
 | 2026-09-10 | Gate 0 research for product nawab+graph plan; compile blocked on owner answers |
+| 2026-09-10 | Compiled nawab project plan + execution graph + 25 node plans; Gate 0 closed |
 
 ## Handoff
 
@@ -55,4 +56,4 @@ ADRs: [`DECISIONS.md`](DECISIONS.md)
 Curriculum: [`docs/curriculum-map.md`](docs/curriculum-map.md)  
 Research advice (historical): [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md)
 
-**Stop:** no CLI / MCP / skill / UI implementation until the owner accepts the PRD **and** a compiled nawab+graph plan is approved. Architecture accept is a separate checkpoint. Graph compile waits on [`docs/planning/GATE_0_RESEARCH.md`](docs/planning/GATE_0_RESEARCH.md) answers.
+**Next:** approve/continue the graph to run Wave 0 ([`plans/nodes/D0.md`](plans/nodes/D0.md) → [`plans/nodes/A1.md`](plans/nodes/A1.md)). Product `src/` still starts only in Wave 1+.
