@@ -28,6 +28,7 @@ Marks: **v1** = specified now. **stub** = contract only (confirm, no silent sim)
 | solve-circuit-problem | Solve a circuit homework problem | v1 | DAG; may `run-recipe` explain or retrieve |
 | derive-circuit | Derive a circuit result from laws | v1 | check-numeric / sympy; no fake sim |
 | simulate-circuit | Simulate a netlist (SPICE) | v1 | `run-spice`; `repair_max: 2` |
+| simulate-after-confirm | Simulate only after UI topology confirm | v1 | C4; spice on confirmed netlist only |
 | review-circuit-solution | Find mistakes in a circuit solution | v1 | Review genre; label unchecked if not tool-checked |
 | explain-circuits | Explain a circuit idea for a viva | v1 | RAG filters + citations |
 
