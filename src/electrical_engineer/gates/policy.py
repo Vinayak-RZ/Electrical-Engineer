@@ -7,7 +7,6 @@ import tomllib
 from dataclasses import dataclass
 from pathlib import Path
 
-UNCHECKED = "unchecked"
 MAX_INTERRUPTS = 2
 
 DENY = 3

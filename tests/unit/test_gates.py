@@ -1,4 +1,5 @@
 from electrical_engineer.gates.policy import ASK, AUTO, DENY, GateAbort, GateBox, merge_gates
+from electrical_engineer.unchecked import UNCHECKED
 
 
 def test_most_restrictive_wins() -> None:
@@ -20,8 +21,6 @@ def test_third_interrupt_aborts() -> None:
 
 
 def test_allow_all_skips_ask_not_token() -> None:
-    from electrical_engineer.gates.policy import UNCHECKED
-
     box = GateBox({"photo": ASK}, allow_all=True)
     d = box.decide("photo")
     assert d.policy == AUTO
