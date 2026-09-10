@@ -1,0 +1,19 @@
+id: photo-to-netlist
+nodes:
+  detect:
+    activity: detect-components
+  wires:
+    activity: connect-wires
+    needs: [detect]
+  ocr:
+    activity: ocr-labels
+    needs: [wires]
+  draft:
+    activity: draft-netlist
+    needs: [ocr]
+  confirm:
+    activity: confirm-topology
+    needs: [draft]
+  summary:
+    activity: write-run-summary
+    needs: [confirm]
