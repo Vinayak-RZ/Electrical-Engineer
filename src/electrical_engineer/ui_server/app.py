@@ -1,0 +1,59 @@
+"""Persistent UI HTTP server. Bind 127.0.0.1 only."""
+
+from __future__ import annotations
+
+import os
+from pathlib import Path
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
+
+BIND_HOST = "127.0.0.1"
+BIND_PORT = 8765
+
+
+def create_app(root: Path | None = None) -> FastAPI:
+    app = FastAPI()
+    runs = (root or Path.cwd()) / "runs"
+
+    @app.get("/api/health")
+    def health() -> dict:
+        return {"bind": BIND_HOST, "ok": True}
+
+    @app.get("/api/runs")
+    def list_runs() -> dict:
+        items = []
+        if runs.is_dir():
+            items = sorted(p.name for p in runs.iterdir() if p.is_dir())
+        return {"runs": items}
+
+    @app.get("/api/runs/{run_id}")
+    def run_detail(run_id: str) -> dict:
+        summary = runs / run_id / "summary.json"
+        if not summary.is_file():
+            return JSONResponse({"error": "missing"}, status_code=404)
+        return {"id": run_id, "summary": summary.read_text()}
+
+    @app.post("/api/runs/{run_id}/confirm")
+    def confirm(run_id: str) -> dict:
+        return {"id": run_id, "confirmed": True, "simulate": False}
+
+    ui_dist = Path(__file__).resolve().parents[3] / "ui" / "dist"
+    index = ui_dist / "index.html"
+    if index.is_file():
+        app.mount("/assets", StaticFiles(directory=ui_dist / "assets"), name="assets")
+
+        @app.get("/")
+        def spa() -> FileResponse:
+            return FileResponse(index)
+
+    return app
+
+
+def bind_host() -> str:
+    return BIND_HOST
+
+
+def should_open_browser() -> bool:
+    return os.environ.get("EE_NO_BROWSER", "") not in {"1", "true", "TRUE"}
