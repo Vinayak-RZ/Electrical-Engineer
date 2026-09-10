@@ -25,3 +25,4 @@ Honest holes. Prefer a row here over fake gold. Expanded by B_NODES and later pa
 | CD-RAG-ENGINE | LightRAG/Docling not installed in CI | Missing deps; no licensed chapter in git | Thin BM25 facade; BYO ingest |
 
 
+| CD-SIGNALS-MATLAB | MATLAB-only DSP toolboxes as checked answers | UG OSS bound | OSS first; else unchecked |
