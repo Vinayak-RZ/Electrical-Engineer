@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable, Mapping
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
-from typing import Any, Callable, Mapping
+from typing import Any
 
 DEFAULT_TIMEOUT_S = 120
 MAX_TIMEOUT_S = 600
@@ -38,10 +39,8 @@ def parse_recipe(data: Mapping[str, Any]) -> Recipe:
     nodes: dict[str, NodeSpec] = {}
     for nid, body in raw_nodes.items():
         timeout = int(body.get("timeout_s", DEFAULT_TIMEOUT_S))
-        if timeout > MAX_TIMEOUT_S:
-            timeout = MAX_TIMEOUT_S
-        if timeout < 1:
-            timeout = 1
+        timeout = min(timeout, MAX_TIMEOUT_S)
+        timeout = max(timeout, 1)
         needs = tuple(body.get("needs") or [])
         nodes[str(nid)] = NodeSpec(
             id=str(nid),

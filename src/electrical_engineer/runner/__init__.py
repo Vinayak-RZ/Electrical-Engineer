@@ -1,3 +1,3 @@
-from electrical_engineer.runner.fsm import parse_recipe, ready_ids, run_fsm, RunnerError
+from electrical_engineer.runner.fsm import RunnerError, parse_recipe, ready_ids, run_fsm
 
-__all__ = ["parse_recipe", "ready_ids", "run_fsm", "RunnerError"]
+__all__ = ["RunnerError", "parse_recipe", "ready_ids", "run_fsm"]

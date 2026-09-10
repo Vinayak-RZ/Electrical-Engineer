@@ -1,4 +1,4 @@
-from electrical_engineer.runner.fsm import parse_recipe, ready_ids, run_fsm, RunnerError
+from electrical_engineer.runner.fsm import RunnerError, parse_recipe, ready_ids, run_fsm
 
 
 def _echo(_spec: dict, inputs: dict) -> dict:
