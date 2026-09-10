@@ -8,10 +8,12 @@ The project is also an experiment: how far current AI can go on **core engineeri
 
 ## System overview (today)
 
-Greenfield / research-complete; **PID accepted**; **PRD draft for owner review**. There is no shipped agent. Authority:
+Greenfield / research-complete; **PID accepted**; **PRD draft**; **architecture Proposed**. There is no shipped agent. Authority:
 
 - Identity: [`docs/PID.md`](docs/PID.md)
 - Requirements: [`docs/PRD.md`](docs/PRD.md)
+- Architecture (Proposed): [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+- Workflows (Proposed): [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md)
 - UG bound: [`docs/curriculum-map.md`](docs/curriculum-map.md)
 - Research history: [`research/`](research/)
 - Success-bar capabilities: [`README.md`](README.md)
@@ -21,7 +23,8 @@ Greenfield / research-complete; **PID accepted**; **PRD draft for owner review**
 
 ```
 Student
-  ├─ electrical-engineer CLI  (H3: policy, glue, eval)
+  ├─ electrical-engineer CLI  (H3: YAML DAG runner, policy, eval)
+  ├─ persistent localhost UI  (127.0.0.1; shared understanding)
   └─ Cursor / Claude Code / OpenAI
            ↓
      EE skill packs + MCP (H1 layer)
@@ -33,7 +36,7 @@ Student
      Explanation + evidence  |  or labelled unchecked
 ```
 
-Diagram ingest (later slice): vision → draft netlist → **student-edited schematic** → simulate.
+Named YAML recipes; router never invents a DAG. Diagram ingest (stub): vision → draft netlist → **UI confirm** → stop (sim later).
 
 ## Constraints
 
@@ -47,6 +50,7 @@ Diagram ingest (later slice): vision → draft netlist → **student-edited sche
 ## Sources of truth
 
 - Identity / requirements: `docs/PID.md`, `docs/PRD.md`
+- Architecture / workflows (Proposed): `docs/ARCHITECTURE.md`, `docs/WORKFLOWS.md`
 - Capabilities / vision: `README.md`
 - Landscape research: `research/notes/ai-core-engineering-landscape.md`
 - Historical build advice (not the harness lock): `research/synthesis/recommendation.md`

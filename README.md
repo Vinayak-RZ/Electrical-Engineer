@@ -4,7 +4,7 @@
 
 **Thesis.** Electrical Engineer is an Apache-2.0, forever-open-source **co-solver** for undergraduate electrical engineering: a branded **local CLI** that also plugs into Cursor, Claude Code, or OpenAI (or a local model / BYO key), checks numbers with simulators when it can and **labels** numbers it did not check, and is shaped by **real UG coursework** at Indian and global institutes. GATE is an eval instrument, not the product bound. PG, civil, and mechanical are out of the public promise.
 
-**What it is not (yet).** There is **no shipped agent, no CLI binary, no MCP server, and no textbook index** in this repository. Identity is locked; the CLI is specified, not implemented. Read [`docs/PID.md`](docs/PID.md) (Accepted) and [`docs/PRD.md`](docs/PRD.md) (draft for owner review).
+**What it is not (yet).** There is **no shipped agent, no CLI binary, no MCP server, no localhost UI, and no textbook index** in this repository. Identity is locked; architecture is **Proposed**. Read [`docs/PID.md`](docs/PID.md) (Accepted), [`docs/PRD.md`](docs/PRD.md) (draft), [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) (Proposed), [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md) (Proposed).
 
 **Harness (locked):** **H3** — branded CLI `electrical-engineer` wrapping portable skills + MCP + local RAG. Not a Pi fork (H4). Not a greenfield harness (H5). The CLI must stay a thin wrapper.
 
@@ -71,12 +71,12 @@ Measurement design lives in [`research/notes/capability-eval-design.md`](researc
 - Numbers: MATLAB if present, OSS first-class otherwise; unverified values labelled **unchecked**.
 - Circuit photos (later slice): reconstruct → **editable schematic** → simulate only after user confirmation.
 - Core-engineering AI in the wider world already uses that same verify-loop. This repo’s gap is an **open student co-solver**, not a plant-floor copilot. Read [`research/notes/ai-core-engineering-landscape.md`](research/notes/ai-core-engineering-landscape.md).
-- **Identity is locked.** [`docs/PID.md`](docs/PID.md). **PRD is draft for owner review.** [`docs/PRD.md`](docs/PRD.md). Research advice (historical): [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md).
+- **Identity is locked.** [`docs/PID.md`](docs/PID.md). **PRD is draft for owner review.** [`docs/PRD.md`](docs/PRD.md). **Architecture is Proposed.** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) · [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md). Research advice (historical): [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md).
 
 ## Table of contents
 
 - [Target capabilities (what success looks like)](#target-capabilities-what-success-looks-like)
-- [Accepted PID](docs/PID.md) · [PRD (draft)](docs/PRD.md)
+- [Accepted PID](docs/PID.md) · [PRD (draft)](docs/PRD.md) · [Architecture (Proposed)](docs/ARCHITECTURE.md) · [Workflows (Proposed)](docs/WORKFLOWS.md)
 - [1. Vision](#1-vision)
 - [2. Ideas worth understanding](#2-ideas-worth-understanding)
 - [3. How the research works](#3-how-the-research-works)
@@ -89,7 +89,7 @@ Measurement design lives in [`research/notes/capability-eval-design.md`](researc
 
 ### What it is
 
-The long-term idea is an **open-source** co-solver that behaves like a strong undergraduate electrical engineer: it can take the questions and diagrams that person is given, get them **right**, **teach** the solution, and leave an evidence trail a human can audit — or label numbers it did not check. Near-term, that person is a **UG** student, **India first**, without making global UG EE a thin afterthought. The first concrete step — completed in this repo — was research; the second is an Accepted PID and a PRD. There is still **no shipped CLI**.
+The long-term idea is an **open-source** co-solver that behaves like a strong undergraduate electrical engineer: it can take the questions and diagrams that person is given, get them **right**, **teach** the solution, and leave an evidence trail a human can audit — or label numbers it did not check. Near-term, that person is a **UG** student, **India first**, without making global UG EE a thin afterthought. The first concrete step — completed in this repo — was research; the second is an Accepted PID and a PRD; the third is a **Proposed** technical architecture. There is still **no shipped CLI**.
 
 PG is not a public promise. Later unpublished profiles may live in this same repository. Civil, mechanical, and manufacturing are never this product.
 
@@ -241,11 +241,11 @@ Nothing to configure for reading. Future runtime work will need (not wired here)
 **What would land.** Fixtures + retrieval/citation checks.  
 **Done when.** Nightly or PR-optional jobs can fail on citation fabrications.
 
-### 7.5 Optional standalone app later
+### 7.5 Persistent localhost UI (specified, not shipped)
 
-**Why.** Multi-agent MCP/skills come first; a UI can wrap the same SDK later.  
-**What would land.** Thin client over threads, artifacts, approvals.  
-**Done when.** The app calls the same tools as CLI hosts without a second brain.
+**Why.** The UI is a critical shared workspace so student and agent can see runs, library-rendered diagrams, plots, citations, and RAG inventory — not a one-shot pretty picture.  
+**What would land.** `electrical-engineer ui` on `127.0.0.1`, auto-opened on visual gates.  
+**Done when.** Photo-stub confirm and artifact browse work without a second agent loop. Spec: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ### 7.6 UG-bounded eval against the success bar
 
@@ -255,4 +255,4 @@ Nothing to configure for reading. Future runtime work will need (not wired here)
 
 ## Status
 
-Identity locked (H3, Apache-2.0, UG coursework bound). PRD awaiting owner accept. **No shipped agent.** See [`PROGRESS.md`](PROGRESS.md).
+Identity locked (H3, Apache-2.0, UG coursework bound). PRD awaiting owner accept. Architecture **Proposed**. **No shipped agent.** See [`PROGRESS.md`](PROGRESS.md).

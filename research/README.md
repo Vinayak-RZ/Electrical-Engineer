@@ -33,6 +33,7 @@ memo, and (heuristically) verbatim book text.
 | WS-D | Capability & evals | `notes/ee-task-taxonomy-draft.md`, `notes/capability-eval-design.md`, `notes/ai-core-engineering-landscape.md` |
 | WS-E | Synthesis | `synthesis/option-scoring.md`, `synthesis/recommendation.md`, `synthesis/rag-stack-recommendation.md` |
 | WS-F | README compilation | root `README.md`, `docs/EXTENSIVE.md` |
+| WS-Arch | Technical architecture | `notes/spatiotemporal-composability.md`, `notes/light-dag-fsm-and-language.md`, `notes/architecture-qa-gate.md`, `docs/ARCHITECTURE.md`, `docs/WORKFLOWS.md` |
 
 ## Assumptions while blockers are open
 
