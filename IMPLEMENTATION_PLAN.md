@@ -1,5 +1,15 @@
 # IMPLEMENTATION_PLAN
 
+## Current contract (2026-09-10) — Gate 0 (graph-engineering)
+
+Owner asked for a **nawab project-mode** plan plus **graph-engineering** to build the product end-to-end. That skill’s Gate 0 forbids compiling §19, `EXECUTION_GRAPH.md`, or node plans until numbered questions are answered.
+
+**Live artifact:** [`docs/planning/GATE_0_RESEARCH.md`](docs/planning/GATE_0_RESEARCH.md) — research findings, preview topology (not executable), must-answer + trade-off + optional questions.
+
+**Still true:** do not start CLI, MCP, skills, UI, or eval-runner implementation until the owner accepts [`docs/PRD.md`](docs/PRD.md) **and** the compiled nawab+graph plan is approved. Architecture docs remain **Proposed** until that checkpoint.
+
+---
+
 ## Current contract (2026-09-10) — Proposed technical architecture
 
 **Do not start CLI, MCP, skills, UI, or eval-runner implementation until the owner accepts [`docs/PRD.md`](docs/PRD.md) and a new implementation nawab plan is approved.** Architecture docs are **Proposed** (owner review), not an implementation license.
