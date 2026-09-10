@@ -26,3 +26,4 @@ Honest holes. Prefer a row here over fake gold. Expanded by B_NODES and later pa
 
 
 | CD-SIGNALS-MATLAB | MATLAB-only DSP toolboxes as checked answers | UG OSS bound | OSS first; else unchecked |
+| CD-MACHINES-FEA | Full FEA / Ansys Maxwell machine design | UG OSS bound | Phasor + equivalent-circuit OSS |
