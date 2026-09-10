@@ -1,0 +1,10 @@
+id: explain-circuits
+nodes:
+  retrieve:
+    activity: retrieve-passage
+  explain:
+    activity: solve-explain
+    needs: [retrieve]
+  summary:
+    activity: write-run-summary
+    needs: [explain]

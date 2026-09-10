@@ -23,13 +23,13 @@ def register(name: str) -> Callable[[Activity], Activity]:
 
 
 def _walk_checked(inputs: Mapping[str, Any]) -> bool:
+    """True when a direct child node verified a number. Do not recurse into echoed inputs."""
     for v in inputs.values():
         if not isinstance(v, dict):
             continue
-        if v.get("ok") is True and not v.get("unchecked"):
-            return True
-        nested = v.get("inputs")
-        if isinstance(nested, dict) and _walk_checked(nested):
+        if v.get("unchecked"):
+            continue
+        if v.get("ok") is True or (v.get("unchecked") is False and v.get("value") is not None):
             return True
     return False
 
