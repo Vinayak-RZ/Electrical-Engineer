@@ -29,3 +29,4 @@ Honest holes. Prefer a row here over fake gold. Expanded by B_NODES and later pa
 | CD-MACHINES-FEA | Full FEA / Ansys Maxwell machine design | UG OSS bound | Phasor + equivalent-circuit OSS |
 | CD-POWER-EMS | EMS / live grid dispatch | UG OSS bound | pandapower study-level or cannot-do |
 | CD-ELEC-PDK | Foundry PDK / analog tape-out | UG OSS bound | Textbook device equations only |
+| CD-MEAS-BENCH | Driving a physical instrument bench | UG OSS bound | Error-budget algebra |
