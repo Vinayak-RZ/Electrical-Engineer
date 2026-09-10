@@ -22,4 +22,6 @@ Honest holes. Prefer a row here over fake gold. Expanded by B_NODES and later pa
 | CD-WIN-CI | Windows/macOS CI | This graph Ubuntu only | Documented hosts |
 | CD-PYPI | Publish to PyPI | This graph | uv/pip from git |
 | CD-RAG-ANYTHING | RAG-Anything as locked engine | Unmaintained risk | LightRAG 1.5 spike + BM25 fallback |
+| CD-RAG-ENGINE | LightRAG/Docling not installed in CI | Missing deps; no licensed chapter in git | Thin BM25 facade; BYO ingest |
+
 
