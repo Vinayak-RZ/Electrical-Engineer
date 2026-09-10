@@ -18,3 +18,8 @@ Honest holes. Prefer a row here over fake gold. Expanded by B_NODES and later pa
 | CD-SIMULINK-PLANT | MATLAB-only Simulink plant models | Optional MATLAB; CI has none | OSS python-control / cannot-do |
 | CD-TAPEOUT | Analog tape-out / PDK flows | Not UG coursework promise | None |
 | CD-HANDWRITING | Full-page handwritten OCR | Later graph | Photo stub flags low confidence |
+| CD-LCAPY | Symbolic circuit via lcapy | Later graph | sympy check-numeric |
+| CD-WIN-CI | Windows/macOS CI | This graph Ubuntu only | Documented hosts |
+| CD-PYPI | Publish to PyPI | This graph | uv/pip from git |
+| CD-RAG-ANYTHING | RAG-Anything as locked engine | Unmaintained risk | LightRAG 1.5 spike + BM25 fallback |
+
