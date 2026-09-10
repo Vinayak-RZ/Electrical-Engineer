@@ -17,7 +17,18 @@ ui/                          # Vite React CSR (slots, zustand, CSS variables)
 - Thin slot registry (~50 lines): `root`, `sidebar`, `workspace`, `run.detail`, `run.artifacts`, `photo.confirm`, `rag.inventory`, `memory.excerpt`, `gates.prompt`.
 - CSS variables + CSS modules. Inter + JetBrains Mono (or Geist Mono). Never Coinbase fonts/wordmark.
 
-## Must not
+## Slot register API (ours, ~50 lines)
+
+```ts
+register(name: SlotName, Component: React.FC)
+render(name: SlotName): ReactNode
+```
+
+Plugins live in `ui/src/slots/<name>/`. Shell renders `root` only.
+
+## States
+
+empty, running, waiting-human, failed, done — see [`ui-ia.md`](ui-ia.md).
 
 - Second agent loop in the UI
 - WAN / `0.0.0.0` bind
