@@ -1,4 +1,4 @@
-import electrical_engineer.local_llm.client as client
+from electrical_engineer.local_llm import client
 
 
 def test_skip_if_missing(monkeypatch) -> None:

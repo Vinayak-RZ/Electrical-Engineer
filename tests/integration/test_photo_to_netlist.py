@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import yaml
 
 from electrical_engineer.catalog import load_recipe
@@ -9,6 +11,6 @@ def test_photo_yaml_stops_after_confirm() -> None:
     assert "confirm-topology" in acts
     assert "run-spice" not in acts
     assert recipe.nodes["summary"].needs == ("confirm",)
-    raw = yaml.safe_load(open("workflows/_cross/photo-to-netlist.yaml"))
+    raw = yaml.safe_load(Path("workflows/_cross/photo-to-netlist.yaml").read_text())
     blob = yaml.dump(raw)
     assert "run-spice" not in blob

@@ -11,7 +11,7 @@ A coding workspace for building and evolving that co-solver (analysis, circuits,
 
 ## Current status
 
-Greenfield: research complete, PID accepted, PRD draft, architecture **Proposed**. Product code is not in the tree — invent nothing about EE capabilities that is not in those docs. Prefer planning + Spec Kit for multi-phase feature work.
+Product execution graph **complete through H1** on `cursor/ee-product-execution-9e9d`: CLI, YAML runner, localhost UI, MCP, recipes, eval, boot + trials. Authority remains [`docs/PID.md`](docs/PID.md), [`docs/PRD.md`](docs/PRD.md), [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). Do not invent EE capabilities that are not in those docs or in [`docs/CANNOT_DO.md`](docs/CANNOT_DO.md).
 
 ---
 

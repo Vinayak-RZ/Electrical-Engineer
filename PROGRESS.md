@@ -20,7 +20,7 @@ Live status. Research phase completed on `cursor/ee-research-phase-7e0c`. Produc
 | PRD | **accepted (this graph)** | FR10–FR16; §10/§11 closed D0 |
 | Architecture research | done | composability, DAG/language, catalog draft |
 | Technical architecture | **accepted (this graph)** | `docs/ARCHITECTURE.md`, ADR-0007/0008 |
-| Product execution plan | **Wave 0 done — executing** | owner start 2026-09-10 |
+| Product execution plan | **graph complete (H1)** | owner start 2026-09-10; T1+R1 logged |
 | UI design lock | **closed** | DESIGN-coinbase; ADR-0008 accepted |
 | Validator | PASS | `./scripts/research/validate-research.sh --full` |
 
@@ -59,4 +59,4 @@ Architecture: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) (Accepted for this 
 ADRs: [`DECISIONS.md`](DECISIONS.md)  
 Curriculum: [`docs/curriculum-map.md`](docs/curriculum-map.md)
 
-**Next:** E1 eval gold + `electrical-engineer eval`.
+**Next:** maintain on `main` after PR review. No further graph waves in this plan.

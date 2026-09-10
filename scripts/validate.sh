@@ -4,11 +4,18 @@ cd "$(dirname "$0")/.."
 export PATH="${HOME}/.local/bin:${PATH}"
 uv run ruff check .
 uv run pytest -q
-if [[ -f eval/gold/circuits ]] || [[ -d eval/gold/circuits ]]; then
-  uv run electrical-engineer eval --pack circuits || true
-fi
+uv run electrical-engineer eval --pack circuits
 # Bind must never be 0.0.0.0 in product code.
-if grep -R --include='*.py' --include='*.ts' --include='*.tsx' -n '0.0.0.0' src ui 2>/dev/null | grep -v test; then
+if grep -R --include='*.py' --include='*.js' --include='*.jsx' --include='*.ts' --include='*.tsx' -n '0.0.0.0' src ui 2>/dev/null | grep -v test; then
   echo "refusing 0.0.0.0 bind" >&2
   exit 1
 fi
+if grep -R -nE '@deepseek-ai|from cordis|require\(.cordis' src ui pyproject.toml 2>/dev/null | grep -v test; then
+  echo "refusing Cordis/DSH runtime" >&2
+  exit 1
+fi
+if find ui -iname '*coinbase*' 2>/dev/null | grep -q .; then
+  echo "refusing Coinbase font/wordmark files" >&2
+  exit 1
+fi
+echo "validate.sh OK"
