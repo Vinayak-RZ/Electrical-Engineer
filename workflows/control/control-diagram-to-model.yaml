@@ -1,0 +1,13 @@
+id: control-diagram-to-model
+nodes:
+  detect:
+    activity: detect-components
+  draft:
+    activity: draft-netlist
+    needs: [detect]
+  confirm:
+    activity: confirm-topology
+    needs: [draft]
+  summary:
+    activity: write-run-summary
+    needs: [confirm]
