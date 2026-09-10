@@ -53,6 +53,17 @@ def main(argv: list[str] | None = None) -> int:
         for p in list_files(project_memory(project_root())):
             print(p)
         return 0
+    if args.cmd == "ui":
+        import webbrowser
+
+        import uvicorn
+
+        from electrical_engineer.ui_server.app import BIND_HOST, BIND_PORT, create_app, should_open_browser
+
+        if should_open_browser():
+            webbrowser.open(f"http://{BIND_HOST}:{BIND_PORT}/")
+        uvicorn.run(create_app(), host=BIND_HOST, port=BIND_PORT)
+        return 0
     print(args.cmd)
     return 0
 
