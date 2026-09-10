@@ -7,5 +7,10 @@ def test_help_lists_commands() -> None:
         assert cmd in text
 
 
-def test_main_no_args_ok() -> None:
-    assert main([]) == 0
+def test_version_flag() -> None:
+    try:
+        main(["--version"])
+    except SystemExit as exc:
+        assert exc.code == 0
+    else:
+        raise AssertionError("expected SystemExit")

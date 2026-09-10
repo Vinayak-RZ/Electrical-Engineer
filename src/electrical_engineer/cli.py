@@ -5,11 +5,14 @@ from __future__ import annotations
 import argparse
 import sys
 
+from electrical_engineer import __version__
+
 COMMANDS = ("run", "workflows", "mcp", "eval", "ui", "rag", "memory")
 
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="electrical-engineer")
+    p.add_argument("--version", action="version", version=f"electrical-engineer {__version__}")
     sub = p.add_subparsers(dest="cmd")
     run = sub.add_parser("run")
     run.add_argument("workflow_id", nargs="?")
