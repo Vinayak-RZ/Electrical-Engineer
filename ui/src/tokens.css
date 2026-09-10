@@ -1,0 +1,38 @@
+:root {
+  --ee-color-canvas: #ffffff;
+  --ee-color-ink: #0a0b0d;
+  --ee-color-primary: #0052ff;
+  --ee-radius-xl: 24px;
+  --ee-radius-pill: 999px;
+  --ee-space-s: 8px;
+  --ee-space-m: 16px;
+  --ee-focus: 2px;
+  --ee-shadow: 0 8px 24px rgba(10, 11, 13, 0.06);
+  --ee-semantic-up: #0f7b3a;
+  --ee-semantic-down: #b42318;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--ee-color-ink);
+  background: var(--ee-color-canvas);
+}
+body { margin: 0; }
+.badge-pill {
+  display: inline-block;
+  border-radius: var(--ee-radius-pill);
+  padding: 4px 10px;
+  background: var(--ee-color-primary);
+  color: #fff;
+}
+.button-primary {
+  min-height: 44px;
+  border-radius: var(--ee-radius-pill);
+  border: 0;
+  background: var(--ee-color-primary);
+  color: #fff;
+  padding: 0 20px;
+}
+.button-primary:focus { outline: var(--ee-focus) solid var(--ee-color-primary); }
+.card { border-radius: var(--ee-radius-xl); box-shadow: var(--ee-shadow); padding: var(--ee-space-m); }
+.number-display { font-family: "JetBrains Mono", ui-monospace, monospace; }
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: var(--ee-space-m); }
+a { color: var(--ee-color-primary); }
