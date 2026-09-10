@@ -31,3 +31,4 @@ Honest holes. Prefer a row here over fake gold. Expanded by B_NODES and later pa
 | CD-ELEC-PDK | Foundry PDK / analog tape-out | UG OSS bound | Textbook device equations only |
 | CD-MEAS-BENCH | Driving a physical instrument bench | UG OSS bound | Error-budget algebra |
 | CD-EM-HFSS | Commercial full-wave solvers as the product path | UG OSS bound | Analytic UG identities |
+| CD-PE-HIL | Hardware-in-the-loop converter benches | UG OSS bound | Averaged models / unchecked |
