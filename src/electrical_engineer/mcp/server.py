@@ -60,11 +60,21 @@ def handle(method: str, params: dict[str, Any] | None) -> Any:
                     "content": [{"type": "text", "text": json.dumps(fail_closed())}],
                     "isError": True,
                 }
+            from electrical_engineer.runner.execute import execute
+
+            result = execute(wid)
             return {
                 "content": [
                     {
                         "type": "text",
-                        "text": json.dumps({"workflow_id": wid, "waits": False, "status": "started"}),
+                        "text": json.dumps(
+                            {
+                                "workflow_id": wid,
+                                "waits": False,
+                                "status": "started",
+                                "run_id": result["run_id"],
+                            }
+                        ),
                     }
                 ]
             }

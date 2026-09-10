@@ -60,6 +60,12 @@ def create_app(root: Path | None = None) -> FastAPI:
         (d / "confirmed.json").write_text('{"confirmed": true, "simulate": false}')
         return {"id": run_id, "confirmed": True, "simulate": False}
 
+    @app.get("/api/rag/inventory")
+    def rag_inventory() -> dict:
+        from electrical_engineer.rag.inventory import load_inventory
+
+        return {"items": load_inventory(root)}
+
     ui_dist = Path(__file__).resolve().parents[3] / "ui" / "dist"
     index = ui_dist / "index.html"
     if index.is_file():
