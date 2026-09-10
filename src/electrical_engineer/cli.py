@@ -91,6 +91,10 @@ def main(argv: list[str] | None = None) -> int:
             webbrowser.open(f"http://{BIND_HOST}:{BIND_PORT}/")
         uvicorn.run(create_app(), host=BIND_HOST, port=BIND_PORT)
         return 0
+    if args.cmd == "eval":
+        from electrical_engineer.eval_runner.score import run_pack
+
+        return run_pack(args.pack)
     if args.cmd == "rag":
         from electrical_engineer.rag.inventory import add_doc, load_inventory, tag_doc
 
