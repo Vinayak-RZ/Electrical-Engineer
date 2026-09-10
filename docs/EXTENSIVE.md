@@ -40,7 +40,7 @@ When a future implementation phase starts, expect a thin `electrical-engineer` C
 | `PROGRESS.md` | Phase status log |
 | `DECISIONS.md` | ADRs (0001/0005/0006 accepted; 0002–0004 and **0007** proposed) |
 | `LICENSE` | Apache License 2.0 |
-| `skills-manifest.json` | Inventory of vendored skills |
+| `skills-manifest.json` | Inventory of vendored skills (40 skills, Spec Kit v1.0.6) |
 | `research/` | Research-phase artifacts (authority for “what to build”) |
 | `eval/gold/` | Specified gold-task layout; empty packs; no runner |
 | `scripts/` | Helper scripts (research validator; Cursor config installers) |
@@ -121,7 +121,7 @@ When a future implementation phase starts, expect a thin `electrical-engineer` C
 | Path | What it does | Why it exists |
 |------|--------------|---------------|
 | `scripts/research/validate-research.sh` | Failable research gate | Enforce note quality without a test framework |
-| `scripts/cursor-config/*.ps1` | Install/link Cursor config pieces | From vendored coding-config setup |
+| `scripts/cursor-config/*.ps1` | Install/link Cursor config; `validate-config.ps1` is the upstream checker (paths assume the coding-config repo layout) | From vendored coding-config setup |
 
 ---
 
@@ -142,23 +142,24 @@ When a future implementation phase starts, expect a thin `electrical-engineer` C
 
 ## Package: `.cursor/` (vendored coding config)
 
-**What it is for.** Rules and skills that constrain how agents plan and code in this repo (`nawab-plans`, `ponytail`, `agentic-system-design`, `readme` router, Spec Kit skills, etc.).
+**What it is for.** Rules and skills that constrain how agents plan and code in this repo (`nawab-plans` with lite/standard/project profiles, `ponytail`, `agentic-system-design`, `readme` router, Spec Kit v1.0.6, opt-in `graph-engineering`).
 
-**How it is invoked.** Cursor loads rules; agents are told via `AGENTS.md` to read skills before planning/coding.
+**How it is invoked.** Cursor loads rules; agents are told via `AGENTS.md` to read skills before planning/coding. Always-on stubs: `rule-awareness`, `ponytail`, `ai-anti-patterns`. Plan mode defaults to nawab **lite**.
 
 **Important files (not exhaustive):**
 
 | Path | Why it exists |
 |------|---------------|
-| `.cursor/rules/planning.mdc` | Mandates nawab-plans in Plan mode |
-| `.cursor/rules/ponytail.mdc` | Minimal-diff discipline before code |
+| `.cursor/rules/planning.mdc` | Nawab at chosen profile (lite default; not always-on) |
+| `.cursor/rules/ponytail.mdc` | Minimal-diff discipline before code (always-on) |
 | `.cursor/rules/agentic-systems.mdc` | Agent/RAG/MCP architecture expectations |
-| `.cursor/skills/nawab-plans/` | 18-section execution plans |
+| `.cursor/skills/nawab-plans/` | Lite + full plan templates |
+| `.cursor/skills/graph-engineering/` | Opt-in linked node plans (only if named) |
 | `.cursor/skills/agentic-system-design/` | Agent design checklist |
 | `.cursor/skills/readme/` + `readable-readme/` + `extensive-readme/` | README routing and authorship |
 | `.cursor/mcp.json` | Points at agent-patterns MCP (may be unreachable in some environments) |
 
-Vendor pin notes: `.cursor/VENDOR.md`.
+Vendor pin notes: `.cursor/VENDOR.md`. Product overlay: root `AGENTS.md` (do not replace with the coding-config index).
 
 ---
 
