@@ -41,6 +41,21 @@
 | Q-E3 | Same repo, PG unpublished (not a second fork) |
 | Q-N2 | A — no civil/mechanical packs |
 
+## Architecture-aligned product shape (2026-09-10)
+
+Owner answers that upgrade the **product definition** (PRD FRs) without reopening P0. Detail: [`ARCHITECTURE.md`](ARCHITECTURE.md) (still **Proposed**).
+
+| Topic | Product shape |
+|-------|----------------|
+| Surfaces | CLI + stdio MCP + **persistent localhost UI** (critical) |
+| Workflows | Named recipes; hybrid router; unmatched never auto-simulates |
+| Unchecked | Exact token `unchecked` (no synonyms) |
+| RAG | Inventory + book/chapter/folder tags; quality is first-class |
+| Memory | Capped markdown files, two scopes, untrusted |
+| Eval | `eval/gold/` + `electrical-engineer eval` |
+| MATLAB | Optional; whole product works without it |
+| Photo | Stub: UI confirm, no sim in first slice |
+
 Original questions follow for traceability.
 
 ---

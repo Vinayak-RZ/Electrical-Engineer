@@ -7,7 +7,7 @@
 | Field | Contract |
 |-------|----------|
 | Identity | [`docs/PID.md`](docs/PID.md) **Accepted** |
-| Requirements | [`docs/PRD.md`](docs/PRD.md) draft for owner review |
+| Requirements | [`docs/PRD.md`](docs/PRD.md) draft — FRs aligned to Proposed architecture (workflows, UI, RAG tags, eval) |
 | Architecture | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) **Proposed** |
 | Workflows | [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md) **Proposed** |
 | Q&A locks | [`research/notes/architecture-qa-gate.md`](research/notes/architecture-qa-gate.md) |

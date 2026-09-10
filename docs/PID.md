@@ -1,8 +1,9 @@
 # Product Identity Document (PID) — Electrical Engineer
 
-**Status:** Accepted (P0 locks, 2026-09-09). P1 items remain **proposed** until PRD review.  
-**Date:** 2026-09-09  
-**Requirements authority after this:** [`PRD.md`](PRD.md)
+**Status:** Accepted (P0 locks, 2026-09-09). Product *shape* aligned to the Proposed architecture (2026-09-10) without reopening P0. P1 items remain **proposed** until PRD review.  
+**Date:** 2026-09-09 (P0); shape note 2026-09-10  
+**Requirements authority after this:** [`PRD.md`](PRD.md)  
+**How it is built:** [`ARCHITECTURE.md`](ARCHITECTURE.md) (Proposed)
 
 This document is the locked product identity. Trade-off *history* lives in git; agents must not reopen H1–H5, licence, or UG vs PG without a new owner decision.
 
@@ -10,7 +11,7 @@ This document is the locked product identity. Trade-off *history* lives in git; 
 
 ## 1. Thesis
 
-Electrical Engineer is an Apache-2.0, forever-open-source **co-solver** for undergraduate electrical engineering: a branded **local CLI** that also plugs into Cursor, Claude Code, or OpenAI (or a local model / BYO key), checks numbers with simulators when it can and **labels** numbers it did not check, and is shaped by **real UG coursework** at Indian and global institutes. GATE is an eval instrument, not the product bound. PG, civil, and mechanical are out of the public promise.
+Electrical Engineer is an Apache-2.0, forever-open-source **co-solver** for undergraduate electrical engineering: a branded **local CLI** plus a **persistent localhost UI** that also plug into Cursor, Claude Code, or OpenAI (or a local model / BYO key). Named **workflows** (checked-in recipes a student can understand) make retrieval, citations, and verified numbers better — they are not a unique agent loop. The product checks numbers with simulators when it can and labels unverified numbers with the exact token **unchecked**, and it is shaped by **real UG coursework** at Indian and global institutes. GATE is an eval instrument, not the product bound. PG, civil, and mechanical are out of the public promise.
 
 ## 2. Identity (locked)
 
@@ -23,18 +24,20 @@ Electrical Engineer is an Apache-2.0, forever-open-source **co-solver** for unde
 | Geography | India first; must not be weak for global UG EE |
 | Licence (our code) | Apache License 2.0 |
 | Commercial | Forever OSS in this repo; no paid tier |
-| Locality | Local-first CLI; optional Cursor / Claude Code / OpenAI; BYO API key; local models |
-| Harness | **H3** — branded CLI wrapping portable skills + MCP + local RAG (H1 layer). Not a Pi fork (H4). Not a greenfield harness (H5). |
+| Locality | Local-first CLI + persistent UI on `127.0.0.1`; optional Cursor / Claude Code / OpenAI; BYO API key; local models |
+| Harness | **H3** — branded CLI wrapping portable skills + MCP + local RAG (H1 layer). Deterministic YAML workflow runner; hosts own the main LLM loop. Not a Pi fork (H4). Not a greenfield harness (H5). |
+| Surfaces | CLI `electrical-engineer`, stdio MCP, **persistent localhost UI** (critical, not a diagram gadget) |
+| Workflows | Named recipes a student understands; router picks a name (or unmatched co-solver); does not invent a new graph |
 | Repo copies | **One repo only** |
-| Default mode | Co-solver (full working + answer + evidence or unchecked label) |
-| Unverified numbers | Allowed if **labelled unchecked**; never presented as simulation |
+| Default mode | Co-solver (full working + answer + evidence, or exact token `unchecked`) |
+| Unverified numbers | Allowed if labelled with the exact token **unchecked**; never presented as simulation |
 | Faculty / TA | None in v1 |
 | PG | Not a public promise |
 | Civil / mechanical / manufacturing | Never in this product |
 
-**Is:** a student-facing, open, checkable UG electrical-engineering co-solver.  
-**Is not:** Siemens Eigen, MATLAB Copilot, Cadence Cerebrus, a plant-floor controller, a faculty LMS, a GATE-only drill app, or a general coding agent with “also do circuits.”  
-**Invariant:** tools own checked numbers; unchecked numbers are labelled; diagrams (when in scope) are drafts until the student confirms; no commercial textbooks in git.
+**Is:** a student-facing, open, checkable UG electrical-engineering co-solver with named workflows, simulators, tagged local RAG, and a persistent local UI so the student and the agent can **see** the work.  
+**Is not:** Siemens Eigen, MATLAB Copilot, Cadence Cerebrus, a plant-floor controller, a faculty LMS, a GATE-only drill app, a general coding agent with “also do circuits,” or a unique agent harness that hosts cannot share.  
+**Invariant:** tools own checked numbers; unverified numbers use the exact token **unchecked**; diagrams are drafts until the student confirms in the UI; no commercial textbooks in git.
 
 ## 3. Who it is for
 
@@ -72,24 +75,25 @@ Claimable bar: on a published UG task set, with tools on, match gold **or label 
 
 ```text
 Student
-  ├─ electrical-engineer CLI (branded, local, policy here)
+  ├─ electrical-engineer CLI   (named workflows, gates, eval, rag inventory)
+  ├─ persistent localhost UI   (127.0.0.1; shared understanding)
   └─ Cursor / Claude Code / OpenAI (same skills + MCP)
            │
-     skills + MCP (RAG, spice, matlab)
+     skills + MCP (RAG, spice, matlab-if-present)
            │
      models: host subscription | BYO API key | local LLM
            │
      verifiers: OSS first-class; MATLAB if present
 ```
 
-The CLI is a **thin wrapper** (glue, ug profile, co-solver defaults, eval runner). It must not grow into a unique agent loop (H5). Hosts keep their own loops; we supply skills, tools, and policy the CLI also applies.
+The CLI is a **thin wrapper**: glue, ug profile, co-solver defaults, a **deterministic YAML DAG runner**, eval, and the local UI. It must not grow into a unique agent loop (H5). Hosts keep their own loops; we supply skills, tools, named recipes, and policy the CLI also applies. Detail: [`ARCHITECTURE.md`](ARCHITECTURE.md).
 
 ## 7. Trust (locked)
 
 | Topic | Stance |
 |-------|--------|
-| Unverified numbers | Label **unchecked**; never call them simulation |
-| Diagrams | Draft until student confirms |
+| Unverified numbers | Exact token **unchecked** in the answer and in the run summary; never call them simulation |
+| Diagrams | Draft until the student confirms in the persistent UI |
 | Integrity | Co-solver default; institution owns cheating policy; no faculty mode in v1 |
 | Student data | Local by default; no silent upload |
 | Plant / PLC write | Out of product |
@@ -110,10 +114,11 @@ The CLI is a **thin wrapper** (glue, ug profile, co-solver defaults, eval runner
 
 | Topic | Proposed |
 |-------|----------|
-| MATLAB vs OSS | MATLAB if present; OSS first-class otherwise |
-| RAG | Local vector store; BYO PDFs; no commercial books in git |
-| v1 slice | C1–C3, C6–C7 P0; C4 P1; C5 after C4 |
-| First pack | Circuits first, then control |
+| MATLAB vs OSS | MATLAB if present; OSS first-class otherwise; **product works without MATLAB** |
+| RAG | Local store; BYO PDFs and scans; inventory + book/chapter/folder tags; no commercial books in git |
+| Persistent UI | First-class local workspace (`electrical-engineer ui`), not a later optional app |
+| v1 slice | C1–C3, C6–C7 plus UI + eval layout; C4 photo stub (confirm, no sim); C5 after C4 |
+| First pack | Circuits first, then control (named workflows in [`WORKFLOWS.md`](WORKFLOWS.md)) |
 
 ## 10. Related artifacts
 
