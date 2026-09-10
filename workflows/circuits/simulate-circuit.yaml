@@ -1,0 +1,14 @@
+id: simulate-circuit
+nodes:
+  load:
+    activity: load-netlist
+  spice:
+    activity: run-spice
+    needs: [load]
+    repair_max: 2
+  label:
+    activity: label-unchecked
+    needs: [spice]
+  summary:
+    activity: write-run-summary
+    needs: [label]
