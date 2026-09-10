@@ -25,6 +25,11 @@ def build_parser() -> argparse.ArgumentParser:
     ui.add_argument("--run")
     rag = sub.add_parser("rag")
     rag.add_argument("action", nargs="?", default="list")
+    rag.add_argument("path", nargs="?")
+    rag.add_argument("--book-id")
+    rag.add_argument("--chapter-id")
+    rag.add_argument("--folder-tag")
+    rag.add_argument("--domain-tag")
     mem = sub.add_parser("memory")
     mem.add_argument("action", nargs="?", default="list")
     return p
@@ -85,6 +90,34 @@ def main(argv: list[str] | None = None) -> int:
         if should_open_browser():
             webbrowser.open(f"http://{BIND_HOST}:{BIND_PORT}/")
         uvicorn.run(create_app(), host=BIND_HOST, port=BIND_PORT)
+        return 0
+    if args.cmd == "rag":
+        from electrical_engineer.rag.inventory import add_doc, load_inventory, tag_doc
+
+        tags = {
+            "book_id": getattr(args, "book_id", None),
+            "chapter_id": getattr(args, "chapter_id", None),
+            "folder_tag": getattr(args, "folder_tag", None),
+            "domain_tag": getattr(args, "domain_tag", None),
+        }
+        if args.action == "list":
+            for rec in load_inventory():
+                print(rec.get("path"))
+            return 0
+        if args.action == "add":
+            if not args.path:
+                print("rag add <path>", file=sys.stderr)
+                return 2
+            add_doc(args.path, tags=tags)
+            print(args.path)
+            return 0
+        if args.action == "tag":
+            if not args.path:
+                print("rag tag <path>", file=sys.stderr)
+                return 2
+            tag_doc(args.path, tags)
+            return 0
+        print(args.action)
         return 0
     print(args.cmd)
     return 0
