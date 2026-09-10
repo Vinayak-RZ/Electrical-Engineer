@@ -1,0 +1,20 @@
+# Cannot-do (seed)
+
+Honest holes. Prefer a row here over fake gold. Expanded by B_NODES and later packs.
+
+| ID | Ask | Why not | Workaround |
+|----|-----|---------|------------|
+| CD-PLC | Live PLC / plant actuation | Out of product (PID) | None |
+| CD-CIVIL | Civil / mechanical / manufacturing | Never this product | None |
+| CD-PG | Graduate-only optimal control as a public promise | UG bound | Later unpublished `--profile` |
+| CD-H4 | Electric Pi / Cordis / DSH as runtime | H4/H5 falsifier | H3 CLI + hosts |
+| CD-BOOKS | Commercial textbooks in git | Copyright | BYO on the student machine |
+| CD-EXAM-PDF | Third-party exam PDFs in git | Copyright | BYO; licence-clean reconstructions |
+| CD-HTTP-MCP | HTTP/SSE MCP | Later graph | stdio MCP now |
+| CD-BYOK | Hosted API keys in-product | Later graph | Host subscription or local OpenAI-compat |
+| CD-CRASH | Resume a dead run from `out.json` | No crash-resume | Start a new run |
+| CD-KICAD | Full schematic editor | UI is a slot viewer | Library SVG/PNG + JSON graph |
+| CD-IMG-GEN | Image generation of circuits | Forbidden default | schemdraw / matplotlib |
+| CD-SIMULINK-PLANT | MATLAB-only Simulink plant models | Optional MATLAB; CI has none | OSS python-control / cannot-do |
+| CD-TAPEOUT | Analog tape-out / PDK flows | Not UG coursework promise | None |
+| CD-HANDWRITING | Full-page handwritten OCR | Later graph | Photo stub flags low confidence |

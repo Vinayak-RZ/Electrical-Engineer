@@ -17,11 +17,11 @@ Live status. Research phase completed on `cursor/ee-research-phase-7e0c`. Produc
 | G Core-EE landscape + success bar | done | `ai-core-engineering-landscape.md`, README capabilities C1–C8 |
 | P Product identity | done (P0) | `docs/PID.md` **Accepted**; shape note 2026-09-10 (workflows, UI) |
 | Curriculum map | done | `docs/curriculum-map.md` — UG India+global; GATE = eval overlay |
-| PRD | **draft — owner review** | FR10–FR16 (workflows, UI, RAG tags, memory, gates, figures, photo stub) |
+| PRD | **accepted (this graph)** | FR10–FR16; §10/§11 closed D0 |
 | Architecture research | done | composability, DAG/language, catalog draft |
-| Technical architecture | **Proposed — owner review** | `docs/ARCHITECTURE.md`, `docs/WORKFLOWS.md`, ADR-0007 |
-| Product execution plan | **Graph compiled — owner review** | [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) · [`EXECUTION_GRAPH.md`](EXECUTION_GRAPH.md) · [`plans/nodes/`](plans/nodes/) |
-| UI design lock | **closed** | [`docs/design/DESIGN-coinbase.md`](docs/design/DESIGN-coinbase.md) · [`docs/planning/DESIGN_LOCK.md`](docs/planning/DESIGN_LOCK.md) · ADR-0008 proposed |
+| Technical architecture | **accepted (this graph)** | `docs/ARCHITECTURE.md`, ADR-0007/0008 |
+| Product execution plan | **Wave 0 done — executing** | owner start 2026-09-10 |
+| UI design lock | **closed** | DESIGN-coinbase; ADR-0008 accepted |
 | Validator | PASS | `./scripts/research/validate-research.sh --full` |
 
 ## Assumptions
@@ -30,7 +30,7 @@ Live status. Research phase completed on `cursor/ee-research-phase-7e0c`. Produc
 - CP-2: MATLAB if present; OSS first-class. Entire product must work without MATLAB.
 - Phase S cancelled until explicitly approved.
 - Research `recommendation.md` O1/H2 is historical advice; product harness is H3.
-- Architecture Q&A answers shape the Proposed docs and the PRD FRs; they do not authorize product code.
+- Architecture Q&A answers shape the accepted docs and the PRD FRs.
 
 ## Refinement log
 
@@ -48,14 +48,14 @@ Live status. Research phase completed on `cursor/ee-research-phase-7e0c`. Produc
 | 2026-09-10 | Gate 0 research for product nawab+graph plan; compile blocked on owner answers |
 | 2026-09-10 | Compiled nawab project plan + execution graph + 25 node plans; Gate 0 closed |
 | 2026-09-10 | DESIGN-coinbase locked as UI visual system; ADR-0008 seeded; Wave 0 waits on owner start |
+| 2026-09-10 | Owner start: D0+A1 executed; Spec Kit scaffolded; product `src/` begins Wave 1 |
 
 ## Handoff
 
-PID: [`docs/PID.md`](docs/PID.md) (Accepted; shape aligned 2026-09-10)  
-PRD: [`docs/PRD.md`](docs/PRD.md) (**waiting on owner**: accept or request edits)  
-Architecture: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) (**Proposed**) · [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md)  
+PID: [`docs/PID.md`](docs/PID.md) (Accepted)  
+PRD: [`docs/PRD.md`](docs/PRD.md) (Accepted for this graph)  
+Architecture: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) (Accepted for this graph)  
 ADRs: [`DECISIONS.md`](DECISIONS.md)  
-Curriculum: [`docs/curriculum-map.md`](docs/curriculum-map.md)  
-Research advice (historical): [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md)
+Curriculum: [`docs/curriculum-map.md`](docs/curriculum-map.md)
 
-**Next:** owner reviews [`EXECUTION_GRAPH.md`](EXECUTION_GRAPH.md). Say start / build / implement to run Wave 0 ([`plans/nodes/D0.md`](plans/nodes/D0.md) → [`plans/nodes/A1.md`](plans/nodes/A1.md)). Product `src/` still starts only in Wave 1+.
+**Next:** Wave 1 [`plans/nodes/B_PKG.md`](plans/nodes/B_PKG.md).

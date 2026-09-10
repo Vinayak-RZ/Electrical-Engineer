@@ -199,7 +199,7 @@ flowchart TB
 
 | Wave | Nodes | Fan-out? | Barrier? | Status |
 |------|-------|----------|----------|--------|
-| 0 | [D0](plans/nodes/D0.md) then [A1](plans/nodes/A1.md) | no (shared docs) | yes after A1 | pending |
+| 0 | [D0](plans/nodes/D0.md) then [A1](plans/nodes/A1.md) | no (shared docs) | yes after A1 | done |
 | 1 | [B_PKG](plans/nodes/B_PKG.md) | no | no | pending |
 | 2 | [B_CORE](plans/nodes/B_CORE.md) | no | no | pending |
 | 3 | [B_NODES](plans/nodes/B_NODES.md), [U1](plans/nodes/U1.md) | yes | no | pending |

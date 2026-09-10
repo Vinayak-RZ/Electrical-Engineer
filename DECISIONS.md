@@ -42,12 +42,12 @@ Research memo [`research/synthesis/recommendation.md`](research/synthesis/recomm
 
 ## ADR-0004 — Multimodal RAG ingest engine
 
-- **Status:** proposed
-- **Context:** EE textbooks mix text, equations, tables, figures, and multi-column layout; text-only RAG fails. User flagged [RAG-Anything](https://github.com/HKUDS/RAG-Anything) as a candidate all-in-one stack.
-- **Decision:** Use **RAG-Anything (MinerU default) as the ingest + index engine** behind a portable **EE RAG MCP server**; distribute via **GitHub Releases** as an installable sidecar with local Ollama/LM Studio backends. Do **not** adopt it as the agent harness or skip the MCP wrapper.
-- **Consequences:** Heavy Python/MinerU dependency chain; user-local index and BYO PDFs; spike on one owned EE chapter required before `accepted`. Fallback: MinerU/Docling + thin custom MCP if spike fails.
-- **Alternatives:** Thin MinerU+MCP only; Docling+LlamaIndex; VLM-only chunking; commercial parsers; Microsoft GraphRAG as primary spine.
-- **Sources:** `research/notes/rag-anything-evaluation.md`, `research/synthesis/rag-stack-recommendation.md`, `research/notes/rag-parsing-formulae-figures.md`, `research/notes/rag-agent-integration.md`
+- **Status:** proposed (engine undecided until spike)
+- **Context:** EE textbooks mix text, equations, tables, figures, and multi-column layout; text-only RAG fails. RAG-Anything is unmaintained risk.
+- **Decision:** **Spike LightRAG 1.5** vs Docling vs BM25+dense. Facade + inventory + book/chapter/folder filters ship regardless. Do **not** adopt any engine as the agent harness. Decide after measured numbers (QUALITY then SPEED).
+- **Consequences:** No engine pin in Wave 0. B_RAG_SPIKE writes the note. Fallback: BM25+dense + cannot-do row if all heavy engines fail.
+- **Alternatives:** RAG-Anything/MinerU as locked default (deferred); VLM-only chunking; commercial parsers.
+- **Sources:** `research/notes/rag-anything-evaluation.md`, Gate 0 owner answers, `IMPLEMENTATION_PLAN.md` §11
 
 ---
 
@@ -75,10 +75,10 @@ Research memo [`research/synthesis/recommendation.md`](research/synthesis/recomm
 
 ## ADR-0007 — Orchestrator, recipes, gates, UI, eval
 
-- **Status:** proposed (architecture pass 2026-09-10; same ritual as the PRD)
+- **Status:** accepted (A1, 2026-09-10)
 - **Context:** Need a local-first way to run named UG EE workflows, compose advanced DAGs, retrieve tagged textbooks, confirm diagrams, and score gold tasks — without LangGraph, a Temporal cluster, or a DeepSeek Harness fork (those would be H5 or H4).
-- **Decision:** Tiny **Python 3.11+** in-process DAG runner of checked-in **YAML** recipes (`workflows/<pack>/<id>.yaml`) whose nodes are registered Python functions (including nested `run-recipe`, depth ≤ 3). Hybrid router **selects** a named recipe (classifier when id omitted); it **never invents** a DAG. New graphs only via `compose-from-parts --advanced` (typed ports, 16/24 cap). Per-run **files** under `./runs/{suffix}-{timestamp}/` are **audit only** (no crash-resume). Cursor-like TOML gates; MCP `run_workflow` never waits. **Persistent localhost UI** (`127.0.0.1`) is a critical shared workspace for student and agent. RAG stays proposed RAG-Anything plus inventory and book/chapter/folder filters. Memory is capped markdown in two scopes. Eval layout is `eval/gold/` + `electrical-engineer eval`. Exact token `unchecked`. Full pick table: [`research/notes/architecture-qa-gate.md`](research/notes/architecture-qa-gate.md). System: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). Catalog: [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md).
-- **Consequences:** Implementers must not add an agent loop, crash-resume, or router-authored graphs. Hosts keep LLM loops; CLI is deterministic glue plus registered LLM nodes. MATLAB remains optional. Architecture is **Proposed** until owner accept. Product code still waits on PRD accept.
+- **Decision:** Tiny **Python 3.11+** in-process DAG runner of checked-in **YAML** recipes (`workflows/<pack>/<id>.yaml`) whose nodes are registered Python functions (including nested `run-recipe`, depth ≤ 3). Hybrid router **selects** a named recipe (classifier when id omitted); it **never invents** a DAG. New graphs only via `compose-from-parts --advanced` (typed ports, 16/24 cap). Per-run **files** under `./runs/{suffix}-{timestamp}/` are **audit only** (no crash-resume). Cursor-like TOML gates; MCP `run_workflow` never waits. **Persistent localhost UI** (`127.0.0.1`) is a critical shared workspace. RAG is a facade after a LightRAG 1.5 spike. Memory is capped markdown in two scopes. Eval layout is `eval/gold/` + `electrical-engineer eval`. Exact token `unchecked`.
+- **Consequences:** Implementers must not add an agent loop, crash-resume, or router-authored graphs. Hosts keep LLM loops; CLI is deterministic glue plus registered LLM nodes. MATLAB remains optional.
 - **Alternatives:** LangGraph (rejected); Temporal cluster (rejected); DSH/Cordis runtime (rejected, H4/H5); embed Treadle/Ordius/Tasked (rejected); Python-function-only catalog with no YAML (rejected); crash-resume from run dir (rejected); MCP allow-all (rejected).
 - **Sources:** owner Q17–Q64 + UI addendum; `research/notes/architecture-qa-gate.md`; `research/notes/spatiotemporal-composability.md`; `research/notes/light-dag-fsm-and-language.md`
 
@@ -86,7 +86,7 @@ Research memo [`research/synthesis/recommendation.md`](research/synthesis/recomm
 
 ## ADR-0008 — Persistent UI stack + DESIGN-coinbase visual system
 
-- **Status:** proposed (design lock 2026-09-10; A1 accepts on Wave 0)
+- **Status:** accepted (design lock 2026-09-10; A1)
 - **Context:** The student and the host agent share a persistent localhost workspace. Slots may *inspire* DeepSeek Harness register-into-named-holes, but Cordis/DSH as a runtime is H4/H5. The owner supplied a Coinbase marketing-surface analysis as the visual system.
 - **Decision:** FastAPI + Vite/React + Zustand + a **thin** in-repo slot registry. Bind `127.0.0.1` only. Visual tokens come only from [`docs/design/DESIGN-coinbase.md`](docs/design/DESIGN-coinbase.md). Fonts: Inter + JetBrains Mono or Geist Mono. Product name remains Electrical Engineer. Exact token `unchecked` is a `badge-pill`. Semantic green/red are text-only. Styling is CSS variables + CSS modules. Closed log: [`docs/planning/DESIGN_LOCK.md`](docs/planning/DESIGN_LOCK.md).
 - **Consequences:** U1 publishes the token map; B_UI implements CSS variables (no raw hex in components); T1 checks chrome; D1/H1 forbid Coinbase fonts/wordmark. Do not invent a second palette or run `impeccable teach` to replace this system.
