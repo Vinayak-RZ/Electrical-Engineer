@@ -17,3 +17,12 @@ def test_control_run_writes_plots(tmp_path) -> None:
         True,
         False,
     }
+
+
+def test_explain_control_plots(tmp_path) -> None:
+    assert load_recipe("explain-control").id == "explain-control"
+    out = execute("explain-control", run_root=tmp_path)
+    run = Path(out["run_dir"])
+    assert (run / "bode.svg").is_file()
+    assert (run / "step.png").is_file()
+    assert "python-control" in (run / "bode.svg").read_text()

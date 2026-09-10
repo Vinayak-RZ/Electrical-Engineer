@@ -1,0 +1,13 @@
+id: explain-control
+nodes:
+  retrieve:
+    activity: retrieve-passage
+  ctrl:
+    activity: run-python-control
+    needs: [retrieve]
+  explain:
+    activity: solve-explain
+    needs: [ctrl]
+  summary:
+    activity: write-run-summary
+    needs: [explain]
