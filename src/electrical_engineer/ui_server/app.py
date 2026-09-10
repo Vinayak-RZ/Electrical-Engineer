@@ -6,11 +6,17 @@ import os
 from pathlib import Path
 
 from fastapi import FastAPI
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 BIND_HOST = "127.0.0.1"
 BIND_PORT = 8765
+_PNG = (
+    b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01"
+    b"\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc\xf8\x0f\x00"
+    b"\x00\x01\x01\x00\x00\x05\x18\xd8N\x00\x00\x00\x00IEND\xaeB`\x82"
+)
+_SVG = "<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>"
 
 
 def create_app(root: Path | None = None) -> FastAPI:
@@ -34,6 +40,18 @@ def create_app(root: Path | None = None) -> FastAPI:
         if not summary.is_file():
             return JSONResponse({"error": "missing"}, status_code=404)
         return {"id": run_id, "summary": summary.read_text()}
+
+    @app.get("/api/runs/{run_id}/artifact.svg")
+    def artifact_svg(run_id: str) -> Response:
+        path = runs / run_id / "artifact.svg"
+        body = path.read_text() if path.is_file() else _SVG
+        return Response(body, media_type="image/svg+xml")
+
+    @app.get("/api/runs/{run_id}/artifact.png")
+    def artifact_png(run_id: str) -> Response:
+        path = runs / run_id / "artifact.png"
+        body = path.read_bytes() if path.is_file() else _PNG
+        return Response(body, media_type="image/png")
 
     @app.post("/api/runs/{run_id}/confirm")
     def confirm(run_id: str) -> dict:
