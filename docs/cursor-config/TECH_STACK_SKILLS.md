@@ -8,7 +8,7 @@ Use this document when working in a **specific stack**. Skills listed here are *
 
 1. Detect the project's stack from `package.json`, `pubspec.yaml`, `build.gradle.kts`, etc.
 2. Read the matching section below.
-3. If a recommended skill is missing from `.cursor/skills/`, run the install command or tell the user to run `scripts/cursor-config/install-catalog-skill.ps1 -Name <skill-name>`.
+3. If a recommended skill is missing from `.cursor/skills/`, run the install command or tell the user to run `scripts/install-catalog-skill.ps1 -Name <skill-name>`.
 4. Do **not** install every skill in a row — pick the 1–2 most relevant for the current task.
 
 ---
@@ -98,3 +98,5 @@ From a project linked to this coding config:
 ```
 
 Installs into the **current project's** `.cursor/skills/` (not global).
+
+**Catalog only (do not pre-install into this config):** `vercel-react-best-practices`, `frontend-design`, `agent-browser`. Use `install-catalog-skill.ps1` in the app that needs them.

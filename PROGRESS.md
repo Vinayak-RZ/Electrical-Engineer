@@ -42,6 +42,7 @@ Live status. Research phase completed on `cursor/ee-research-phase-7e0c`. Produc
 | 2026-09-09 | PRD written; ADRs 0001/0005/0006 accepted; README identity aligned |
 | 2026-09-10 | Proposed architecture: YAML DAG runner, persistent localhost UI, tagged RAG, markdown memory, `eval/gold/` |
 | 2026-09-10 | PID/PRD/README upgraded to that architecture (exact `unchecked`, named workflows, UI, FR10–FR16) |
+| 2026-09-10 | Vendored `cursor-config-coding` @ `280dbc5` (nawab lite default, Spec Kit v1.0.6, opt-in graph-engineering) |
 
 ## Handoff
 
