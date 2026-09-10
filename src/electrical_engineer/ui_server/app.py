@@ -55,6 +55,9 @@ def create_app(root: Path | None = None) -> FastAPI:
 
     @app.post("/api/runs/{run_id}/confirm")
     def confirm(run_id: str) -> dict:
+        d = runs / run_id
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "confirmed.json").write_text('{"confirmed": true, "simulate": false}')
         return {"id": run_id, "confirmed": True, "simulate": False}
 
     ui_dist = Path(__file__).resolve().parents[3] / "ui" / "dist"
