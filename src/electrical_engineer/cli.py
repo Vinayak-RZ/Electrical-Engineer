@@ -46,6 +46,15 @@ def main(argv: list[str] | None = None) -> int:
 
         print("\n".join(list_workflow_ids()) or "(none)")
         return 0
+    if args.cmd == "memory":
+        from electrical_engineer.memory.store import list_files, project_memory
+        from electrical_engineer.runner.runs import project_root
+
+        for p in list_files(project_memory(project_root())):
+            print(p)
+        return 0
+    print(args.cmd)
+    return 0
 
 
 if __name__ == "__main__":
