@@ -74,6 +74,21 @@ Every external or authoritative source used in research notes. Add a row when yo
 | S68 | India Today IIT Kanpur assignments interview | https://www.indiatoday.in/education-today/news/story/ai-in-iit-education-manindra-agarwal-says-assignments-are-dead-maths-training-must-grow-2980802-2026-08-29 | 2026-09-08 | secondary |
 | S69 | WEF Future of Jobs Report 2025 | https://reports.weforum.org/docs/WEF_Future_of_Jobs_Report_2025.pdf | 2026-09-08 | secondary |
 | S70 | AI core-engineering landscape note | `research/notes/ai-core-engineering-landscape.md` | 2026-09-08 | primary |
+| S71 | DeepSeek Harness developer preview | https://deepseek.com/harness/en/ | 2026-09-10 | vendor |
+| S72 | deepseek-ai/DeepSeek-Harness | https://github.com/deepseek-ai/DeepSeek-Harness | 2026-09-10 | primary |
+| S73 | DSH architecture (Cordis plugins, seams) | https://deepseek-harness.github.io/deepseek-harness/en/reference/ | 2026-09-10 | primary |
+| S74 | DSH workflow subsystem | https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/subsystems/workflow.md | 2026-09-10 | primary |
+| S75 | A Programming Paradigm for Spatiotemporal Composability | https://arxiv.org/abs/2608.25512 | 2026-09-10 | paper |
+| S76 | Temporal child workflows | https://docs.temporal.io/child-workflows | 2026-09-10 | primary |
+| S77 | Temporal child-workflow design pattern | https://docs.temporal.io/design-patterns/child-workflows | 2026-09-10 | primary |
+| S78 | The fallacy of the graph (Temporal blog) | https://temporal.io/blog/the-fallacy-of-the-graph-why-your-next-workflow-should-be-code-not-a-diagram | 2026-09-10 | vendor |
+| S79 | Treadle workflow library | https://github.com/billosys/treadle | 2026-09-10 | primary |
+| S80 | Ordius | https://github.com/Wintersta7e/ordius | 2026-09-10 | primary |
+| S81 | Tasked | https://tasked.dev/ | 2026-09-10 | vendor |
+| S82 | Python vs Rust for AI agents | https://sanketdaru.com/blog/python-vs-rust-ai-agents/ | 2026-09-10 | secondary |
+| S83 | Spatiotemporal composability note | `research/notes/spatiotemporal-composability.md` | 2026-09-10 | primary |
+| S84 | Light DAG/FSM and language note | `research/notes/light-dag-fsm-and-language.md` | 2026-09-10 | primary |
+| S85 | EE workflow catalog draft | `research/notes/ee-workflow-catalog-draft.md` | 2026-09-10 | primary |
 
 ## Reliability tiers
 
