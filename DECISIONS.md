@@ -1,17 +1,20 @@
 # DECISIONS
 
-ADR seeds from the research phase. Status values: `proposed` | `accepted` | `superseded`.
+ADR seeds from the research phase, plus owner-accepted product locks (2026-09-09). Status values: `proposed` | `accepted` | `superseded`.
+
+Research memo [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md) remains **historical advice**. Product identity is [`docs/PID.md`](docs/PID.md) (Accepted). Requirements: [`docs/PRD.md`](docs/PRD.md).
 
 ---
 
 ## ADR-0001 — Harness base
 
-- **Status:** proposed
-- **Context:** Need a place to run EE skills, RAG, and MATLAB tools while remaining usable from multiple agent hosts.
-- **Decision:** Prefer **O1 package-first hybrid** (portable MCP + skills, optional Pi package). Avoid hard-fork (O2) and greenfield harness (O4) unless falsifiers hit.
-- **Consequences:** Faster experiments; must maintain MCP/skill quality; Pi MCP bridge may be needed.
-- **Alternatives:** O2 Pi fork; O3 thin layer only; O4 custom harness.
-- **Sources:** `research/notes/pi-feasibility.md`, `research/synthesis/option-scoring.md`, `research/synthesis/recommendation.md`
+- **Status:** accepted (product lock 2026-09-09)
+- **Context:** Need a place to run EE skills, RAG, and verifiers while remaining usable from Cursor, Claude Code, and OpenAI, and also as a local CLI without those hosts.
+- **Decision:** **H3** — branded CLI (`electrical-engineer`) wrapping portable skills + MCP + local RAG (**H1 layer**). The CLI is glue, ug policy, co-solver defaults, and an eval runner. It must not grow a unique agent loop (that would be H5).
+- **Historical research advice:** O1 / H2 (package-first, optional Pi package) scored highest in `recommendation.md`. That advice is **superseded as the product choice**. Do not treat O1 as the locked harness.
+- **Consequences:** Skills + MCP stay portable; three model paths (host subscription, BYO key, local LLM); H3 falsifier = CLI diverges from hosts.
+- **Alternatives:** H1 skills-only (no branded CLI); H2 optional Pi package; **H4** Electric Pi fork (rejected); **H5** greenfield harness (rejected).
+- **Sources:** owner P0; `docs/PID.md`; `docs/PRD.md`; scoring history in `research/synthesis/option-scoring.md`
 
 ---
 
@@ -30,9 +33,9 @@ ADR seeds from the research phase. Status values: `proposed` | `accepted` | `sup
 
 - **Status:** proposed
 - **Context:** Numeric EE answers must not be invented.
-- **Decision:** **MATLAB/Simulink MCP as intended primary verifier**; OSS SPICE/Python stack as documented fallback.
-- **Consequences:** Licence dependency for full fidelity; policy to refuse unverified “simulation” claims.
-- **Alternatives:** OSS-primary; simulation optional.
+- **Decision:** **MATLAB/Simulink MCP when a licence is present**; OSS SPICE/Python stack is **first-class** otherwise (P1 default in the PRD, not a PID lock).
+- **Consequences:** Mixed-licence audience. Unverified numbers are **labelled unchecked** — they are allowed, but must never be presented as simulation or lab results. (Research-era “refuse unverified simulation” is replaced by this label policy.)
+- **Alternatives:** OSS-only; MATLAB-only; hard-refuse any number without a tool.
 - **Sources:** `research/notes/matlab-simulink-surface.md`, `research/notes/open-source-verification.md`
 
 ---
@@ -48,11 +51,22 @@ ADR seeds from the research phase. Status values: `proposed` | `accepted` | `sup
 
 ---
 
-## ADR-0005 — UG-bounded success bar and later research fork
+## ADR-0005 — UG coursework bound, GATE as eval, single repo
 
-- **Status:** proposed
-- **Context:** The project needs a public definition of “we succeeded” that matches a student-first vision (solve + explain + diagrams + reliability) without claiming a shipped agent, and without competing with licence-locked plant-floor or EDA copilots.
-- **Decision:** Publish a **verified capability list** (C1–C8) at the top of `README.md` as the success bar. Keep the public product **UG/PG-coursework bounded**. Use a later **fork or parallel track** to explore PG/operational/analog-search limits. Reliability = tools own numbers; vision drafts are not truth until edited.
-- **Consequences:** Eval design must eventually instantiate C1–C8; marketing language that implies a finished tutor is forbidden until those evals exist. The landscape note is the evidence that this bar matches how core-engineering AI actually works in 2025–2026.
-- **Alternatives:** Exam-score-only bar; “any question, no refuse path”; plant-floor industrial scope; closed-source student app.
-- **Sources:** `research/notes/ai-core-engineering-landscape.md`, `research/notes/ee-task-taxonomy-draft.md`, `research/notes/capability-eval-design.md`, `README.md`
+- **Status:** accepted (product lock 2026-09-09; supersedes the research-era “UG/PG + later fork” wording)
+- **Context:** The project needs a public definition of success that matches a student-first vision without claiming a shipped agent, and without competing with licence-locked plant-floor or EDA copilots.
+- **Decision:** Public promise = **union of representative UG EE programmes** (Indian institutes + global institutes). See `docs/curriculum-map.md`. **GATE EE is an eval overlay / capability check**, not the syllabus bound. **PG is not a public promise.** **One git repository only** — later unpublished `--profile` flags may exist; do not fork UG vs lab. C1–C8 remain the success bar; C8 is not a student UX promise. Reliability = tools own numbers **or** the output says **unchecked**; vision drafts are not truth until the student confirms.
+- **Consequences:** Eval may tag GATE sections; missing a taught UG core is a product gap even if GATE omits it. No second repo. README must not promise PG or a research fork as the public line.
+- **Alternatives:** GATE-only bound (rejected); public PG promise (rejected); two-repo UG-freeze vs lab fork (rejected).
+- **Sources:** owner P0; `docs/PID.md`; `docs/curriculum-map.md`; `docs/PRD.md`; historical `research/notes/ee-task-taxonomy-draft.md`
+
+---
+
+## ADR-0006 — Apache-2.0, forever OSS, co-solver default
+
+- **Status:** accepted (product lock 2026-09-09)
+- **Context:** Licence, commercial model, and default student interaction were OPEN in the research PID draft.
+- **Decision:** *Our* code is **Apache License 2.0**. This repository is **forever OSS**; no paid tier here. Default student mode is **co-solver** (full working + answer + assumptions). No faculty/TA/LMS features in v1. Civil, mechanical, and manufacturing are never this product.
+- **Consequences:** `LICENSE` is Apache-2.0. Hosted paid tutors are out of this repo’s promise. Integrity is “show the work”; institutions own cheating policy.
+- **Alternatives:** MIT; AGPL; dual-licence paid tier; tutor-default; faculty v1.
+- **Sources:** owner P0; `LICENSE`; `docs/PID.md`; `docs/PRD.md`
