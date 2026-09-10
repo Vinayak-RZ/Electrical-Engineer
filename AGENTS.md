@@ -2,16 +2,16 @@
 
 This repository vendors [cursor-config-coding](https://github.com/Vinayak-RZ/cursor-config-coding) at `.cursor/` (rules, skills, MCP). Pin: see [`.cursor/VENDOR.md`](.cursor/VENDOR.md).
 
-Product: **Electrical-Engineer** — an agentic harness that can do anything an undergrad electrical engineer can.
+Product: **Electrical-Engineer** — a UG EE co-solver (named workflows, simulators, persistent local UI) that can do the coursework an undergrad electrical engineer is asked to do.
 GitHub: [`Vinayak-RZ/Electrical-Engineer`](https://github.com/Vinayak-RZ/Electrical-Engineer).
 
 ## What this repo is
 
-A coding workspace for building and evolving an electrical-engineering agent harness (analysis, circuits, signals, power, labs, and related undergrad EE workflows). Prefer deterministic tools and verified calculations over free-form LLM guesses when correctness matters.
+A coding workspace for building and evolving that co-solver (analysis, circuits, signals, power, labs, and related undergrad EE workflows). Prefer deterministic tools and verified calculations over free-form LLM guesses when correctness matters. Authority: [`docs/PID.md`](docs/PID.md), [`docs/PRD.md`](docs/PRD.md), [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ## Current status
 
-Greenfield / early scaffold. Product code and domain tools are not fully established yet — invent nothing about EE capabilities that is not in the tree. Prefer planning + Spec Kit for multi-phase feature work.
+Greenfield: research complete, PID accepted, PRD draft, architecture **Proposed**. Product code is not in the tree — invent nothing about EE capabilities that is not in those docs. Prefer planning + Spec Kit for multi-phase feature work.
 
 ---
 

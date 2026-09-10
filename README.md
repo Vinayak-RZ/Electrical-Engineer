@@ -2,11 +2,11 @@
 
 > Full internals (every package, file map, how the repo runs): [Extensive README](docs/EXTENSIVE.md)
 
-**Thesis.** Electrical Engineer is an Apache-2.0, forever-open-source **co-solver** for undergraduate electrical engineering: a branded **local CLI** that also plugs into Cursor, Claude Code, or OpenAI (or a local model / BYO key), checks numbers with simulators when it can and **labels** numbers it did not check, and is shaped by **real UG coursework** at Indian and global institutes. GATE is an eval instrument, not the product bound. PG, civil, and mechanical are out of the public promise.
+**Thesis.** Electrical Engineer is an Apache-2.0, forever-open-source **co-solver** for undergraduate electrical engineering: a branded **local CLI** and a **persistent localhost UI** that also plug into Cursor, Claude Code, or OpenAI (or a local model / BYO key). Students run **named workflows** so retrieval, citations, and numbers get better. The product checks numbers with simulators when it can and labels unverified numbers with the exact token **unchecked**. It is shaped by **real UG coursework** at Indian and global institutes. GATE is an eval instrument, not the product bound. PG, civil, and mechanical are out of the public promise.
 
 **What it is not (yet).** There is **no shipped agent, no CLI binary, no MCP server, no localhost UI, and no textbook index** in this repository. Identity is locked; architecture is **Proposed**. Read [`docs/PID.md`](docs/PID.md) (Accepted), [`docs/PRD.md`](docs/PRD.md) (draft), [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) (Proposed), [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md) (Proposed).
 
-**Harness (locked):** **H3** — branded CLI `electrical-engineer` wrapping portable skills + MCP + local RAG. Not a Pi fork (H4). Not a greenfield harness (H5). The CLI must stay a thin wrapper.
+**Harness (locked):** **H3** — branded CLI `electrical-engineer` wrapping portable skills + MCP + local RAG. The CLI runs **named YAML recipes** (a small DAG). Hosts own the main LLM loop. Not a Pi fork (H4). Not a greenfield harness (H5).
 
 **Primary interface today:** Markdown under [`docs/`](docs/) and [`research/`](research/) plus `./scripts/research/validate-research.sh`. Hosts and simulators in the research notes are *candidates*, not installed runtime.
 
@@ -26,13 +26,13 @@ This is the north star. If we reach it, the project succeeded. Nothing in this l
 
 | ID | Capability | Done when | Why it qualifies the project |
 |----|------------|-----------|------------------------------|
-| C1 | **Solve EE questions correctly** | On a published UG eval (curriculum-map packs; GATE tags are overlay only), numeric/symbolic answers match gold within tolerance **or the output is labelled unchecked**. Silent invention presented as checked is a fail. | Coverage + honesty, not vibes. Bound: [`docs/curriculum-map.md`](docs/curriculum-map.md). |
-| C2 | **Explain, not only answer** | Every solved item states assumptions, applicable laws, and steps a viva can probe. Conceptual claims cite a retrieved passage the user has rights to use, or a standard identity. | A helper that dumps an answer without teaching is homework automation, not an engineer. |
-| C3 | **All assignment genres** | The co-solver can **solve, derive, design-to-spec, simulate, review** (find seeded mistakes), **explain**, and structure a **lab-style report** across UG programme packs. | Real coursework is not only MCQs. Taxonomy: [`research/notes/ee-task-taxonomy-draft.md`](research/notes/ee-task-taxonomy-draft.md). |
-| C4 | **Circuit diagrams** | Photo, screenshot, or textbook figure → draft netlist → **editable schematic** the student corrects → simulation (Simulink preferred, ngspice fallback). Vision output is never treated as truth until the student confirms. | Most EE work starts as a drawing. Pipeline research: [`research/notes/photo-to-schematic-to-simulink.md`](research/notes/photo-to-schematic-to-simulink.md). |
-| C5 | **Control-system diagrams** | Block diagrams, signal-flow graphs, and typical UG Bode/Nyquist *figures* become a structured model the agent analyzes (poles, margins, step response) with the same edit-then-simulate gate. | Control homework is pictures plus math; a text-only agent is not an EE. |
-| C6 | **Reliability contract** | No fabricated “simulation” or load-flow numbers. Tool evidence travels with checked answers. Unverified numbers are labelled **unchecked**. Low-confidence OCR/vision is flagged. | Core engineering is unsafe when fluency is mistaken for a lab. Landscape: [`research/notes/ai-core-engineering-landscape.md`](research/notes/ai-core-engineering-landscape.md). |
-| C7 | **Student-first and open** | Apache-2.0, forever OSS in this repo. Local-first CLI so textbooks and student work need not leave the machine. OSS solvers first-class; MATLAB if present. | The people this is for often cannot buy Siemens/Ansys/Cadence stacks. |
+| C1 | **Solve EE questions correctly** | On a published UG eval (curriculum-map packs; GATE tags are overlay only), numeric/symbolic answers match gold within tolerance **or the output contains the exact token unchecked**. Silent invention presented as checked is a fail. | Coverage + honesty, not vibes. Bound: [`docs/curriculum-map.md`](docs/curriculum-map.md). |
+| C2 | **Explain, not only answer** | Every solved item states assumptions, applicable laws, and steps a viva can probe. Conceptual claims cite a retrieved passage (book + chapter + page) the user has rights to use, or a standard identity. | A helper that dumps an answer without teaching is homework automation, not an engineer. |
+| C3 | **All assignment genres** | The co-solver can **solve, derive, design-to-spec, simulate, review** (find seeded mistakes), **explain**, and structure a **lab-style report** across UG programme packs, via **named workflows**. | Real coursework is not only MCQs. Catalog: [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md). Taxonomy: [`research/notes/ee-task-taxonomy-draft.md`](research/notes/ee-task-taxonomy-draft.md). |
+| C4 | **Circuit diagrams** | Photo or textbook screenshot → draft netlist + JSON graph → student **confirms in the persistent localhost UI**. Vision is never truth until that confirm. **Simulation after confirm is later** (the first slice is a stub). | Most EE work starts as a drawing. Spec: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). |
+| C5 | **Control-system diagrams** | Catalog stub `control-diagram-to-model` (do not drop): figure → structured model → **UI confirm**, same honesty as C4. Analyze-and-simulate after confirm is later. | Control homework is pictures plus math; a text-only agent is not an EE. |
+| C6 | **Reliability contract** | No fabricated “simulation” or load-flow numbers. Tool evidence travels with checked answers. Unverified numbers use the exact token **unchecked**. Low-confidence OCR/vision is flagged. | Core engineering is unsafe when fluency is mistaken for a lab. Landscape: [`research/notes/ai-core-engineering-landscape.md`](research/notes/ai-core-engineering-landscape.md). |
+| C7 | **Student-first and open** | Apache-2.0, forever OSS in this repo. Local-first CLI **and persistent UI** so textbooks and student work need not leave the machine. OSS solvers first-class; MATLAB if present (never required). | The people this is for often cannot buy Siemens/Ansys/Cadence stacks. |
 | C8 | **Limit-finding** | Not a student UX promise. A public eval may report evidence rate vs unvalidated-claim rate. PG/operational tasks stay unpublished in this repo. | Failures have to be measurable; they are not a second product. |
 
 ### Domain coverage (UG coursework bound)
@@ -40,7 +40,7 @@ This is the north star. If we reach it, the project succeeded. Nothing in this l
 Packs follow [`docs/curriculum-map.md`](docs/curriculum-map.md). P1 default depth (not locked): circuits first, then control. GATE section labels are an **eval overlay**, not the ceiling.
 
 1. Electric circuits
-2. Control systems (diagram ingest is P1 after C4)
+2. Control systems (diagram ingest is a catalog stub after C4)
 3. Power systems (classroom / study-level, not control-room operations)
 4. Electrical machines
 5. Signals and systems
@@ -53,25 +53,26 @@ PG stretch is **not advertised**. Civil, mechanical, and manufacturing are never
 ### Reliability rules (non-negotiable)
 
 - The model **plans and teaches**. MATLAB/Simulink (if present), SPICE, or the documented Python stack **owns checked numbers**.
-- Unverified numbers are allowed only if labelled **unchecked**. Never present them as simulation.
-- A reconstructed diagram is a **draft**. The student owns the topology after edits.
+- Unverified numbers are allowed only if the exact token **unchecked** appears in the answer. Never present them as simulation.
+- A reconstructed diagram is a **draft**. The student confirms topology in the persistent localhost UI.
+- Figures come from **libraries + code** (schemdraw, matplotlib, python-control), not from a model inventing a PNG.
 - Academic integrity is the institution’s policy. Default mode is **co-solver** (full working + answer). No faculty mode in v1.
 
 ### How we will know
 
-Measurement design lives in [`research/notes/capability-eval-design.md`](research/notes/capability-eval-design.md): verified numeric, derivation checklist, citation-grounded explain, design-constraints, review catch-rate. Launch percentages are **not** invented here. The project is successful when those rubrics exist, run, and the default path is **tool-checked or labelled unchecked**.
+Measurement design lives in [`research/notes/capability-eval-design.md`](research/notes/capability-eval-design.md). Gold tasks will live in [`eval/gold/`](eval/gold/README.md) and name a workflow id. Launch percentages are **not** invented here. The project is successful when those rubrics exist, run, and the default path is **tool-checked or labelled unchecked**.
 
 ---
 
 ## TL;DR
 
-- **Success bar** is the capability list above: correct + explained + diagram-capable + label-unchecked, for **UG** EE, Apache-2.0.
-- **Product choice is H3:** branded local CLI wrapping portable skills + MCP. Research memo still recommends O1/H2 as *advice*; do not treat that memo as the harness lock.
-- Grounding bet (P1 proposed): local RAG, BYO PDFs, no commercial books in git.
-- Numbers: MATLAB if present, OSS first-class otherwise; unverified values labelled **unchecked**.
-- Circuit photos (later slice): reconstruct → **editable schematic** → simulate only after user confirmation.
-- Core-engineering AI in the wider world already uses that same verify-loop. This repo’s gap is an **open student co-solver**, not a plant-floor copilot. Read [`research/notes/ai-core-engineering-landscape.md`](research/notes/ai-core-engineering-landscape.md).
-- **Identity is locked.** [`docs/PID.md`](docs/PID.md). **PRD is draft for owner review.** [`docs/PRD.md`](docs/PRD.md). **Architecture is Proposed.** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) · [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md). Research advice (historical): [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md).
+- **Success bar** is the capability list above: correct + explained + diagram-honest + exact token **unchecked**, for **UG** EE, Apache-2.0.
+- **Product choice is H3:** local CLI + persistent UI wrapping portable skills + MCP. Named **workflows** improve RAG, citations, and verified numbers. The runner is not an LLM loop. Research memo O1/H2 is *advice*; do not treat it as the harness lock.
+- Grounding: local RAG, BYO PDFs/scans, **inventory and book/chapter/folder tags**, no commercial books in git.
+- Numbers: MATLAB if present, OSS first-class otherwise (product works **without** MATLAB).
+- Circuit photos: reconstruct → **UI confirm** → stop. Simulate-after-confirm is later.
+- Core-engineering AI elsewhere is the same verify-loop. This repo’s gap is an **open student co-solver**. Read [`research/notes/ai-core-engineering-landscape.md`](research/notes/ai-core-engineering-landscape.md).
+- **Identity is locked.** [`docs/PID.md`](docs/PID.md). **PRD is draft.** [`docs/PRD.md`](docs/PRD.md). **Architecture is Proposed.** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) · [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md).
 
 ## Table of contents
 
@@ -89,13 +90,18 @@ Measurement design lives in [`research/notes/capability-eval-design.md`](researc
 
 ### What it is
 
-The long-term idea is an **open-source** co-solver that behaves like a strong undergraduate electrical engineer: it can take the questions and diagrams that person is given, get them **right**, **teach** the solution, and leave an evidence trail a human can audit — or label numbers it did not check. Near-term, that person is a **UG** student, **India first**, without making global UG EE a thin afterthought. The first concrete step — completed in this repo — was research; the second is an Accepted PID and a PRD; the third is a **Proposed** technical architecture. There is still **no shipped CLI**.
+The long-term idea is an **open-source** co-solver that behaves like a strong undergraduate electrical engineer: it can take the questions and diagrams that person is given, get them **right**, **teach** the solution, and leave an evidence trail a human can **see** — or label numbers it did not check with `unchecked`. Near-term, that person is a **UG** student, **India first**, without making global UG EE a thin afterthought.
+
+**How it is meant to work** (specified, not shipped). The student — or Cursor/Claude — calls a **named workflow** such as “solve a circuit homework problem.” A tiny runner executes a checked-in recipe (retrieve, explain, simulate if that recipe says so). A **persistent localhost UI** stays up so both the student and the agent can look at runs, library-drawn schematics, plots, and citations. The router never invents a new graph; unmatched questions get a short co-solver that will not pretend to have simulated. Detail: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+
+The first concrete step — completed in this repo — was research; then an Accepted PID and a PRD; then a **Proposed** technical architecture. There is still **no shipped CLI**.
 
 PG is not a public promise. Later unpublished profiles may live in this same repository. Civil, mechanical, and manufacturing are never this product.
 
 ### What it is not
 
 - Not a finished coding agent binary or an installable CLI **yet**.
+- Not a unique agent loop pretending to be “just glue.”
 - Not a redistributed library of copyrighted textbooks or third-party exam PDFs.
 - Not a Siemens/Ansys/Cadence replacement, and not a plant-floor controller.
 - Not a silent homework vending machine (explanations and tool evidence are part of the bar).
@@ -107,7 +113,7 @@ PG is not a public promise. Later unpublished profiles may live in this same rep
 
 **The problem.** A raw chat model will invent load-flow numbers and misquote formulae.
 
-**How it works.** A *harness* is the runtime around the model: tool loop, context assembly, safety, extensions. Coding agents differ mainly in that layer. See [`research/notes/harness-landscape.md`](research/notes/harness-landscape.md).
+**How it works.** A *harness* is the runtime around the model: tool loop, context assembly, safety. Coding agents differ mainly in that layer. Electrical Engineer’s H3 choice is a **thin branded CLI**: named YAML recipes, gates, eval, and a local UI — not a from-scratch agent. Hosts (Cursor, Claude Code, Codex) keep their loops. See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and [`research/notes/harness-landscape.md`](research/notes/harness-landscape.md).
 
 **Like.** The engine (model) versus the chassis and controls (harness).
 
@@ -119,7 +125,7 @@ PG is not a public promise. Later unpublished profiles may live in this same rep
 
 **The problem.** Undergrad EE lives in equations, assumptions, and worked examples that general models blur.
 
-**How it works.** Prefer a **local** vector store loaded from a GitHub Release of precomputed embeddings (Chroma default). Until redistribution rights are reviewed per title, fall back to user-provided PDFs and optional open texts. Layout/formula-aware parsing, structure-aware chunks, and citations still apply. Concepts come from books; numbers still need tools. See [`research/notes/local-package-and-embedding-release.md`](research/notes/local-package-and-embedding-release.md), [`research/notes/ee-corpus-and-licensing.md`](research/notes/ee-corpus-and-licensing.md), and the `rag-*.md` notes.
+**How it works.** Prefer a **local** index (RAG-Anything proposed as ingest) loaded from BYO PDFs and scans, with an **inventory** and tags so retrieval can mean “this book, chapter 3.” Until redistribution rights are reviewed per title, do not ship commercial books in git. Layout/formula-aware parsing, hybrid search, and citations (book + chapter + page) still apply. Concepts come from books; numbers still need tools. See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) §10, [`research/notes/local-package-and-embedding-release.md`](research/notes/local-package-and-embedding-release.md), and the `rag-*.md` notes.
 
 **Like.** An open-book exam where the book is searchable — but you still need a calculator lab.
 
@@ -131,7 +137,7 @@ PG is not a public promise. Later unpublished profiles may live in this same rep
 
 **The problem.** Fluent wrong answers look like lab results.
 
-**How it works.** Prefer MathWorks’ MATLAB/Simulink MCP and agentic toolkits when a licence exists; keep SPICE/Python options as a first-class tier. Policy: do not present fabricated “simulation” numbers; label unverified values **unchecked**. See [`research/notes/matlab-simulink-surface.md`](research/notes/matlab-simulink-surface.md).
+**How it works.** Prefer MathWorks’ MATLAB/Simulink MCP when a licence exists; keep SPICE/Python as a **first-class** tier. The whole product must work **without MATLAB**. Policy: do not present fabricated “simulation” numbers; use the exact token **unchecked**. See [`research/notes/matlab-simulink-surface.md`](research/notes/matlab-simulink-surface.md).
 
 **Like.** Showing your work on a calculator printout, not scribbling an answer from memory.
 
@@ -143,7 +149,7 @@ PG is not a public promise. Later unpublished profiles may live in this same rep
 
 **The problem.** “Can do anything an EE undergrad can” is too vague to test.
 
-**How it works.** Map genres (solve, derive, design, simulate, review, explain, report) across **UG programme packs**. GATE EE sections may **tag eval items**; they are not the product bound. See [`docs/curriculum-map.md`](docs/curriculum-map.md) and [`research/notes/ee-task-taxonomy-draft.md`](research/notes/ee-task-taxonomy-draft.md).
+**How it works.** Map genres (solve, derive, design, simulate, review, explain, report) across **UG programme packs**, then give each a **student-readable workflow name**. GATE EE sections may **tag eval items**; they are not the product bound. See [`docs/curriculum-map.md`](docs/curriculum-map.md), [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md), and [`research/notes/ee-task-taxonomy-draft.md`](research/notes/ee-task-taxonomy-draft.md).
 
 **Like.** A lab rubric instead of a single exam percentage.
 
@@ -188,27 +194,32 @@ cd Electrical-Engineer
 
 Then read, in order:
 
-1. [`research/README.md`](research/README.md)
-2. [`research/synthesis/recommendation.md`](research/synthesis/recommendation.md)
-3. [`DECISIONS.md`](DECISIONS.md)
-4. [`research/notes/ai-core-engineering-landscape.md`](research/notes/ai-core-engineering-landscape.md) — what the ecosystem can and cannot do
-5. Deep dives under [`research/notes/`](research/notes/)
+1. [`docs/PID.md`](docs/PID.md) — who this is
+2. [`docs/PRD.md`](docs/PRD.md) — what it must do (draft)
+3. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — how it is meant to be built (Proposed)
+4. [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md) — named recipes
+5. [`research/notes/ai-core-engineering-landscape.md`](research/notes/ai-core-engineering-landscape.md) — what the ecosystem can and cannot do
+6. [`research/README.md`](research/README.md) — research map (historical O1 advice is not the harness lock)
 
 ## 5. Configuration
 
 Nothing to configure for reading. Future runtime work will need (not wired here):
 
-- GitHub Release URL + checksum for an embedding pack, or paths to **user-owned** textbook PDFs for BYO RAG
-- Local vector store (Chroma / sqlite-vec) and the **same embedding model** used to build the pack
-- MATLAB/Simulink install + MCP registration when using MathWorks tools (local licence)
+- Python 3.11+ and `pip` (Linux, macOS, Windows)
+- Paths to **user-owned** textbook PDFs/scans for BYO RAG (plus optional embedding pack later)
+- Gate files: `~/.config/electrical-engineer/gates.toml` and `.electrical-engineer/gates.toml`
+- MATLAB/Simulink install + MCP registration **only if** using MathWorks tools (optional)
 - Optional local LLM runtime; otherwise model API credentials for the host agent
+- Browser on localhost for `electrical-engineer ui`
 
 ## 6. Further reading
 
 - [`docs/PID.md`](docs/PID.md) — accepted product identity
 - [`docs/PRD.md`](docs/PRD.md) — product requirements (draft until owner accepts)
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — technical architecture (Proposed)
+- [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md) — named workflow catalog (Proposed)
 - [`docs/curriculum-map.md`](docs/curriculum-map.md) — UG bound; GATE as eval overlay
-- [`docs/PID_DECISION_SHEET.md`](docs/PID_DECISION_SHEET.md) — P0 answers; P1 proposed
+- [`eval/gold/README.md`](eval/gold/README.md) — gold-task layout (empty packs)
 - [`LICENSE`](LICENSE) — Apache License 2.0
 - [`research/notes/ai-core-engineering-landscape.md`](research/notes/ai-core-engineering-landscape.md)
 - [`research/synthesis/option-scoring.md`](research/synthesis/option-scoring.md)
@@ -217,42 +228,30 @@ Nothing to configure for reading. Future runtime work will need (not wired here)
 
 ## 7. Future advancements
 
-### 7.1 Implement the H3 CLI wrapping the portable H1 core
+### 7.1 Implement the specified H3 CLI, recipes, UI, and eval
 
-**Why.** Owner locked H3. Research O1/H2 remains useful as the *portable layer* under the CLI, not as the product identity.  
-**What would land.** Thin `electrical-engineer` CLI, skill packs, MCP (RAG/SPICE/MATLAB-if-present), host adapter docs, eval runner.  
-**Done when.** A student can run the CLI locally (BYO key or local model) and also load the same skills in Cursor / Claude Code / OpenAI — without a unique agent loop.
+**Why.** Identity and architecture now say what to build: named YAML workflows, a deterministic runner, persistent localhost UI, tagged RAG, markdown memory, `eval/gold/`.  
+**What would land.** `pip`-installable `electrical-engineer` (run / workflows / mcp / eval / ui / rag), skill packs, stdio MCP, UI on `127.0.0.1`.  
+**Done when.** A student can run a named circuits workflow locally (BYO key or local model) and load the same skills in Cursor — without a unique agent loop. Blocked on **PRD accept** plus an implementation plan.
 
-### 7.2 Circuit photo → editable schematic → Simulink/ngspice
+### 7.2 Photo stub in the UI, then simulate later
 
 **Why.** Engineers often start from a photo or textbook figure, not a netlist.  
-**What would land.** Vision→draft netlist, local schematic UI edit gate, Simulink or ngspice export.  
-**Done when.** One clean schematic survives photo→edit→sim without trusting raw vision output.
+**What would land.** Vision → draft netlist + JSON → UI confirm (no sim in the stub); later, simulate the confirmed netlist.  
+**Done when.** One clean schematic survives photo → confirm without treating raw vision as truth.
 
 ### 7.3 Formula-preserving ingest spike on one owned chapter
 
-**Why.** Parser ranking is still medium confidence.  
-**What would land.** Metrics only (no corpus in git).  
-**Done when.** Equation and example boundaries survive a measured parse.
+**Why.** Parser ranking is still medium confidence; RAG quality is a first-class requirement.  
+**What would land.** Metrics only (no corpus in git); tagged book/chapter retrieval under the architecture budget.  
+**Done when.** Equation and example boundaries survive a measured parse; empty retrieval is visible.
 
-### 7.4 Eval harness from the twenty RAG case titles
+### 7.4 Gold tasks in `eval/gold/`
 
-**Why.** Without gold tasks, RAG quality is anecdotal.  
-**What would land.** Fixtures + retrieval/citation checks.  
-**Done when.** Nightly or PR-optional jobs can fail on citation fabrications.
-
-### 7.5 Persistent localhost UI (specified, not shipped)
-
-**Why.** The UI is a critical shared workspace so student and agent can see runs, library-rendered diagrams, plots, citations, and RAG inventory — not a one-shot pretty picture.  
-**What would land.** `electrical-engineer ui` on `127.0.0.1`, auto-opened on visual gates.  
-**Done when.** Photo-stub confirm and artifact browse work without a second agent loop. Spec: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
-
-### 7.6 UG-bounded eval against the success bar
-
-**Why.** C1–C8 are a promise, not a measurement, until gold tasks exist.  
-**What would land.** Licence-clean questions per curriculum pack (GATE tags optional), diagram fixtures, **unchecked**-label checks.  
-**Done when.** A run can fail the agent for a fluent wrong number or a missing explanation.
+**Why.** C1–C8 are a promise until gold items name a recipe and score `unchecked`.  
+**What would land.** Licence-clean circuits (then unmatched/injection) fixtures; `electrical-engineer eval --pack circuits`.  
+**Done when.** A run can fail the agent for a fluent wrong number, a missing `unchecked`, or a BYO PDF that tries to flip gates.
 
 ## Status
 
-Identity locked (H3, Apache-2.0, UG coursework bound). PRD awaiting owner accept. Architecture **Proposed**. **No shipped agent.** See [`PROGRESS.md`](PROGRESS.md).
+Identity locked (H3, Apache-2.0, UG coursework bound). PRD and architecture awaiting owner accept. **No shipped agent.** See [`PROGRESS.md`](PROGRESS.md).
