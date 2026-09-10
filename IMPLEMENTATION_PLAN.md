@@ -1,5 +1,24 @@
 # IMPLEMENTATION_PLAN
 
+## Current contract (2026-09-10) — Proposed technical architecture
+
+**Do not start CLI, MCP, skills, UI, or eval-runner implementation until the owner accepts [`docs/PRD.md`](docs/PRD.md) and a new implementation nawab plan is approved.** Architecture docs are **Proposed** (owner review), not an implementation license.
+
+| Field | Contract |
+|-------|----------|
+| Identity | [`docs/PID.md`](docs/PID.md) **Accepted** |
+| Requirements | [`docs/PRD.md`](docs/PRD.md) draft for owner review |
+| Architecture | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) **Proposed** |
+| Workflows | [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md) **Proposed** |
+| Q&A locks | [`research/notes/architecture-qa-gate.md`](research/notes/architecture-qa-gate.md) |
+| ADR | 0007 **proposed** (orchestrator, gates, UI, eval) |
+| Eval layout | [`eval/gold/`](eval/gold/README.md) specified; no gold items yet |
+| Harness | **H3** — deterministic YAML DAG runner; hosts own the main LLM loop |
+
+The previous identity+PRD contract follows and remains in force.
+
+---
+
 ## Current contract (2026-09-09) — product identity + PRD
 
 **Do not start CLI, MCP, skills, or eval gold-set implementation until the owner accepts [`docs/PRD.md`](docs/PRD.md) and a new implementation nawab plan is approved.**

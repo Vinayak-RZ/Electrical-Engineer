@@ -120,6 +120,8 @@ The CLI is a **thin wrapper** (glue, ug profile, co-solver defaults, eval runner
 | Doc | Role |
 |-----|------|
 | [`PRD.md`](PRD.md) | Requirements |
+| [`ARCHITECTURE.md`](ARCHITECTURE.md) | Technical architecture (**Proposed**) |
+| [`WORKFLOWS.md`](WORKFLOWS.md) | Named workflow catalog (**Proposed**) |
 | [`PID_DECISION_SHEET.md`](PID_DECISION_SHEET.md) | Answer trace |
 | [`curriculum-map.md`](curriculum-map.md) | UG bound |
 | [`../research/synthesis/recommendation.md`](../research/synthesis/recommendation.md) | Historical O1 *advice*; product chose H3 |

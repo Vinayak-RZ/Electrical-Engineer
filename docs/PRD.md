@@ -223,6 +223,7 @@ PG is not a public promise. Optional unpublished profile may exist later in **th
 | [`PID_DECISION_SHEET.md`](PID_DECISION_SHEET.md) | P0 answers; P1 proposed |
 | [`curriculum-map.md`](curriculum-map.md) | UG bound |
 | [`../DECISIONS.md`](../DECISIONS.md) | ADRs |
+| [`ARCHITECTURE.md`](ARCHITECTURE.md) | Technical architecture (**Proposed**) |
 | [`../research/synthesis/recommendation.md`](../research/synthesis/recommendation.md) | Historical O1 *advice*; product chose H3 |
 
 ---
