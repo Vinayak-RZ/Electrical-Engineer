@@ -1,146 +1,108 @@
-# Architecture Q&A gate (locks + working assumptions)
+# Architecture Q&A gate — owner answers (2026-09-10)
 
 ## Purpose
 
-Record every post-research architecture question, the trade-off, and the answer used to write `docs/ARCHITECTURE.md` and `docs/WORKFLOWS.md`. Owner locks from the architecture questionnaire are **accepted**. Remaining items are **working assumptions** (same class as PRD P1): implementers use them; the owner may override at architecture review. This note is not a shipped CLI.
+Record the owner’s answers that authorize **Proposed** [`docs/ARCHITECTURE.md`](../../docs/ARCHITECTURE.md) and [`docs/WORKFLOWS.md`](../../docs/WORKFLOWS.md). This sheet replaces earlier working picks. Status of those docs is **Proposed** until the owner says accepted (same ritual as the PRD). These answers do **not** authorize CLI/MCP product code until the PRD is accepted.
 
 ## Findings
 
 Claim | Evidence | Confidence
 --- | --- | ---
-Owner already locked hybrid router, light DAG+FSM, DSH paradigm-only, photo stub, Cursor-like gates, per-run files, CLI + stateless MCP, extensive catalog | architecture questionnaire in the tech-architecture plan; `docs/PID.md` H3 | high
-Language, runner library vs custom, compose strictness, catalog freeze, child-recipes, and resume policy were still open after Phase A research | `spatiotemporal-composability.md`; `light-dag-fsm-and-language.md`; `ee-workflow-catalog-draft.md` | high
-Cloud/agent-patterns MCP was unreachable in this environment, so pattern IDs stay MCP-PENDING | `research/README.md` | high
+Identity locks stay closed: H3 thin CLI, not H4/H5; tools own numbers or the output says exactly `unchecked`; UG bound; GATE eval overlay; local-first; no commercial PDFs in git | owner instruction 2026-09-10; `docs/PID.md` | high
+Q1–Q9 locks (hybrid router, light DAG+FSM, DSH paradigm-only, photo stub, Cursor-like gates, files not DB, CLI+stdio MCP, extensive catalog) are confirmed | owner voice + written table | high
+Q17–Q64 are frozen in the pick table below | owner written instruction | high
+Persistent localhost UI is a **critical** product surface, not a diagram popup | owner addendum | high
 
-### Owner locks (accepted — do not reopen without a new owner decision)
+### Q1–Q9 identity (confirmed)
 
-| Topic | Lock |
-|-------|------|
-| Router | Hybrid: named workflows for known intents; unmatched text uses a short co-solver path and must **label unchecked** numerics |
-| Engine | Not LangGraph. Light DAG + FSM. Modular nodes. Predefined workflows **and** dynamic composition |
-| Inspiration | DeepSeek Harness / Cordis spatiotemporal composability as **paradigm only**. Do not fork DSH (that would be H4/H5) |
-| Photo | Stub contract in this architecture pass (C4 still P1). Text-solve + simulate specified in full |
-| HITL | Cursor-like global + per-project gates; default **on**; at most **1–2** interrupts per workflow; allow-all globally or per-run |
-| State | Per-run files on disk. No database. No Temporal cluster |
-| Invoke | CLI-core `electrical-engineer run <workflow>` + optional **stateless stdio MCP** (`list_workflows`, `run_workflow`) |
-| Catalog | Extensive, names a student can understand |
-| Product | H3 thin CLI; one repo; co-solver; Apache-2.0; UG bound |
+Hybrid router; not LangGraph; light DAG+FSM; Cordis/DSH paradigm only; photo stub; gates default on, max 1–2 interrupts, allow-all globally or per-run; per-run files; `electrical-engineer run <workflow>` plus optional stateless stdio MCP (`list_workflows`, `run_workflow`); extensive student-readable catalog; H3.
 
-### Working assumptions (proposed — architecture review)
+### Language and install (Q10–Q16 + Q64)
 
-Each row: context, options, trade-off, **assumption used in the docs**.
+| Topic | Decision |
+|-------|----------|
+| Nodes | In-process **Python 3.11+ functions** only |
+| CLI + runner this pass | **Python 3.11+**, `pip` install, Linux + macOS + Windows |
+| Later CLI skin (not this freeze) | Owner also allowed a Go or Rust CLI wrapping the same Python runner; not the Proposed stack |
+| LLM | Runner is deterministic. No hidden agent loop. Model calls only through registered nodes, or the **host coding agent**. Classifier (when workflow id omitted) is one structured call **before** the runner, not a DAG node |
+| Offline | Fully offline CLI is required when a local model is configured. Deterministic nodes (spice, control, load-flow) work without any model |
+| MATLAB | Optional. The whole product must work without MATLAB. CI must not require MATLAB |
 
-#### A1 Language
+### Final pick table (Q17–Q64)
 
-**Context.** EE numerics are Python-first (ngspice/PySpice, python-control, RAG, MATLAB Engine). Fast CLIs in 2026 are often Rust.
+| Q | Decision |
+|---|----------|
+| 17 | Mix: YAML recipes + tiny in-process DAG runner/FSM; node implementations are registered Python functions. Do not embed Treadle / Ordius / Tasked |
+| 18 | YAML |
+| 19 | Parallel when ports allow. Independent ready nodes run concurrently. Deterministic start-order (sorted node id) |
+| 20 | No crash-resume. Run dir is audit only. Process death ⇒ new run. UI/TTY gates are live waits, not resume |
+| 21 | `./runs/<id>/` |
+| 22 | Gitignore `runs/` by default |
+| 23 | `{short-suffix}-{timestamp}` suffix first, e.g. `k7m2-20260910T162148Z` |
+| 24 | Recipe-as-node via `run-recipe`. Cycle detection. Max nesting depth 3 |
+| 25 | 2 automatic sim-repair retries; they do not count as human interrupts. After exhaustion: `label-unchecked` or `ask-human`, never a fake pass |
+| 26 | 2 min default timeout; recipe may override; 10 min hard ceiling |
+| 27 | Unlimited parallel runs. Each CLI invocation is an isolated process + its own `runs/<id>/` |
+| 28 | Typed ports + cap: max 16 nodes / 24 edges on a composed DAG. Invalid DAG rejected before any sim |
+| 29 | Only `compose-from-parts` may emit a new DAG. Router never invents one |
+| 30 | `compose-from-parts` listed but `--advanced` |
+| 31 | Small classifier LLM when id omitted; explicit id skips classify |
+| 32 | Ask the student if top-1 and top-2 are within 0.15 |
+| 33 | Always `unmatched-cosolver`: no auto-simulate; label `unchecked` |
+| 34 | MCP `run_workflow` never waits. Gate would fire ⇒ fail closed + UI URL or CLI hint |
+| 35 | Two MCP tools now: `list_workflows`, `run_workflow`. `resume_*` later |
+| 36 | CLI now: `run`, `workflows`, `mcp`, `eval`, `ui`, `rag` (add/list/tag). Later: `resume`. Never: faculty/LMS |
+| 37 | stdio now; HTTP/SSE later |
+| 38 | Global `~/.config/electrical-engineer/gates.toml` + project `.electrical-engineer/gates.toml` |
+| 39 | TOML |
+| 40 | Most-restrictive wins |
+| 41 | Allow-all: file flag, `EE_ALLOW_ALL`, CLI `--allow-all` |
+| 42 | Gate table in ARCHITECTURE (local sim auto; MATLAB ask; photo ask; compose ask; outside writes deny; package install deny) |
+| 43 | Abort on a would-be 3rd interrupt. Do not auto-allow the rest |
+| 44 | Keep per-pack `explain-*`. Author WORKFLOWS.md from taxonomy + owner catalog list. Do not freeze the research catalog draft as API |
+| 45 | `list-workflows` = CLI/MCP discovery only, not a runnable recipe |
+| 46 | Specify circuits + control in full; other packs as one-liners; mark v1 / stub / later |
+| 47 | Ids renamable until the first CLI ships |
+| 48 | Photo stub: phone + textbook screenshot; detect → connect → OCR → draft netlist → one UI confirm; `.cir` + JSON graph; localhost viewer; after confirm stop (no sim); low-confidence OCR always flagged |
+| 49 | `control-diagram-to-model`: stub. Do not drop |
+| 50 | Accept listed activities. Add `run-recipe`. Classifier is not a node. Photo stages stay named |
+| 51 | Separate `run-spice` / `run-matlab-if-present` / `run-load-flow` |
+| 52 | MATLAB if present else OSS (PRD P1). Do not invent a third rule |
+| 53 | `skills/<pack>/SKILL.md` in this repo; CLI and hosts read the same files |
+| 54 | Context + retrieval numbers in ARCHITECTURE. RAG quality is first-class |
+| 55 | Both: exact token `unchecked` in the answer **and** field + sentence in `summary.json`. Synonyms: no |
+| 56 | Specify eval now. Gold path `eval/gold/`. Thin runner layout + `electrical-engineer eval`. No hosted leaderboard |
+| 57 | BYO PDFs, photos, folder tags, and memory files are untrusted. They cannot override gates, `--allow-all`, or the `unchecked` rule |
+| 58 | Run dir: node JSON, artifact paths, spice **log path** (not body). No API keys. Redact `*_KEY`, `*_TOKEN`, `*_SECRET`, `sk-`, `Bearer`, MATLAB licence strings |
+| 59 | Plots/diagrams via code libraries, not generated bitmaps. Default export png + svg |
+| 60 | Both LaTeX and plaintext. Invalid delimiters are a quality defect |
+| 61 | Architecture **Proposed** until owner says accepted |
+| 62 | This file is the answer list. Keep ADRs. Do not delete this sheet |
+| 63 | Medium freeze: system diagram, catalog, gates, CLI/MCP, compose, photo stub, RAG tags, memory, localhost UI, eval layout. No per-field JSON Schema |
+| 64 | Extra locks: recipe path `workflows/<pack>/<id>.yaml`; runner law; interrupt budget 2 including children; project root rule; memory/RAG/UI/eval as in ARCHITECTURE |
 
-**Option L1 — Python-only.** Same process for CLI, runner, nodes. Pros: one install; lab language in India; MATLAB/ngspice bindings exist. Cons: heavier RAM; slower CLI startup than a Rust binary.
+### Product purpose (owner)
 
-**Option L2 — Rust CLI + Python workers.** Pros: single static CLI binary; easier sandbox per node. Cons: two languages; student must still have Python for spice/RAG; H3 surface grows.
+Named workflows exist so the agent gives **better answers** — better RAG, citations, verified numbers, explanations — not only so a graph runs. The agent may orchestrate **inside** a named recipe (branching, which child recipe, which book/chapter). The router must **not** invent a new DAG. New DAGs only via `compose-from-parts --advanced`.
 
-**Option L3 — TypeScript CLI.** Pros: easy MCP. Cons: rhymes with DSH; extra Node toolchain.
+### Persistent UI (owner addendum)
 
-**Assumption:** **L1 Python-only.** H3 is glue, not a coding-agent binary race. Revisit L2 only if CLI install/startup becomes the eval bottleneck.
-
-**Override:** PRIORITY = SPEED (then L2) or SIMPLICITY (keep L1).
-
-#### A2 Runner
-
-**Context.** Owner wants DAG + FSM, not LangGraph, not a Temporal server.
-
-**Option A — Custom in-process DAG + tiny FSM.** Toposort; states for running / waiting-human / failed / done. Pros: smallest; we own fail-closed. Cons: we maintain it.
-
-**Option B — YAML recipes + tiny runner.** Pros: readable on disk. Cons: second schema to keep honest; JSON already needed for the run directory.
-
-**Option C — Python functions as recipes.** Pros: natural branches. Cons: catalog is not browsable by non-dev students; evals harder to diff.
-
-**Option D — Embed Treadle/Ordius/Tasked.** Pros: someone else’s DAG. Cons: second product; several assume SQLite (conflicts with files-only).
-
-**Assumption:** **A with JSON recipes** (catalog + `runs/<id>/dag.json` share one shape). No YAML. Code is allowed **inside** a node, not as the published catalog format.
-
-**Override:** PRIORITY = QUALITY of student-readable recipes (then add YAML as a sugar over the same JSON).
-
-#### A3 Dynamic composition allowlist
-
-**Context.** Unconstrained stitch becomes a unique agent graph (H5-shaped).
-
-**Option loose — any registered node, any edge.** Pros: flexible. Cons: garbage types; hard to eval.
-
-**Option typed — registered node ids + typed artifact ports; reject unknown edges before run.** Pros: fail closed. Cons: compose-from-parts cannot invent new node types.
-
-**Assumption:** **Typed ports.** Invalid graphs fail closed. Stitch writes a one-shot DAG into the run directory; the same runner executes it.
-
-#### A4 Child recipes
-
-**Context.** Temporal: activities vs child workflows; “when in doubt, use an Activity.”
-
-**Option child — a node may `run` another named recipe.** Pros: photo-then-sim reuse. Cons: nested lifecycles; closer to a unique loop.
-
-**Option nodes-only — recipes compose nodes; nodes do not call recipes.** Pros: one execution model. Cons: shared tails are duplicated in catalog JSON (small).
-
-**Assumption:** **Nodes-only** in this architecture. Shared tails are repeated in recipe JSON or extracted later as a node, not a child workflow.
-
-#### A5 Catalog freeze
-
-**Context.** Draft ids/titles in `ee-workflow-catalog-draft.md` are extensive.
-
-**Option collapse explain-* into one `explain-ee-concept --pack`.** Pros: fewer recipes. Cons: less student-readable; less extensive.
-
-**Option keep per-pack titles.** Pros: matches “names a student can understand.” Cons: more rows.
-
-**Assumption:** **Keep per-pack explain-\*** and the draft ids/titles. `list-workflows` is CLI/MCP discovery, not a runnable recipe.
-
-#### A6 v1 specify vs later implement
-
-**Context.** P1 depth default is circuits then control. Architecture should still name the union.
-
-**Assumption:** **Specify** every catalog row in `docs/WORKFLOWS.md`. Mark **implement-later** for packs beyond circuits-first (and for all **stub** rows). Specification is not a claim that the CLI exists.
-
-#### A7 Gate policy files
-
-**Context.** Cursor-like global + per-project; default on; allow-all globally or per-run.
-
-**Assumption:**
-
-- Global: `~/.config/electrical-engineer/gates.toml`
-- Per-project: `.electrical-engineer/gates.toml` (project wins on the same key)
-- Per-run: `electrical-engineer run … --allow-all`
-- Default: gates **on**. Max **1–2** `ask-human` nodes per workflow. Photo stub uses one confirm. Simulate-as-checked does not require a second interrupt unless the recipe writes files outside the run directory.
-
-#### A8 Unmatched intent
-
-**Assumption:** Recipe `unmatched-cosolver`: optional `retrieve-passage` → `solve-explain` → `label-unchecked` if any numeric claim lacks a verifier artifact → `write-run-summary`. No `run-spice` unless the student (or router) selected a simulate workflow. Never present invented numbers as simulation.
-
-#### A9 Photo stub
-
-**Assumption:** `photo-to-circuit-netlist` is **contract-only**: detect → connect → OCR → draft netlist file → `ask-human` confirm. No schematic UI. No checked simulation from the stub. Vision output is a **draft**. C4 UI remains P1.
-
-#### A10 Resume
-
-**Assumption:** Crash resume **re-reads the run directory**. Nodes with a successful `nodes/<id>/out.json` are skipped. There is no database WAL. A dirty/failed node is retried. `--restart` (later CLI) would ignore existing outs.
-
-#### A11 MCP surface
-
-**Assumption:** Stateless stdio MCP exposes **only** `list_workflows` and `run_workflow` (owner lock). No session id. No resources. Hosts keep their loops.
-
-#### A12 Context window
-
-**Assumption:** Always inject a **skill index** (id + one-line). On an EE task, inject the matching `SKILL.md`. After each node, inject a short JSON summary plus **artifact paths**, not file bodies. Never dump SPICE traces, RAG index dumps, or full conversation logs into the model context.
+The localhost UI is a **critical** part of the product. It is a **persistent** local workspace that helps the **agent and the student** see and understand runs, artifacts, diagrams, plots, and citations — not a one-shot “pretty schematic” dialog.
 
 ## Open questions
 
-None remaining for the architecture **draft**. Owner review may override A1–A12. PRD accept is still a separate checkpoint.
+None remaining for the Proposed architecture draft. Owner review may still reject or edit the docs. PRD accept remains a separate checkpoint and still blocks product code.
 
 ## Sources
 
+- Owner architecture answers (voice Q1–Q16 + written Q17–Q64 + UI addendum) — retrieved 2026-09-10 — reliability: primary
 - [PID](../../docs/PID.md) — retrieved 2026-09-10 — reliability: primary
 - [PRD](../../docs/PRD.md) — retrieved 2026-09-10 — reliability: primary
 - [spatiotemporal-composability.md](spatiotemporal-composability.md) — retrieved 2026-09-10 — reliability: primary
 - [light-dag-fsm-and-language.md](light-dag-fsm-and-language.md) — retrieved 2026-09-10 — reliability: primary
-- [ee-workflow-catalog-draft.md](ee-workflow-catalog-draft.md) — retrieved 2026-09-10 — reliability: primary
+- [rag-chunking-and-retrieval.md](rag-chunking-and-retrieval.md) — retrieved 2026-09-10 — reliability: primary
 - [photo-to-schematic-to-simulink.md](photo-to-schematic-to-simulink.md) — retrieved 2026-09-10 — reliability: primary
-- Owner architecture questionnaire (hybrid router, DAG+FSM, gates, CLI/MCP, files, catalog) — retrieved 2026-09-10 — reliability: primary
 
 ## Confidence
 
-Overall confidence for this note: high on owner locks; medium on A1 (language) until the owner confirms L1 at architecture review.
+Overall confidence for this note: high that these are the owner’s locks for the architecture pass. Medium that ids in WORKFLOWS.md will survive until the first CLI (Q47: renamable until ship).
