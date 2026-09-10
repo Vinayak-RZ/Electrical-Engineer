@@ -70,3 +70,14 @@ Research memo [`research/synthesis/recommendation.md`](research/synthesis/recomm
 - **Consequences:** `LICENSE` is Apache-2.0. Hosted paid tutors are out of this repo’s promise. Integrity is “show the work”; institutions own cheating policy.
 - **Alternatives:** MIT; AGPL; dual-licence paid tier; tutor-default; faculty v1.
 - **Sources:** owner P0; `LICENSE`; `docs/PID.md`; `docs/PRD.md`
+
+---
+
+## ADR-0007 — Orchestrator, recipes, gates, UI, eval
+
+- **Status:** proposed (architecture pass 2026-09-10; same ritual as the PRD)
+- **Context:** Need a local-first way to run named UG EE workflows, compose advanced DAGs, retrieve tagged textbooks, confirm diagrams, and score gold tasks — without LangGraph, a Temporal cluster, or a DeepSeek Harness fork (those would be H5 or H4).
+- **Decision:** Tiny **Python 3.11+** in-process DAG runner of checked-in **YAML** recipes (`workflows/<pack>/<id>.yaml`) whose nodes are registered Python functions (including nested `run-recipe`, depth ≤ 3). Hybrid router **selects** a named recipe (classifier when id omitted); it **never invents** a DAG. New graphs only via `compose-from-parts --advanced` (typed ports, 16/24 cap). Per-run **files** under `./runs/{suffix}-{timestamp}/` are **audit only** (no crash-resume). Cursor-like TOML gates; MCP `run_workflow` never waits. **Persistent localhost UI** (`127.0.0.1`) is a critical shared workspace for student and agent. RAG stays proposed RAG-Anything plus inventory and book/chapter/folder filters. Memory is capped markdown in two scopes. Eval layout is `eval/gold/` + `electrical-engineer eval`. Exact token `unchecked`. Full pick table: [`research/notes/architecture-qa-gate.md`](research/notes/architecture-qa-gate.md). System: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). Catalog: [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md).
+- **Consequences:** Implementers must not add an agent loop, crash-resume, or router-authored graphs. Hosts keep LLM loops; CLI is deterministic glue plus registered LLM nodes. MATLAB remains optional. Architecture is **Proposed** until owner accept. Product code still waits on PRD accept.
+- **Alternatives:** LangGraph (rejected); Temporal cluster (rejected); DSH/Cordis runtime (rejected, H4/H5); embed Treadle/Ordius/Tasked (rejected); Python-function-only catalog with no YAML (rejected); crash-resume from run dir (rejected); MCP allow-all (rejected).
+- **Sources:** owner Q17–Q64 + UI addendum; `research/notes/architecture-qa-gate.md`; `research/notes/spatiotemporal-composability.md`; `research/notes/light-dag-fsm-and-language.md`
