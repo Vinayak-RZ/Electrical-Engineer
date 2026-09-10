@@ -1,0 +1,16 @@
+import json
+
+from electrical_engineer.mcp.server import TOOLS, handle
+
+
+def test_list_and_run_tools() -> None:
+    names = {t["name"] for t in TOOLS}
+    assert names == {"list_workflows", "run_workflow"}
+    listed = handle("tools/list", {})
+    assert "tools" in listed
+    started = handle(
+        "tools/call", {"name": "run_workflow", "arguments": {"workflow_id": "unmatched-cosolver"}}
+    )
+    body = json.loads(started["content"][0]["text"])
+    assert body["waits"] is False
+    assert started.get("isError") is not True

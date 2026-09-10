@@ -36,8 +36,16 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd is None:
         parser.print_help()
         return 0
-    print(args.cmd)
-    return 0
+    if args.cmd == "mcp":
+        from electrical_engineer.mcp.server import serve
+
+        serve()
+        return 0
+    if args.cmd == "workflows":
+        from electrical_engineer.catalog import list_workflow_ids
+
+        print("\n".join(list_workflow_ids()) or "(none)")
+        return 0
 
 
 if __name__ == "__main__":
