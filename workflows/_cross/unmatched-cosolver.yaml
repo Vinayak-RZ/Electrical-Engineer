@@ -1,0 +1,13 @@
+id: unmatched-cosolver
+nodes:
+  retrieve:
+    activity: retrieve-passage
+  solve:
+    activity: solve-explain
+    needs: [retrieve]
+  label:
+    activity: label-unchecked
+    needs: [solve]
+  summary:
+    activity: write-run-summary
+    needs: [label]

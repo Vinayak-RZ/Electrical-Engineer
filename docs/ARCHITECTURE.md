@@ -1,10 +1,10 @@
 # Technical architecture — Electrical Engineer
 
-**Status:** Proposed for owner review (same ritual as the PRD). Not accepted. Not implemented.  
+**Status:** Accepted for this graph (A1, 2026-09-10).  
 **Date:** 2026-09-10  
-**Authority:** [`PID.md`](PID.md) (Accepted), [`PRD.md`](PRD.md) (draft), owner answers in [`../research/notes/architecture-qa-gate.md`](../research/notes/architecture-qa-gate.md)
+**Authority:** [`PID.md`](PID.md) (Accepted), [`PRD.md`](PRD.md) (Accepted for this graph)
 
-There is **no shipped CLI, MCP server, UI, or eval runner** in this repository. This document is the implementer contract for when the PRD is accepted and a later implementation plan is approved. Do not start product code from this file alone.
+There is **no shipped product yet**; this file is the implementer contract. Do not invent LangGraph, Temporal, Cordis, or a second agent loop.
 
 Recipes exist so the agent gives **better answers** (RAG, citations, verified numbers, explanations), not so a graph merely runs. Named workflows are the default. The runner is **not** an LLM loop.
 
@@ -230,6 +230,7 @@ Specified, not shipped.
 | `electrical-engineer eval` / `eval --pack circuits` | now |
 | `electrical-engineer ui` / `ui --run <id>` | now |
 | `electrical-engineer rag add \| list \| tag` | now |
+| `electrical-engineer memory` | now |
 | `electrical-engineer resume` | **later** |
 | Faculty / LMS | **never** |
 
@@ -244,6 +245,8 @@ MCP **now** (stateless stdio): `list_workflows`, `run_workflow`. HTTP/SSE **late
 The UI is a **first-class product surface**, not a fine-diagram gadget.
 
 **Why.** Cursor/Claude users (and CLI users) need a place that **stays up** so both the **student and the agent** can see and understand: current and past runs, library-rendered schematics, plots, photo-stub topology, citations, RAG inventory, and memory excerpts. Understanding is the point of the co-solver.
+
+**Stack (freeze).** FastAPI serves a Vite/React CSR SPA. Zustand holds layout + current run id. A **thin in-repo slot registry** (inspire DSH named holes; **no Cordis / DSH runtime**). Visual tokens: [`design/DESIGN-coinbase.md`](design/DESIGN-coinbase.md) (Inter + JetBrains/Geist Mono; never Coinbase fonts or wordmark). Slot map: `root`, `sidebar`, `workspace`, `run.detail`, `run.artifacts`, `photo.confirm`, `rag.inventory`, `memory.excerpt`, `gates.prompt`. Layout: `src/electrical_engineer` + `ui/`.
 
 **Shape**
 
@@ -261,7 +264,9 @@ This remains **H3 glue** (a viewer/workspace). If the UI grows its own agent loo
 
 ## 10. RAG (quality is mandatory)
 
-Keep **RAG-Anything (MinerU default)** as the ingest/index engine (**proposed** until the owned-chapter spike; ADR-0004). Do not silently replace it. LightRAG’s graph index stays; add an explicit source tree: **library → book → chapter → chunk**.
+Do **not** lock an engine before numbers. This graph **spikes LightRAG 1.5** against Docling and BM25+dense (ADR-0004). QUALITY then SPEED. A facade exposes `retrieve` + inventory regardless of winner. Thin BM25 fallback is allowed if the spike fails; record that in [`CANNOT_DO.md`](CANNOT_DO.md).
+
+Keep an explicit source tree: **library → book → chapter → chunk**.
 
 EE metadata on top of the chunk note: `doc_id`, title, chapter, section, pages, `licence_tag`, `folder_tag`, student tags, `domain_tag`, `chunk_type`. Optional concept-graph prerequisites remain the P1 overlay in [`../research/notes/rag-chunking-and-retrieval.md`](../research/notes/rag-chunking-and-retrieval.md).
 
@@ -359,12 +364,17 @@ Simulate seam: **separate** spice / matlab / load-flow nodes. MATLAB if present 
 
 ---
 
-## 16. Non-goals (this architecture)
+## 16. Local OpenAI-compatible LLM
 
-- Product code before PRD accept
+CLI path for `solve-explain` uses a local OpenAI-compatible HTTP client (LM Studio / Ollama / vLLM). Skip-if-missing in CI. Hosts keep their own loops. BYOK is **later** (not this graph).
+
+---
+
+## 17. Non-goals (this architecture)
+
 - LangGraph, Temporal cluster, DSH/Cordis runtime, Treadle/Ordius/Tasked
-- Crash-resume, HTTP MCP, `resume` CLI
-- Hosted eval, full schematic editor, replacing RAG-Anything before the spike
+- Crash-resume, HTTP MCP, `resume` CLI, BYOK
+- Hosted eval, full schematic editor, locking a RAG engine before the spike
 - Per-field JSON Schema
 - Faculty/LMS, H4/H5, second git repo, civil/mechanical packs
 
@@ -372,13 +382,13 @@ Simulate seam: **separate** spice / matlab / load-flow nodes. MATLAB if present 
 
 ## Owner review checkpoint
 
-This architecture is **not accepted** until the owner says so.
+Closed A1 2026-09-10 (owner: start / execute this graph):
 
-- [ ] Hybrid router, named recipes, compose `--advanced` only
-- [ ] Python 3.11+ pip CLI; deterministic runner; hosts own the main LLM
-- [ ] Persistent localhost UI as a **critical** shared workspace
-- [ ] Typed DAG + `run-recipe` depth 3; no crash-resume
-- [ ] Gates, MCP fail-closed, `unchecked` exact token
-- [ ] RAG inventory + book/chapter/folder filters; markdown memory
-- [ ] `eval/gold/` + `electrical-engineer eval`
-- [ ] **Architecture accepted** — or listed edits
+- [x] Hybrid router, named recipes, compose `--advanced` only
+- [x] Python 3.11+ pip CLI; deterministic runner; hosts own the main LLM
+- [x] Persistent localhost UI as a **critical** shared workspace (FastAPI + React slots, DESIGN-coinbase)
+- [x] Typed DAG + `run-recipe` depth 3; no crash-resume
+- [x] Gates, MCP fail-closed, `unchecked` exact token
+- [x] RAG facade after LightRAG 1.5 spike; markdown memory
+- [x] `eval/gold/` + `electrical-engineer eval`
+- [x] **Architecture accepted** for this graph

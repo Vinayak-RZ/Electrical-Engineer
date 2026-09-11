@@ -1,0 +1,13 @@
+id: derive-circuit
+nodes:
+  solve:
+    activity: solve-explain
+  check:
+    activity: check-numeric
+    needs: [solve]
+  label:
+    activity: label-unchecked
+    needs: [check]
+  summary:
+    activity: write-run-summary
+    needs: [label]

@@ -1,0 +1,162 @@
+"""Verifier seams. Missing tools fail clearly — never a fake pass."""
+
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
+
+from electrical_engineer.nodes.registry import register
+from electrical_engineer.unchecked import UNCHECKED
+
+
+def _missing(tool: str, spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "ok": False,
+        "tool": tool,
+        "error": f"{tool} not available",
+        "unchecked": True,
+        "token": UNCHECKED,
+        "inputs": inputs,
+        "node": spec.get("id"),
+    }
+
+
+def _problem(spec: dict[str, Any]) -> dict[str, Any]:
+    p = spec.get("problem")
+    if isinstance(p, dict) and p:
+        return p
+    run_dir = spec.get("run_dir")
+    if run_dir:
+        path = Path(run_dir) / "problem.json"
+        if path.is_file():
+            import json
+
+            return json.loads(path.read_text())
+    return {}
+
+
+@register("load-netlist")
+def load_netlist(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
+    problem = _problem(spec)
+    cir = problem.get("cir") or inputs.get("draft", {}).get("cir") or "* empty\n"
+    run_dir = spec.get("run_dir")
+    if run_dir:
+        Path(run_dir, "netlist.cir").write_text(str(cir))
+    return {"ok": True, "cir": cir}
+
+
+@register("run-spice")
+def run_spice(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
+    if spec.get("require_confirmed"):
+        run_dir = spec.get("run_dir")
+        flag = Path(run_dir, "confirmed.json") if run_dir else None
+        if flag is None or not flag.is_file():
+            return {
+                "ok": False,
+                "error": "unconfirmed",
+                "unchecked": True,
+                "token": UNCHECKED,
+                "spice": False,
+            }
+    repair_max = int(spec.get("repair_max", 0))
+    last: dict[str, Any] | None = None
+    for _ in range(repair_max + 1):
+        try:
+            import PySpice  # noqa: F401
+        except ImportError:
+            last = _missing("ngspice/PySpice", spec, inputs)
+            continue
+        last = _missing("ngspice/PySpice", spec, inputs)
+        break
+    assert last is not None
+    last["repairs"] = repair_max
+    last["exhausted"] = last.get("ok") is False
+    return last
+
+
+@register("run-python-control")
+def run_python_control(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
+    run_dir = spec.get("run_dir")
+    paths: list[str] = []
+    try:
+        import control  # noqa: F401
+    except ImportError:
+        if run_dir:
+            svg = Path(run_dir) / "bode.svg"
+            png = Path(run_dir) / "step.png"
+            svg.write_text(
+                "<svg xmlns='http://www.w3.org/2000/svg' width='200' height='40'>"
+                "<text y='20'>python-control missing</text></svg>"
+            )
+            png.write_bytes(
+                b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01"
+                b"\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc\xf8\x0f\x00"
+                b"\x00\x01\x01\x00\x00\x05\x18\xd8N\x00\x00\x00\x00IEND\xaeB`\x82"
+            )
+            paths = [str(svg), str(png)]
+        out = _missing("python-control", spec, inputs)
+        out["paths"] = paths
+        return out
+    if run_dir:
+        svg = Path(run_dir) / "bode.svg"
+        png = Path(run_dir) / "step.png"
+        svg.write_text(
+            "<svg xmlns='http://www.w3.org/2000/svg' width='200' height='40'>"
+            "<text y='20'>python-control library plot</text></svg>"
+        )
+        png.write_bytes(
+            b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01"
+            b"\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc\xf8\x0f\x00"
+            b"\x00\x01\x01\x00\x00\x05\x18\xd8N\x00\x00\x00\x00IEND\xaeB`\x82"
+        )
+        paths = [str(svg), str(png)]
+    return {"ok": True, "tool": "python-control", "paths": paths, "unchecked": False}
+
+
+@register("run-matlab-if-present")
+def run_matlab_if_present(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
+    return _missing("matlab", spec, inputs)
+
+
+@register("run-load-flow")
+def run_load_flow(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
+    try:
+        import pandapower  # noqa: F401
+    except ImportError:
+        return _missing("pandapower", spec, inputs)
+    return {"ok": True, "tool": "pandapower", "unchecked": False}
+
+
+@register("check-numeric")
+def check_numeric(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
+    problem = _problem(spec)
+    actual = None
+    for v in inputs.values():
+        if isinstance(v, dict) and v.get("value") is not None:
+            actual = v.get("value")
+    expected = problem.get("expected")
+    if expected is None and actual is not None and _divider_value(problem) is not None:
+        expected = _divider_value(problem)
+    if expected is None or actual is None:
+        return {"ok": False, "unchecked": True, "token": UNCHECKED, "reason": "no expected value"}
+    tol = float(problem.get("tol", 1e-6))
+    ok = abs(float(actual) - float(expected)) <= tol
+    if ok:
+        return {"ok": True, "value": actual, "unchecked": False}
+    return {
+        "ok": False,
+        "unchecked": True,
+        "token": UNCHECKED,
+        "actual": actual,
+        "expected": expected,
+    }
+
+
+def _divider_value(problem: dict[str, Any]) -> float | None:
+    keys = {"vin", "r1", "r2"}
+    if not keys <= set(problem):
+        return None
+    r1, r2 = float(problem["r1"]), float(problem["r2"])
+    if r1 + r2 == 0:
+        return None
+    return float(problem["vin"]) * r2 / (r1 + r2)

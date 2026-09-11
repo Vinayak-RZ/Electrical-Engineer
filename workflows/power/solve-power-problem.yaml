@@ -1,0 +1,20 @@
+id: solve-power-problem
+nodes:
+  retrieve:
+    activity: retrieve-passage
+  flow:
+    activity: run-load-flow
+    optional: true
+    needs: [retrieve]
+  solve:
+    activity: solve-explain
+    needs: [flow]
+  check:
+    activity: check-numeric
+    needs: [solve]
+  label:
+    activity: label-unchecked
+    needs: [check]
+  summary:
+    activity: write-run-summary
+    needs: [label]

@@ -1,207 +1,166 @@
-# Extensive README — Electrical-Engineer internals
+# Electrical Engineer — extensive internals
 
-Companion to the human overview in [`README.md`](../README.md). This file maps **what exists in the tree today**, how the research phase runs, and why each important file is there.
+Companion to the main [README](../README.md). Concepts first, then how the repo
+runs, then every first-party package. Do not invent paths.
 
-**Repo kind:** greenfield product idea + **completed research-phase documentation** + **Accepted PID** + **draft PRD** + **Proposed technical architecture**. No application packages (`packages/`) yet. Vendored Cursor coding config lives under `.cursor/`.
+## Table of contents
 
----
+- [1. Domain concepts](#1-domain-concepts)
+- [2. How this repository runs](#2-how-this-repository-runs)
+- [3. Package map](#3-package-map)
+- [4. Packages](#4-packages)
+- [5. Configuration](#5-configuration)
+- [6. Tests and CI](#6-tests-and-ci)
+- [7. Further reading](#7-further-reading)
+- [8. Future advancements](#8-future-advancements)
 
-## How the repository runs (today)
+## 1. Domain concepts
 
-There is no server to start. The “runtime” is:
+- **Named recipe.** A checked-in YAML DAG (`workflows/**/*.yaml`) with `id` and `nodes.{id}.{activity,needs}`. The router picks a row; it does not invent edges.
+- **unchecked.** Exact token from `electrical_engineer.unchecked.UNCHECKED`. Used when a verifier is missing or a numeric check fails. `EE_ALLOW_ALL` skips *asks*, not this token.
+- **Run dir.** `runs/<4char>-<UTC>/` holds `summary.json`, `nodes/<id>/out.json`, optional `confirmed.json`. Audit only — no crash-resume.
+- **Gate.** TOML most-restrictive merge; third interrupt aborts. MCP never waits: fail-closed with `ui_url`.
+- **Confirm ≠ simulate.** Photo and C5 stop after `confirm-topology`. C4 `simulate-after-confirm` requires `confirmed.json` before `run-spice`.
+- **Slot UI.** React `register(name, Component)`; shell renders `root` only. No LLM client in the browser. `?run=` selects a run; CLI `ui --run` opens that URL. The `unchecked` pill is `summary.unchecked === true`, not a substring match on JSON.
+- **RAG facade.** EE owns `book_id` / `chapter_id` / `folder_tag` / `domain_tag`. Empty retrieval is a first-class `empty: true`. Engine after spike: thin bm25.
 
-1. Humans/agents edit Markdown under `research/`.
-2. `./scripts/research/validate-research.sh` (optionally `--full`) fails the change if notes lack required sections, look unfinished, smell like a requirements doc in the memo, or (after Phase F) break README path rules.
-3. Git commits on `cursor/ee-research-phase-7e0c` record one research artifact per commit by convention.
+## 2. How this repository runs
 
 ```mermaid
 sequenceDiagram
-  participant Author
-  participant Notes as research/notes
-  participant Val as validate-research.sh
-  participant Git
-  Author->>Notes: write claim tables + Sources
-  Author->>Val: run gate
-  Val-->>Author: PASS or FAIL
-  Author->>Git: commit on research branch
+  participant S as Student or host
+  participant CLI as electrical-engineer
+  participant FSM as YAML FSM
+  participant N as REGISTRY nodes
+  participant UI as FastAPI 127.0.0.1:8765
+  S->>CLI: run RECIPE | mcp run_workflow | ui
+  CLI->>FSM: load YAML, new run dir
+  FSM->>N: ready-set, sorted ids
+  N-->>FSM: dict (value or unchecked)
+  FSM-->>CLI: summary.json
+  CLI-->>UI: GET /api/runs
+  UI-->>S: slots + confirm POST
 ```
 
-When a future implementation phase starts, expect a thin `electrical-engineer` CLI plus MCP servers, skill packs, a persistent localhost UI, and `eval/gold/` tasks; they are **not** in the tree yet. Product shape is H3 in [`PRD.md`](PRD.md). Proposed runner and catalog: [`ARCHITECTURE.md`](ARCHITECTURE.md), [`WORKFLOWS.md`](WORKFLOWS.md). The research memo [`research/synthesis/recommendation.md`](../research/synthesis/recommendation.md) is historical O1 advice.
+Install with `uv sync --extra dev`. Entry: `electrical-engineer` → `electrical_engineer.cli:main`. UI auto-opens unless `EE_NO_BROWSER=1`. MCP is line-delimited JSON-RPC on stdio.
 
----
+## 3. Package map
 
-## Top-level layout
+| Package | Path | Role | Entry |
+|---------|------|------|-------|
+| `electrical_engineer` | `src/electrical_engineer/` | CLI, runner, nodes, MCP, RAG, eval | `electrical-engineer` |
+| `electrical-engineer-ui` | `ui/` | Vite React slot shell | `npm run dev` / FastAPI `ui/dist` |
+| recipes | `workflows/` | Named YAML | `electrical-engineer workflows` |
+| skills | `skills/` | Pedagogy markdown | host copy/symlink |
+| gold | `eval/gold/` | Licence-clean tasks | `electrical-engineer eval` |
 
-| Path | Role |
+Vendored Cursor config (`.cursor/`) is not a product package; see `.cursor/VENDOR.md`.
+
+## 4. Packages
+
+### 4.1 `electrical_engineer`
+
+**What it is for.** The installable H3 co-solver: parse YAML, run nodes, score gold, serve localhost HTTP, speak MCP.
+
+**How it is used.** `uv run electrical-engineer <cmd>` or `python -m electrical_engineer`.
+
+**How it works.** `cli.py` dispatches. `runner.execute.execute` loads a recipe, wraps `REGISTRY` with `run_dir`, writes `summary.json`.
+
+#### File map
+
+| File | Why it is here | What it does |
+|------|----------------|--------------|
+| `src/electrical_engineer/cli.py` | Console script | argparse surface |
+| `src/electrical_engineer/__main__.py` | `python -m` | calls `main` |
+| `src/electrical_engineer/catalog.py` | Discovery | YAML ids |
+| `src/electrical_engineer/unchecked.py` | Invariant | exact token |
+| `src/electrical_engineer/runner/fsm.py` | DAG | ready-set, cycle reject, 16 cap |
+| `src/electrical_engineer/runner/runs.py` | Isolation | run ids |
+| `src/electrical_engineer/runner/execute.py` | Glue | one run → summary |
+| `src/electrical_engineer/gates/policy.py` | Safety | most-restrictive TOML |
+| `src/electrical_engineer/router/hybrid.py` | Routing | explicit / Δ0.15 ask / unmatched |
+| `src/electrical_engineer/nodes/registry.py` | Activities | register + summary |
+| `src/electrical_engineer/nodes/sim.py` | Verifiers | spice/control/load-flow/check-numeric |
+| `src/electrical_engineer/nodes/photo.py` | Vision + explain | photo stages, retrieve, solve-explain |
+| `src/electrical_engineer/mcp/server.py` | Hosts | stdio JSON-RPC |
+| `src/electrical_engineer/ui_server/app.py` | UI API | bind 127.0.0.1, `ui_page_url`, runs, first `*.svg` artifact, confirm |
+| `src/electrical_engineer/rag/` | Retrieval | inventory + filters |
+| `src/electrical_engineer/local_llm/` | Optional daemon | skip-if-missing |
+| `src/electrical_engineer/memory/store.py` | Notes | 32KiB cap |
+| `src/electrical_engineer/compose/graph.py` | Advanced DAG | 16/24 |
+| `src/electrical_engineer/vision/fixtures.py` | CI photo | no VLM |
+| `src/electrical_engineer/eval_runner/score.py` | Gold | compare expect.json |
+
+### 4.2 `electrical-engineer-ui`
+
+**What it is for.** Persistent workspace chrome.
+
+**How it is used.** `electrical-engineer ui` serves `ui/dist` when built; Vite `server.host` is 127.0.0.1.
+
+**How it works.** `App.jsx` renders slot `root`. Zustand holds `currentRunId`.
+
+#### File map
+
+| File | Why it is here | What it does |
+|------|----------------|--------------|
+| `ui/src/tokens.css` | DESIGN-coinbase | `--ee-*` variables |
+| `ui/src/slots/registry.js` | Slot map | `register` / `renderSlot` |
+| `ui/src/slots/root.jsx` | Shell | runs, `?run=`, JSON unchecked badge, photo.confirm, skip-link |
+| `ui/src/store.js` | Layout | zustand |
+| `ui/vite.config.js` | Dev server | loopback |
+| `ui/package-lock.json` | Reproducible npm | lockfile for `npm run build` |
+| `assets/electrical-engineer-logo.svg` | Product mark | flat README logo (no Coinbase wordmark) |
+
+### 4.3 recipes (`workflows/`)
+
+**What it is for.** The catalog students actually run.
+
+**How it is used.** `electrical-engineer run <id>`.
+
+**How it works.** One YAML per id. Packs: `_cross`, `circuits`, `control`, `signals`, `machines`, `power`, `electronics`, `measurements`, `em`, `power_electronics`, `maths`.
+
+### 4.4 skills (`skills/`)
+
+**What it is for.** Pedagogy for hosts. No secrets.
+
+**How it is used.** Copy/symlink per [`docs/hosts/README.md`](hosts/README.md).
+
+### 4.5 gold (`eval/gold/`)
+
+**What it is for.** OSS eval. Circuits divider, unmatched, injection.
+
+**How it is used.** `electrical-engineer eval --pack circuits`.
+
+## 5. Configuration
+
+| Name | Role |
 |------|------|
-| `README.md` | Readable overview: thesis, named workflows + UI, C1–C8 (no shipped agent) |
-| `PROJECT_OVERVIEW.md` | Purpose, intended H3 architecture, constraints |
-| `AGENTS.md` | Instructions for coding agents in this repo |
-| `PROGRESS.md` | Phase status log |
-| `DECISIONS.md` | ADRs (0001/0005/0006 accepted; 0002–0004 and **0007** proposed) |
-| `LICENSE` | Apache License 2.0 |
-| `skills-manifest.json` | Inventory of vendored skills (40 skills, Spec Kit v1.0.6) |
-| `research/` | Research-phase artifacts (authority for “what to build”) |
-| `eval/gold/` | Specified gold-task layout; empty packs; no runner |
-| `scripts/` | Helper scripts (research validator; Cursor config installers) |
-| `docs/` | Internals map, Accepted PID, draft PRD, **Proposed** architecture/workflows, curriculum map, cursor-config guides |
-| `.cursor/` | Vendored rules, skills, MCP config |
+| `EE_NO_BROWSER` | `1` skips auto-open |
+| `EE_ALLOW_ALL` | skip asks; **not** unchecked |
+| `EE_LOCAL_LLM_URL` | OpenAI-compat base; unset = skip |
+| `EE_LOCAL_LLM_MODEL` | optional model name |
+| `problem.json` | cwd payload for `run` |
 
----
+Python 3.11+, `uv`, hatchling. Optional tools (PySpice, python-control, pandapower, sympy) are imported if present.
 
-## Package: `research/`
+## 6. Tests and CI
 
-**What it is for.** Hold the research-only phase: questions, decisions, sourced notes, synthesis.
+- `uv run ruff check . && uv run pytest -q`
+- `./scripts/validate.sh` — lint, pytest, eval circuits, refuse `0.0.0.0`
+- `.github/workflows/ci.yml` — Ubuntu only; tests use the checkout cwd (not a Cloud Agent `/workspace` path)
+- Layout: `tests/unit/`, `tests/integration/`, `eval/gold/`
+- README screenshots: `docs/media/ui-empty.png`, `docs/media/ui-checked-run.png`, `docs/media/ui-unchecked-confirm.png` from live `127.0.0.1:8765`
 
-**How it is invoked.** Read by humans; validated by `scripts/research/validate-research.sh`.
+## 7. Further reading
 
-### File map — registers
+- [`docs/PID.md`](PID.md), [`docs/PRD.md`](PRD.md), [`docs/ARCHITECTURE.md`](ARCHITECTURE.md)
+- [`docs/WORKFLOWS.md`](WORKFLOWS.md), [`docs/CANNOT_DO.md`](CANNOT_DO.md)
+- [`docs/design/DESIGN-coinbase.md`](design/DESIGN-coinbase.md)
+- [`docs/planning/R1_BOOT.md`](planning/R1_BOOT.md), [`docs/planning/T1_TRIALS.md`](planning/T1_TRIALS.md)
+- Spike: [`research/notes/rag-spike-results-2026-09.md`](../research/notes/rag-spike-results-2026-09.md)
 
-| Path | What it does | Why it exists |
-|------|--------------|---------------|
-| `research/README.md` | Map of the research phase | Onboarding without opening every note |
-| `research/NOTE.template.md` | Required note headings | Keeps validator and authors aligned |
-| `research/question-bank.md` | Q1–Q30 with status | Prevents silent unresolved questions |
-| `research/DECISION_REGISTER.md` | D1–D13 stances | Compact decision index |
-| `research/source-ledger.md` | S1–S85 sources + tiers | Citation cross-check backbone |
+## 8. Future advancements
 
-### File map — `research/notes/`
-
-| Path | What it does | Why it exists |
-|------|--------------|---------------|
-| `harness-landscape.md` | Compare Pi/Codex/Claude/OpenHands/Aider | WS-A evidence |
-| `pi-feasibility.md` | Package vs fork vs hybrid stance | WS-A decision input |
-| `ee-corpus-and-licensing.md` | Corpus rights; BYO default | WS-B licence spine |
-| `rag-parsing-formulae-figures.md` | PDF/math/figure extraction | WS-B parsing |
-| `rag-chunking-and-retrieval.md` | Chunk/metadata/hybrid search | WS-B retrieval |
-| `rag-agent-integration.md` | MCP vs middleware vs multi-hop | WS-B agent wiring |
-| `rag-eval-methodology.md` | Eval design + 20 case titles | WS-B quality |
-| `matlab-simulink-surface.md` | MathWorks MCP/toolkits | WS-C primary verifier |
-| `open-source-verification.md` | SPICE/Python fallback | WS-C licence-free tier |
-| `local-package-and-embedding-release.md` | Local package + GitHub embedding packs + Chroma | WS-B/E local-first RAG |
-| `photo-to-schematic-to-simulink.md` | Photo → editable schematic → Simulink/ngspice | WS-C circuit vision |
-| `ee-task-taxonomy-draft.md` | Genres × GATE sections | WS-D capability map |
-| `capability-eval-design.md` | Rubrics without SLAs | WS-D measurement design |
-| `ai-core-engineering-landscape.md` | AI in EE / manufacturing / civil; student + reliability implications | WS-D success-bar evidence |
-| `rag-anything-evaluation.md` | RAG-Anything as ingest engine | WS-B multimodal RAG |
-| `spatiotemporal-composability.md` | Cordis/DSH/Temporal paradigm mapping (not a fork) | Architecture research |
-| `light-dag-fsm-and-language.md` | Light DAG/FSM and language TRADEOFF | Architecture research |
-| `ee-workflow-catalog-draft.md` | Historical catalog names (not the frozen API) | Architecture research |
-| `architecture-qa-gate.md` | Owner architecture answers | Architecture research |
-
-### File map — `research/synthesis/`
-
-| Path | What it does | Why it exists |
-|------|--------------|---------------|
-| `option-scoring.md` | O1–O4 scored on 8 criteria | Force comparable trade-offs |
-| `recommendation.md` | Chosen path + spikes + non-decisions | Handoff out of research |
-| `rag-stack-recommendation.md` | RAG-Anything vs alternatives | WS-B engine choice |
-
-### File map — `research/spikes/`
-
-| Path | What it does | Why it exists |
-|------|--------------|---------------|
-| `.gitkeep` | Placeholder | Reserved for optional throwaway spikes (none approved yet) |
-
----
-
-## Package: `eval/`
-
-**What it is for.** Specified home for gold tasks (`eval/gold/`). Layout only; no runner and no gold items yet.
-
-| Path | What it does | Why it exists |
-|------|--------------|---------------|
-| `eval/gold/README.md` | Scoring seam + directory contract | Architecture pass Q56 |
-| `eval/gold/circuits/` etc. | Empty pack folders | First circuits items have a home |
-
----
-
-## Package: `scripts/`
-
-| Path | What it does | Why it exists |
-|------|--------------|---------------|
-| `scripts/research/validate-research.sh` | Failable research gate | Enforce note quality without a test framework |
-| `scripts/cursor-config/*.ps1` | Install/link Cursor config; `validate-config.ps1` is the upstream checker (paths assume the coding-config repo layout) | From vendored coding-config setup |
-
----
-
-## Package: `docs/`
-
-| Path | What it does | Why it exists |
-|------|--------------|---------------|
-| `docs/EXTENSIVE.md` | This internals map | extensive-readme companion |
-| `docs/PID.md` | Accepted product identity | P0 locks (H3, Apache-2.0, UG bound) |
-| `docs/PRD.md` | Product requirements | Draft until owner accepts |
-| `docs/ARCHITECTURE.md` | Technical architecture | **Proposed** until owner accepts |
-| `docs/WORKFLOWS.md` | Named workflow catalog | **Proposed**; ids renamable until CLI ships |
-| `docs/curriculum-map.md` | UG programme union | GATE is eval overlay only |
-| `docs/PID_DECISION_SHEET.md` | Owner question trace | P0 answered; P1 proposed |
-| `docs/cursor-config/*` | Guides for MCP, Spec Kit, skills, learning | Document the vendored `.cursor/` workflow |
-
----
-
-## Package: `.cursor/` (vendored coding config)
-
-**What it is for.** Rules and skills that constrain how agents plan and code in this repo (`nawab-plans` with lite/standard/project profiles, `ponytail`, `agentic-system-design`, `readme` router, Spec Kit v1.0.6, opt-in `graph-engineering`).
-
-**How it is invoked.** Cursor loads rules; agents are told via `AGENTS.md` to read skills before planning/coding. Always-on stubs: `rule-awareness`, `ponytail`, `ai-anti-patterns`. Plan mode defaults to nawab **lite**.
-
-**Important files (not exhaustive):**
-
-| Path | Why it exists |
-|------|---------------|
-| `.cursor/rules/planning.mdc` | Nawab at chosen profile (lite default; not always-on) |
-| `.cursor/rules/ponytail.mdc` | Minimal-diff discipline before code (always-on) |
-| `.cursor/rules/agentic-systems.mdc` | Agent/RAG/MCP architecture expectations |
-| `.cursor/skills/nawab-plans/` | Lite + full plan templates |
-| `.cursor/skills/graph-engineering/` | Opt-in linked node plans (only if named) |
-| `.cursor/skills/agentic-system-design/` | Agent design checklist |
-| `.cursor/skills/readme/` + `readable-readme/` + `extensive-readme/` | README routing and authorship |
-| `.cursor/mcp.json` | Points at agent-patterns MCP (may be unreachable in some environments) |
-
-Vendor pin notes: `.cursor/VENDOR.md`. Product overlay: root `AGENTS.md` (do not replace with the coding-config index).
-
----
-
-## Cross-artifact edges
-
-```text
-question-bank ──answered-by──► notes/*
-notes/* ──cite──► source-ledger
-notes/* ──stance──► DECISION_REGISTER ──ADR──► DECISIONS.md
-notes/* ──feed──► option-scoring ──feed──► recommendation
-recommendation ──historical-advice──► README.md (do not treat as harness lock)
-PID.md (Accepted) ──requirements──► PRD.md (draft for owner)
-ARCHITECTURE.md / WORKFLOWS.md (Proposed) ──locks──► architecture-qa-gate.md
-curriculum-map.md ──defines──► UG bound (GATE = eval)
-all research files ──mapped-by──► docs/EXTENSIVE.md
-validate-research.sh ──gates──► notes + recommendation + READMEs
-```
-
----
-
-## Config, tests, CI
-
-| Concern | Today |
-|---------|-------|
-| Tests | `scripts/research/validate-research.sh` only |
-| CI | No GitHub Actions workflows in-tree yet |
-| Secrets | None required for research reading |
-
----
-
-## Future advancements
-
-1. **Owner accepts PRD** then **accepts or edits architecture**, then a new implementation nawab plan for the H3 CLI (no product code until then).
-2. **Real CI job** running `validate-research.sh --full` on PRs.
-3. **Spike folder population** only after explicit approval (parse metrics, MATLAB smoke).
-4. **Application packages** (thin CLI, `skills/`, MCP servers, persistent localhost UI, `eval/gold/` items) after PRD accept.
-
----
-
-## Further reading
-
-- [Pi Coding Agent](https://pi.dev/)
-- [Harness Engineering arXiv:2609.00006](https://arxiv.org/abs/2609.00006)
-- [MATLAB MCP Server](https://github.com/matlab/matlab-mcp-server)
-- [GATE EE syllabus mirror](https://static.collegedekho.com/media/uploads/2024/07/01/gate-_ee_2025_syllabus.pdf)
+1. Re-run the RAG spike on a licensed chapter with LightRAG 1.5 numbers before swapping engines.
+2. Optional MATLAB and ngspice in non-Ubuntu CI; keep skip-if-missing.
+3. BYOK / HTTP MCP / PyPI — explicitly later-graph in PID; do not pretend they shipped.

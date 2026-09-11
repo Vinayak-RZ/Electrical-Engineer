@@ -1,0 +1,12 @@
+id: simulate-after-confirm
+nodes:
+  spice:
+    activity: run-spice
+    require_confirmed: true
+    repair_max: 2
+  label:
+    activity: label-unchecked
+    needs: [spice]
+  summary:
+    activity: write-run-summary
+    needs: [label]

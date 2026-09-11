@@ -1,11 +1,11 @@
 # Product Identity Document (PID) — Electrical Engineer
 
-**Status:** Accepted (P0 locks, 2026-09-09). Product *shape* aligned to the Proposed architecture (2026-09-10) without reopening P0. P1 items remain **proposed** until PRD review.  
-**Date:** 2026-09-09 (P0); shape note 2026-09-10  
+**Status:** Accepted (P0 locks, 2026-09-09). Streamlined D0 2026-09-10; **no P0 field changed**. Product shape aligned 2026-09-10.  
+**Date:** 2026-09-09 (P0); streamline 2026-09-10  
 **Requirements authority after this:** [`PRD.md`](PRD.md)  
-**How it is built:** [`ARCHITECTURE.md`](ARCHITECTURE.md) (Proposed)
+**How it is built:** [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
-This document is the locked product identity. Trade-off *history* lives in git; agents must not reopen H1–H5, licence, or UG vs PG without a new owner decision.
+This document is the locked product identity. Agents must not reopen H1–H5, licence, or UG vs PG without a new owner decision.
 
 ---
 
@@ -41,9 +41,9 @@ Electrical Engineer is an Apache-2.0, forever-open-source **co-solver** for unde
 
 ## 3. Who it is for
 
-**Primary:** UG electrical engineering students — India first, including colleges without a MATLAB-fluent TA — who have assignments, labs, and diagrams in circuits, machines, power, control, signals, and electronics. Global UG EE must remain first-class, not an afterthought.
+**Primary:** UG electrical engineering students — India first, including colleges without a MATLAB-fluent TA — who have assignments, labs, and diagrams in circuits, machines, power, control, signals, and electronics. Global UG EE remains first-class.
 
-**In v1 as users, not as extra products:** GATE/IES aspirants may use exam-style questions (eval + BYO). Self-learners taking UG-equivalent courses are welcome.
+**In v1 as users, not extra products:** GATE/IES aspirants (exam-style; eval + BYO). Self-learners on UG-equivalent courses.
 
 **Not in v1:** faculty/TA features, PG promise, working plant engineers, civil/mechanical students.
 
@@ -51,25 +51,11 @@ Electrical Engineer is an Apache-2.0, forever-open-source **co-solver** for unde
 
 ## 4. Bound: UG coursework, not GATE
 
-Public promise = **union of representative UG EE programmes** (Indian institutes + global institutes). See [`curriculum-map.md`](curriculum-map.md).
-
-GATE EE is a **capability check / eval overlay**, not the ceiling and not the only syllabus.
-
-Expansion stays cheap without a second repo: domain packs + unpublished later profiles. Do not put the UG limit inside SPICE or the RAG index.
-
-```text
-Host adapter     CLI / MCP / Cursor / Claude Code / OpenAI skills
-Policy profile   ug-coursework (public) | later unpublished
-Domain packs     circuits | control | power | machines | …
-Tool adapters    MATLAB-if-present | ngspice | pandapower | …
-Eval suites      pack × profile; GATE overlay on UG tasks
-```
+Public promise = **union of representative UG EE programmes** (Indian institutes + global institutes). See [`curriculum-map.md`](curriculum-map.md). GATE EE is an **eval overlay**, not the ceiling. Expansion stays in this repo via packs — never a second git repo.
 
 ## 5. Success bar (C1–C8)
 
-Same IDs as `README.md`. v1 vs later is in the PRD (P1 proposed: C1–C3 and C6–C7 first; C4 then C5; C8 not a student UX promise).
-
-Claimable bar: on a published UG task set, with tools on, match gold **or label unchecked**. Fluent wrong numbers presented as checked fail the product.
+Same IDs as `README.md`. Claimable bar: on a published UG task set, with tools on, match gold **or label unchecked**. Fluent wrong numbers presented as checked fail the product. v1 vs later is in the PRD.
 
 ## 6. H3 shape (locked)
 
@@ -86,7 +72,7 @@ Student
      verifiers: OSS first-class; MATLAB if present
 ```
 
-The CLI is a **thin wrapper**: glue, ug profile, co-solver defaults, a **deterministic YAML DAG runner**, eval, and the local UI. It must not grow into a unique agent loop (H5). Hosts keep their own loops; we supply skills, tools, named recipes, and policy the CLI also applies. Detail: [`ARCHITECTURE.md`](ARCHITECTURE.md).
+The CLI is a **thin wrapper**: glue, ug profile, co-solver defaults, a **deterministic YAML DAG runner**, eval, and the local UI. It must not grow into a unique agent loop (H5). Hosts keep their own loops. Detail: [`ARCHITECTURE.md`](ARCHITECTURE.md).
 
 ## 7. Trust (locked)
 
@@ -110,7 +96,7 @@ The CLI is a **thin wrapper**: glue, ug profile, co-solver defaults, a **determi
 - Replacing MATLAB or KiCad
 - Shipping copyrighted textbooks or live exam PDFs in git
 
-## 9. P1 proposed (not locked — PRD review)
+## 9. P1 proposed (not a P0 lock)
 
 | Topic | Proposed |
 |-------|----------|
@@ -125,20 +111,17 @@ The CLI is a **thin wrapper**: glue, ug profile, co-solver defaults, a **determi
 | Doc | Role |
 |-----|------|
 | [`PRD.md`](PRD.md) | Requirements |
-| [`ARCHITECTURE.md`](ARCHITECTURE.md) | Technical architecture (**Proposed**) |
-| [`WORKFLOWS.md`](WORKFLOWS.md) | Named workflow catalog (**Proposed**) |
+| [`ARCHITECTURE.md`](ARCHITECTURE.md) | Technical architecture |
+| [`WORKFLOWS.md`](WORKFLOWS.md) | Named workflow catalog |
 | [`PID_DECISION_SHEET.md`](PID_DECISION_SHEET.md) | Answer trace |
 | [`curriculum-map.md`](curriculum-map.md) | UG bound |
-| [`../research/synthesis/recommendation.md`](../research/synthesis/recommendation.md) | Historical O1 *advice*; product chose H3 |
 | [`../DECISIONS.md`](../DECISIONS.md) | ADRs |
 
 ## Sources
 
 - Owner P0 answers (2026-09-09) — reliability: primary
 - [`PID_DECISION_SHEET.md`](PID_DECISION_SHEET.md) — reliability: primary
-- Research notes under `research/` — reliability: primary
 
 ## Confidence
 
 Overall confidence that **P0 identity is locked:** high.
-P1 defaults remain owner-reviewable.

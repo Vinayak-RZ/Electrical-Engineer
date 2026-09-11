@@ -1,0 +1,10 @@
+id: solve-control-problem
+nodes:
+  ctrl:
+    activity: run-python-control
+  label:
+    activity: label-unchecked
+    needs: [ctrl]
+  summary:
+    activity: write-run-summary
+    needs: [label]

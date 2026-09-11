@@ -1,13 +1,13 @@
 # Named workflows — Electrical Engineer
 
-**Status:** Proposed (ids **renamable until the first CLI ships**). Not implemented.  
-**Authority:** [`ARCHITECTURE.md`](ARCHITECTURE.md), owner catalog list in [`../research/notes/architecture-qa-gate.md`](../research/notes/architecture-qa-gate.md), genres in [`../research/notes/ee-task-taxonomy-draft.md`](../research/notes/ee-task-taxonomy-draft.md), bound in [`curriculum-map.md`](curriculum-map.md)
+**Status:** Catalog for this graph (ids **renamable until the first CLI ships**).  
+**Authority:** [`ARCHITECTURE.md`](ARCHITECTURE.md), [`curriculum-map.md`](curriculum-map.md)
 
-Recipes live at `workflows/<pack>/<id>.yaml` when implementation starts. This file is the catalog. Discovery is `electrical-engineer workflows` / MCP `list_workflows` — **not** a runnable recipe.
+Recipes live at `workflows/<pack>/<id>.yaml`. Discovery is `electrical-engineer workflows` / MCP `list_workflows` — **not** a runnable recipe.
 
 Purpose: named DAGs so the agent retrieves, cites, verifies, and explains **better**. The router only **picks** a row (or asks, or `unmatched-cosolver`). New DAGs only via `compose-from-parts --advanced`.
 
-Marks: **v1** = specify in full now (circuits slice ships first; control specified now, implement after circuits). **stub** = contract only. **later** = one-liner in the public catalog.
+Marks: **v1** = specified now. **stub** = contract only (confirm, no silent sim).
 
 ---
 
@@ -28,6 +28,7 @@ Marks: **v1** = specify in full now (circuits slice ships first; control specifi
 | solve-circuit-problem | Solve a circuit homework problem | v1 | DAG; may `run-recipe` explain or retrieve |
 | derive-circuit | Derive a circuit result from laws | v1 | check-numeric / sympy; no fake sim |
 | simulate-circuit | Simulate a netlist (SPICE) | v1 | `run-spice`; `repair_max: 2` |
+| simulate-after-confirm | Simulate only after UI topology confirm | v1 | C4; spice on confirmed netlist only |
 | review-circuit-solution | Find mistakes in a circuit solution | v1 | Review genre; label unchecked if not tool-checked |
 | explain-circuits | Explain a circuit idea for a viva | v1 | RAG filters + citations |
 
@@ -39,20 +40,28 @@ Marks: **v1** = specify in full now (circuits slice ships first; control specifi
 | explain-control | Explain stability, Bode, or root locus | v1 | Library plots, not invented PNGs |
 | control-diagram-to-model | Block diagram or Bode figure to a model | stub | Do **not** drop. Same UI-confirm spirit as photo stub; no silent sim |
 
-### Other packs (one-liners; keep per-pack explain-\*)
+### Other packs (solve + explain for every curriculum pack)
 
-| id | Title | Mark |
-|----|-------|------|
-| explain-signals | Explain a signals-and-systems idea | later |
-| explain-machines | Explain a machines or transformer idea | later |
-| explain-power | Explain a study-level power-systems idea | later |
-| explain-electronics | Explain a devices or digital idea | later |
-| explain-measurements | Explain an instrument or error model | later |
-| explain-em | Explain a UG fields idea | later |
-| explain-power-electronics | Explain a converter idea | later |
-| explain-maths-for-ee | Explain maths-for-EE (ODE, Fourier, complex) | later |
+| id | Title | Pack | Mark |
+|----|-------|------|------|
+| solve-signals-problem | Solve a signals-and-systems problem | signals | v1 |
+| explain-signals | Explain a signals-and-systems idea | signals | v1 |
+| solve-electronics-problem | Solve a devices/analog/digital problem | electronics | v1 |
+| explain-electronics | Explain a devices or digital idea | electronics | v1 |
+| solve-machines-problem | Solve a machines or transformer problem | machines | v1 |
+| explain-machines | Explain a machines or transformer idea | machines | v1 |
+| solve-power-problem | Solve a study-level power-systems problem | power | v1 |
+| explain-power | Explain a study-level power-systems idea | power | v1 |
+| solve-power-electronics-problem | Solve a converter problem | power_electronics | v1 |
+| explain-power-electronics | Explain a converter idea | power_electronics | v1 |
+| solve-measurements-problem | Solve a measurements/instrumentation problem | measurements | v1 |
+| explain-measurements | Explain an instrument or error model | measurements | v1 |
+| solve-em-problem | Solve a UG fields problem | em | v1 |
+| explain-em | Explain a UG fields idea | em | v1 |
+| solve-maths-for-ee | Solve a maths-for-EE problem | maths | v1 |
+| explain-maths-for-ee | Explain maths-for-EE (ODE, Fourier, complex) | maths | v1 |
 
-Solve/simulate/design rows for those packs remain in the **product bound** ([`curriculum-map.md`](curriculum-map.md)) but are not specified as separate DAGs in this pass.
+Each `solve-*` follows the unmatched/check-numeric pattern: retrieve → solve-explain → check-numeric or `label-unchecked` → write-run-summary. Each `explain-*` is retrieve → solve-explain → citations → write-run-summary. Honest holes go in [`CANNOT_DO.md`](CANNOT_DO.md), not fake gold.
 
 The research draft [`../research/notes/ee-workflow-catalog-draft.md`](../research/notes/ee-workflow-catalog-draft.md) is **historical naming**, not the frozen API.
 

@@ -199,21 +199,21 @@ flowchart TB
 
 | Wave | Nodes | Fan-out? | Barrier? | Status |
 |------|-------|----------|----------|--------|
-| 0 | [D0](plans/nodes/D0.md) then [A1](plans/nodes/A1.md) | no (shared docs) | yes after A1 | pending |
-| 1 | [B_PKG](plans/nodes/B_PKG.md) | no | no | pending |
-| 2 | [B_CORE](plans/nodes/B_CORE.md) | no | no | pending |
-| 3 | [B_NODES](plans/nodes/B_NODES.md), [U1](plans/nodes/U1.md) | yes | no | pending |
-| 4 | [B_MCP](plans/nodes/B_MCP.md), [B_MEM](plans/nodes/B_MEM.md), [B_WF_CROSS](plans/nodes/B_WF_CROSS.md), [B_UI](plans/nodes/B_UI.md) | yes (2–4) | no | pending |
-| 5 | [B_WF_CIRCUITS](plans/nodes/B_WF_CIRCUITS.md), [B_RAG_SPIKE](plans/nodes/B_RAG_SPIKE.md) | yes | no | pending |
-| 6 | [B_WF_CONTROL](plans/nodes/B_WF_CONTROL.md), [B_PHOTO](plans/nodes/B_PHOTO.md), [B_LOCAL_LLM](plans/nodes/B_LOCAL_LLM.md) | yes | no | pending |
-| 7 | [B_WF_PACKS](plans/nodes/B_WF_PACKS.md) | no (one writer) | no | pending |
-| 8 | [B_C4_SIM](plans/nodes/B_C4_SIM.md), [B_C5](plans/nodes/B_C5.md), [B_HOST](plans/nodes/B_HOST.md) | yes | no | pending |
-| 9 | [M1](plans/nodes/M1.md) | no | **yes — whole set** | pending |
-| 10 | [E1](plans/nodes/E1.md) | no | no | pending |
-| 11 | [R1](plans/nodes/R1.md) | no | no | pending |
-| 12 | [T1](plans/nodes/T1.md) | no | no | pending |
-| 13 | [D1](plans/nodes/D1.md) | no | no | pending |
-| 14 | [H1](plans/nodes/H1.md) | no | yes | pending |
+| 0 | [D0](plans/nodes/D0.md) then [A1](plans/nodes/A1.md) | no (shared docs) | yes after A1 | done |
+| 1 | [B_PKG](plans/nodes/B_PKG.md) | no | no | done |
+| 2 | [B_CORE](plans/nodes/B_CORE.md) | no | no | done |
+| 3 | [B_NODES](plans/nodes/B_NODES.md), [U1](plans/nodes/U1.md) | yes | no | done |
+| 4 | [B_MCP](plans/nodes/B_MCP.md), [B_MEM](plans/nodes/B_MEM.md), [B_WF_CROSS](plans/nodes/B_WF_CROSS.md), [B_UI](plans/nodes/B_UI.md) | yes (2–4) | no | done |
+| 5 | [B_WF_CIRCUITS](plans/nodes/B_WF_CIRCUITS.md), [B_RAG_SPIKE](plans/nodes/B_RAG_SPIKE.md) | yes | no | done |
+| 6 | [B_WF_CONTROL](plans/nodes/B_WF_CONTROL.md), [B_PHOTO](plans/nodes/B_PHOTO.md), [B_LOCAL_LLM](plans/nodes/B_LOCAL_LLM.md) | yes | no | done |
+| 7 | [B_WF_PACKS](plans/nodes/B_WF_PACKS.md) | no (one writer) | no | done |
+| 8 | [B_C4_SIM](plans/nodes/B_C4_SIM.md), [B_C5](plans/nodes/B_C5.md), [B_HOST](plans/nodes/B_HOST.md) | yes | no | done |
+| 9 | [M1](plans/nodes/M1.md) | no | **yes — whole set** | done |
+| 10 | [E1](plans/nodes/E1.md) | no | no | done |
+| 11 | [R1](plans/nodes/R1.md) | no | no | done |
+| 12 | [T1](plans/nodes/T1.md) | no | no | done |
+| 13 | [D1](plans/nodes/D1.md) | no | no | done |
+| 14 | [H1](plans/nodes/H1.md) | no | yes | done |
 
 Resume at the first non-`done` wave.
 
@@ -236,6 +236,4 @@ See IMPLEMENTATION_PLAN §9. Each node plan lists its own rows. Lead commits. Po
 
 ## Approval implication
 
-This graph is ready for **owner review**. Reviewing it does **not** start Wave 0.
-
-Execution starts only when the owner explicitly says start / build / implement / execute. Then Wave 0 runs ([D0](plans/nodes/D0.md) → [A1](plans/nodes/A1.md)) with no second compile wait. No wait per node unless that node plan marks a human checkpoint (copyright / non-localhost bind only).
+This graph **executed** after the owner said start / implement / execute (2026-09-10). Wave status is in the table above. Human checkpoints remain copyright / non-localhost bind only.

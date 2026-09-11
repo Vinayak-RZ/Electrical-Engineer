@@ -1,0 +1,9 @@
+from pathlib import Path
+
+
+def test_t1_has_at_least_nine_scenarios() -> None:
+    text = Path("docs/planning/T1_TRIALS.md").read_text()
+    assert text.count("**PASS**") >= 9
+    assert "MCP" in text
+    assert "unchecked" in text
+    assert "DESIGN-coinbase" in text or "0052ff" in text

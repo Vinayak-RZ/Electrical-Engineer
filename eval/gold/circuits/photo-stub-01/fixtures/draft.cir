@@ -1,0 +1,6 @@
+* licence-clean RC draft
+R1 1 2 1000
+C1 2 0 1u
+V1 1 0 DC 5
+.tran 1m
+.end
