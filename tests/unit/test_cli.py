@@ -14,3 +14,8 @@ def test_version_flag() -> None:
         assert exc.code == 0
     else:
         raise AssertionError("expected SystemExit")
+
+
+def test_ui_accepts_run_flag() -> None:
+    ns = build_parser().parse_args(["ui", "--run", "brpx-1"])
+    assert ns.run == "brpx-1"

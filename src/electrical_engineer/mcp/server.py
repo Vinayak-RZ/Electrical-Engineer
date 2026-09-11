@@ -29,10 +29,12 @@ TOOLS = [
 
 
 def fail_closed(run_id: str | None = None) -> dict[str, Any]:
+    from electrical_engineer.ui_server.app import ui_page_url
+
     hint = "electrical-engineer ui" + (f" --run {run_id}" if run_id else "")
     return {
         "error": "gate_would_wait",
-        "ui_url": "http://127.0.0.1:8765/",
+        "ui_url": ui_page_url(run_id),
         "cli_hint": hint,
         "waits": False,
     }

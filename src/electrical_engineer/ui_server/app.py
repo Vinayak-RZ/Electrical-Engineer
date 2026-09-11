@@ -11,6 +11,15 @@ from fastapi.staticfiles import StaticFiles
 
 BIND_HOST = "127.0.0.1"
 BIND_PORT = 8765
+
+
+def ui_page_url(run_id: str | None = None) -> str:
+    base = f"http://{BIND_HOST}:{BIND_PORT}/"
+    if not run_id:
+        return base
+    return f"{base}?run={run_id}"
+
+
 _PNG = (
     b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01"
     b"\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc\xf8\x0f\x00"
@@ -43,9 +52,13 @@ def create_app(root: Path | None = None) -> FastAPI:
 
     @app.get("/api/runs/{run_id}/artifact.svg")
     def artifact_svg(run_id: str) -> Response:
-        path = runs / run_id / "artifact.svg"
-        body = path.read_text() if path.is_file() else _SVG
-        return Response(body, media_type="image/svg+xml")
+        d = runs / run_id
+        named = d / "artifact.svg"
+        if named.is_file():
+            return Response(named.read_text(), media_type="image/svg+xml")
+        for path in sorted(d.glob("*.svg")):
+            return Response(path.read_text(), media_type="image/svg+xml")
+        return Response(_SVG, media_type="image/svg+xml")
 
     @app.get("/api/runs/{run_id}/artifact.png")
     def artifact_png(run_id: str) -> Response:

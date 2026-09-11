@@ -7,6 +7,8 @@ def test_skip_link_and_no_wan() -> None:
     root = Path("ui/src/slots/root.jsx").read_text()
     assert "Skip to workspace" in root
     assert "aria-live" in root
+    assert "obj.unchecked === true" in root
+    assert 'String(summary).includes("unchecked")' not in root
     assert BIND_HOST == "127.0.0.1"
 
 
@@ -20,3 +22,4 @@ def test_cli_ui_binds_loopback() -> None:
     assert "0.0.0.0" not in text
     assert "BIND_HOST" in text
     assert "should_open_browser" in text
+    assert "ui_page_url" in text

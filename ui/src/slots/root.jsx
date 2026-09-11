@@ -1,20 +1,22 @@
-import { register } from "./registry.js";
-import { renderSlot } from "./registry.js";
-import { useLayout } from "../store.js";
 import { useEffect, useState } from "react";
+import { register, renderSlot } from "./registry.js";
+import { useLayout } from "../store.js";
 
 function Root() {
   return (
-    <div>
+    <div className="shell">
       <a className="skip" href="#workspace">
         Skip to workspace
       </a>
-      <header>
+      <header className="topbar">
         <strong>Electrical Engineer</strong>
+        <span className="hint">127.0.0.1 · named runs · exact token unchecked</span>
       </header>
-      <div style={{ display: "flex" }}>
+      <div className="layout">
         {renderSlot("sidebar")}
-        <main id="workspace">{renderSlot("workspace")}</main>
+        <main id="workspace" className="workspace">
+          {renderSlot("workspace")}
+        </main>
       </div>
     </div>
   );
@@ -22,7 +24,12 @@ function Root() {
 
 function Sidebar() {
   const [runs, setRuns] = useState([]);
+  const current = useLayout((s) => s.currentRunId);
   const setRun = useLayout((s) => s.setRun);
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get("run");
+    if (q) setRun(q);
+  }, [setRun]);
   useEffect(() => {
     fetch("/api/runs")
       .then((r) => r.json())
@@ -30,9 +37,16 @@ function Sidebar() {
       .catch(() => setRuns([]));
   }, []);
   return (
-    <nav className="card" aria-label="Runs">
+    <nav className="sidebar" aria-label="Runs">
+      <h2>Runs</h2>
+      {runs.length === 0 ? <p className="hint">No runs yet. Use the CLI.</p> : null}
       {runs.map((id) => (
-        <button key={id} className="asset-row" onClick={() => setRun(id)}>
+        <button
+          key={id}
+          className="asset-row"
+          aria-current={current === id ? "true" : undefined}
+          onClick={() => setRun(id)}
+        >
           {id}
         </button>
       ))}
@@ -42,7 +56,15 @@ function Sidebar() {
 
 function Workspace() {
   const id = useLayout((s) => s.currentRunId);
-  if (!id) return <p>empty</p>;
+  if (!id) {
+    return (
+      <p className="empty">
+        Select a run. Summaries show a checked number or the exact token{" "}
+        <span className="badge-pill">unchecked</span>. Photo confirm never
+        simulates by itself.
+      </p>
+    );
+  }
   return (
     <div>
       {renderSlot("run.detail", { id })}
@@ -60,11 +82,20 @@ function RunDetail({ id }) {
       .then((d) => setSummary(d.summary || JSON.stringify(d)))
       .catch(() => setSummary(""));
   }, [id]);
-  const unchecked = String(summary).includes("unchecked");
+  const unchecked = (() => {
+    try {
+      const obj = JSON.parse(summary);
+      return obj.unchecked === true || obj.token === "unchecked";
+    } catch {
+      return false;
+    }
+  })();
   return (
     <section className="card" aria-live="polite">
-      <h1>{id}</h1>
-      {unchecked ? <span className="badge-pill">unchecked</span> : null}
+      <div className="row-title">
+        <h1>{id}</h1>
+        {unchecked ? <span className="badge-pill">unchecked</span> : null}
+      </div>
       <pre className="number-display">{summary}</pre>
     </section>
   );
@@ -74,22 +105,36 @@ function Artifacts({ id }) {
   return (
     <section className="card">
       <h2>Artifacts</h2>
-      <img alt="" src={`/api/runs/${id}/artifact.svg`} width="0" height="0" />
+      <p className="hint">Library SVG/PNG from this run only.</p>
+      <img
+        className="plot"
+        alt={`Run ${id} artifact`}
+        src={`/api/runs/${id}/artifact.svg`}
+        width="200"
+        height="80"
+      />
     </section>
   );
 }
 
 function PhotoConfirm({ id }) {
+  const [msg, setMsg] = useState("");
   return (
     <section className="card">
       <h2>Confirm topology</h2>
+      <p className="hint">Writes confirmed.json. Does not run SPICE.</p>
       <button
         className="button-primary"
         type="button"
-        onClick={() => fetch(`/api/runs/${id}/confirm`, { method: "POST" })}
+        onClick={() =>
+          fetch(`/api/runs/${id}/confirm`, { method: "POST" })
+            .then((r) => r.json())
+            .then((d) => setMsg(JSON.stringify(d)))
+        }
       >
         Confirm
       </button>
+      {msg ? <pre className="number-display">{msg}</pre> : null}
     </section>
   );
 }

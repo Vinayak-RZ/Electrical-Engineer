@@ -85,10 +85,11 @@ def main(argv: list[str] | None = None) -> int:
             BIND_PORT,
             create_app,
             should_open_browser,
+            ui_page_url,
         )
 
         if should_open_browser():
-            webbrowser.open(f"http://{BIND_HOST}:{BIND_PORT}/")
+            webbrowser.open(ui_page_url(args.run))
         uvicorn.run(create_app(), host=BIND_HOST, port=BIND_PORT)
         return 0
     if args.cmd == "eval":

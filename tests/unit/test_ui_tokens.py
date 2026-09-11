@@ -7,3 +7,5 @@ def test_css_vars_match_design() -> None:
     assert "--ee-color-ink: #0a0b0d" in css
     assert "--ee-color-primary: #0052ff" in css
     assert "Inter" in css
+    assert "JetBrains Mono" in css
+    assert "--ee-color-hairline" in css
