@@ -98,7 +98,7 @@ def main(argv: list[str] | None = None) -> int:
 
         return run_pack(args.pack)
     if args.cmd == "rag":
-        from electrical_engineer.rag.inventory import add_doc, load_inventory, tag_doc
+        from electrical_engineer.rag.inventory import add_doc, listed_inventory, tag_doc
 
         tags = {
             "book_id": getattr(args, "book_id", None),
@@ -110,7 +110,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.action == "list":
             import json
 
-            print(json.dumps(load_inventory(), indent=2))
+            print(json.dumps(listed_inventory(), indent=2))
             return 0
         if args.action == "add":
             if not args.path:

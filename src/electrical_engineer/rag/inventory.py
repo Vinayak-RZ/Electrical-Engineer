@@ -25,6 +25,18 @@ def load_inventory(cwd: Path | None = None) -> list[dict]:
     return json.loads(path.read_text())
 
 
+def seed_inventory(cwd: Path | None = None) -> list[dict]:
+    man = project_root(cwd) / "eval" / "fixtures" / "oer" / "manifest.json"
+    if not man.is_file():
+        return []
+    data = json.loads(man.read_text())
+    return list(data.get("items") or [])
+
+
+def listed_inventory(cwd: Path | None = None) -> list[dict]:
+    return [*seed_inventory(cwd), *load_inventory(cwd)]
+
+
 def save_inventory(items: list[dict], cwd: Path | None = None) -> None:
     inventory_path(cwd).write_text(json.dumps(items, indent=2))
 
