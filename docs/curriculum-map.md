@@ -14,7 +14,7 @@
 
 | Region | Institute | Programme signal | Core EE subjects named on the source | URL | Retrieved |
 |--------|-----------|------------------|--------------------------------------|-----|-----------|
-| India | IIT Roorkee | EE programmes: power, machines, drives, control, power electronics | Power, machines, drives, control, power electronics | https://iitr.ac.in/Departments/Electrical%20Engineering%20Department/Academics/Programmes.html | 2026-09-07 |
+| India | IIT Roorkee | EE programmes: power, machines, drives, control, power electronics | Power, machines, drives, control, power electronics (NEP PCC EEC-* 2023–24) | https://iitr.ac.in/Departments/Electrical%20Engineering%20Department/Academics/Programmes.html | 2026-09-11 |
 | India | IIT Madras | EE course descriptions (Jan–May 2026) | Department UG EE slate (circuits through energy/electronics as offered that term) | https://www.ee.iitm.ac.in/assets/documents/2026-Jan-May-Course-description.pdf | 2026-09-07 |
 | India | NIT Tiruchirappalli | B.Tech EEE flexible curriculum 2024–25 | Circuit theory, signals and systems, DC machines and transformers, electron devices, digital electronics, AC machines, analog electronic circuits, T&D, power system analysis, power electronics, control systems, linear ICs, microprocessors, measurements, protection and switchgear | https://www.nitt.edu/home/academics/curriculum/B.Tech-EE-2024.pdf | 2026-09-09 |
 | India | NIT Trichy EEE programme page | B.Tech EEE aims: machines, power systems, applied electronics | Machines, power systems, applied electronics | https://www.nitt.edu/home/academics/departments/eee/programmes/btech/curriculum/ | 2026-09-09 |
@@ -72,10 +72,15 @@ Source: GATE EE syllabus mirror used in research (`research/source-ledger.md` S1
 - v1 implementation order beyond the P1 default (circuits, then control).
 - Whether a specific IIT elective is in v1.
 
+## IIT Roorkee book list
+
+Per-course IITR-listed texts vs author-free/OER stand-ins (BYO commercial PDFs; no book binaries in git): [`../research/notes/iitr-ee-book-catalog.md`](../research/notes/iitr-ee-book-catalog.md).
+
 ## Sources
 
 - Institute URLs in the table above — retrieved as dated — reliability: primary except GATE mirror and AICTE mirror (secondary)
 - [`../research/notes/ee-task-taxonomy-draft.md`](../research/notes/ee-task-taxonomy-draft.md) — genres, not the bound
+- IITR NEP structure + 2022 suggested-books syllabus — 2026-09-11 — see the book catalog note
 
 ## Confidence
 
