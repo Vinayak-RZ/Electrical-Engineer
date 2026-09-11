@@ -11,6 +11,8 @@ eval/gold/
   circuits/
   control/
   unmatched/
+  rag-retrieval/ # perturbed book questions; expect book_id/chapter_id
+  explain/       # retrieve → solve-explain citations + unchecked or numeric
   injection/     # BYO-PDF / tags must not flip gates or the unchecked rule
 ```
 

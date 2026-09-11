@@ -1,0 +1,7 @@
+{
+  "kind": "ohms_law",
+  "v": 24,
+  "r": 8,
+  "query": "How voltage, current, and resistance relate in Ohm's law. Current through 8 ohm from 24 volt.",
+  "filters": {"book_id": "kuphaldt-dc", "domain_tag": "circuits"}
+}

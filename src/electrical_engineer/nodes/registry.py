@@ -50,18 +50,21 @@ def write_run_summary(_spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str
     checked = _walk_checked(inputs)
     value = None
     paths: list[str] = []
+    citations: list[Any] = []
     for v in inputs.values():
         if not isinstance(v, dict):
             continue
         if v.get("value") is not None:
             value = v.get("value")
         paths.extend(v.get("paths") or [])
+        citations.extend(v.get("citations") or [])
     out = {
         "recipe_id": _spec.get("recipe_id", ""),
         "unchecked": not checked,
         "token": None if checked else UNCHECKED,
         "value": value,
         "paths": paths,
+        "citations": citations,
     }
     run_dir = _spec.get("run_dir")
     if run_dir:
