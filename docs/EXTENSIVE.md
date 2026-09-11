@@ -21,7 +21,7 @@ runs, then every first-party package. Do not invent paths.
 - **Run dir.** `runs/<4char>-<UTC>/` holds `summary.json`, `nodes/<id>/out.json`, optional `confirmed.json`. Audit only — no crash-resume.
 - **Gate.** TOML most-restrictive merge; third interrupt aborts. MCP never waits: fail-closed with `ui_url`.
 - **Confirm ≠ simulate.** Photo and C5 stop after `confirm-topology`. C4 `simulate-after-confirm` requires `confirmed.json` before `run-spice`.
-- **Slot UI.** React `register(name, Component)`; shell renders `root` only. No LLM client in the browser.
+- **Slot UI.** React `register(name, Component)`; shell renders `root` only. No LLM client in the browser. `?run=` selects a run; CLI `ui --run` opens that URL. The `unchecked` pill is `summary.unchecked === true`, not a substring match on JSON.
 - **RAG facade.** EE owns `book_id` / `chapter_id` / `folder_tag` / `domain_tag`. Empty retrieval is a first-class `empty: true`. Engine after spike: thin bm25.
 
 ## 2. How this repository runs
@@ -83,7 +83,7 @@ Vendored Cursor config (`.cursor/`) is not a product package; see `.cursor/VENDO
 | `src/electrical_engineer/nodes/sim.py` | Verifiers | spice/control/load-flow/check-numeric |
 | `src/electrical_engineer/nodes/photo.py` | Vision + explain | photo stages, retrieve, solve-explain |
 | `src/electrical_engineer/mcp/server.py` | Hosts | stdio JSON-RPC |
-| `src/electrical_engineer/ui_server/app.py` | UI API | bind 127.0.0.1, runs, artifacts, confirm |
+| `src/electrical_engineer/ui_server/app.py` | UI API | bind 127.0.0.1, `ui_page_url`, runs, first `*.svg` artifact, confirm |
 | `src/electrical_engineer/rag/` | Retrieval | inventory + filters |
 | `src/electrical_engineer/local_llm/` | Optional daemon | skip-if-missing |
 | `src/electrical_engineer/memory/store.py` | Notes | 32KiB cap |
@@ -105,9 +105,11 @@ Vendored Cursor config (`.cursor/`) is not a product package; see `.cursor/VENDO
 |------|----------------|--------------|
 | `ui/src/tokens.css` | DESIGN-coinbase | `--ee-*` variables |
 | `ui/src/slots/registry.js` | Slot map | `register` / `renderSlot` |
-| `ui/src/slots/root.jsx` | Shell | runs, artifacts, photo.confirm, skip-link |
+| `ui/src/slots/root.jsx` | Shell | runs, `?run=`, JSON unchecked badge, photo.confirm, skip-link |
 | `ui/src/store.js` | Layout | zustand |
 | `ui/vite.config.js` | Dev server | loopback |
+| `ui/package-lock.json` | Reproducible npm | lockfile for `npm run build` |
+| `assets/electrical-engineer-logo.svg` | Product mark | flat README logo (no Coinbase wordmark) |
 
 ### 4.3 recipes (`workflows/`)
 
@@ -145,8 +147,9 @@ Python 3.11+, `uv`, hatchling. Optional tools (PySpice, python-control, pandapow
 
 - `uv run ruff check . && uv run pytest -q`
 - `./scripts/validate.sh` — lint, pytest, eval circuits, refuse `0.0.0.0`
-- `.github/workflows/ci.yml` — Ubuntu only
+- `.github/workflows/ci.yml` — Ubuntu only; tests use the checkout cwd (not a Cloud Agent `/workspace` path)
 - Layout: `tests/unit/`, `tests/integration/`, `eval/gold/`
+- README screenshots: `docs/media/ui-empty.png`, `docs/media/ui-checked-run.png`, `docs/media/ui-unchecked-confirm.png` from live `127.0.0.1:8765`
 
 ## 7. Further reading
 
