@@ -1,4 +1,4 @@
 {
   "name": "Electrical-Engineer",
-  "install": "test -d .cursor/rules && test -d .cursor/skills && test -f AGENTS.md && test -f skills-manifest.json"
+  "install": "set -eu\ntest -d .cursor/rules\ntest -d .cursor/skills\ntest -f AGENTS.md\ntest -f skills-manifest.json\ncommand -v python3 >/dev/null\ncommand -v node >/dev/null\nexport PATH=\"$HOME/.local/bin:$PATH\"\nif ! command -v uv >/dev/null 2>&1; then curl -LsSf https://astral.sh/uv/install.sh | sh; export PATH=\"$HOME/.local/bin:$PATH\"; fi\ncommand -v uv >/dev/null\npython3 --version\nnode --version\nuv --version\nif [ -f pyproject.toml ]; then uv sync; fi"
 }
