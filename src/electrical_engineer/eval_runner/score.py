@@ -38,6 +38,14 @@ def score(summary: dict[str, Any], expect: dict[str, Any]) -> dict[str, Any]:
         if "value" in expect:
             tol = float(expect.get("tol", 1e-6))
             ok = ok and abs(float(summary.get("value")) - float(expect["value"])) <= tol
+    if expect.get("citations"):
+        got = summary.get("citations") or []
+        for want in expect["citations"]:
+            ok = ok and any(
+                str(g.get("book_id")) == str(want.get("book_id"))
+                and str(g.get("chapter_id")) == str(want.get("chapter_id"))
+                for g in got
+            )
     return {"ok": bool(ok), "summary": summary, "expect": expect}
 
 

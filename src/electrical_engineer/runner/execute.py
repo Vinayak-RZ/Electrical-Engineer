@@ -57,6 +57,7 @@ def execute(
         "token": summary_node.get("token"),
         "value": summary_node.get("value"),
         "paths": summary_node.get("paths") or [],
+        "citations": summary_node.get("citations") or [],
         "nodes": {
             k: {"unchecked": v.get("unchecked"), "ok": v.get("ok")} for k, v in completed.items()
         },

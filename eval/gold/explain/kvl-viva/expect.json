@@ -1,0 +1,6 @@
+{
+  "recipe_id": "explain-circuits",
+  "token": "unchecked",
+  "unchecked": true,
+  "citations": [{"book_id": "kuphaldt-dc", "chapter_id": "6"}]
+}

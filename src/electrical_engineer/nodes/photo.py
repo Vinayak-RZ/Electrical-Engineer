@@ -63,22 +63,52 @@ def retrieve_passage(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, 
         from electrical_engineer.rag.retrieve import retrieve
     except ImportError:
         return {"passages": [], "empty": True}
-    filters = _problem(spec).get("filters") or spec.get("filters") or {}
-    return retrieve(filters)
+    problem = _problem(spec)
+    filters = problem.get("filters") or spec.get("filters") or {}
+    query = str(problem.get("query") or problem.get("task") or "")
+    out = retrieve(filters, query=query)
+    citations = [
+        {
+            "book_id": p.get("book_id"),
+            "chapter_id": p.get("chapter_id"),
+            "page": p.get("page"),
+        }
+        for p in out.get("passages") or []
+    ]
+    return {**out, "citations": citations}
 
 
 @register("solve-explain")
 def solve_explain(spec: dict[str, Any], inputs: dict[str, Any]) -> dict[str, Any]:
     problem = _problem(spec)
+    passages = []
+    citations = []
+    for v in inputs.values():
+        if isinstance(v, dict):
+            passages.extend(v.get("passages") or [])
+            citations.extend(v.get("citations") or [])
     value = _solve_value(problem)
+    bits = [p.get("text", "")[:400] for p in passages[:3]]
+    cited = " ".join(bits)
     if value is not None:
         return {
-            "text": f"value={value}",
+            "text": f"value={value}\n{cited}",
             "value": value,
             "unchecked": False,
             "law": problem.get("kind") or "numeric",
+            "citations": citations,
         }
-    return {"text": UNCHECKED, "unchecked": True, "token": UNCHECKED}
+    from electrical_engineer.local_llm.client import complete
+
+    prompt = f"Explain using only these passages:\n{cited}\n\nQuestion: {problem.get('query') or problem}"
+    llm = complete(prompt)
+    llm_text = None if llm.get("skipped") else llm.get("text")
+    return {
+        "text": llm_text or UNCHECKED,
+        "unchecked": True,
+        "token": UNCHECKED,
+        "citations": citations,
+    }
 
 
 def _solve_value(problem: dict[str, Any]) -> float | None:

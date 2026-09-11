@@ -10,3 +10,5 @@ def test_circuits_and_unmatched_gold_exist() -> None:
     assert (u / "expect.json").is_file()
     assert "solve-circuit-problem" in (c / "expect.json").read_text()
     assert "unchecked" in (u / "expect.json").read_text()
+    assert Path("eval/gold/rag-retrieval/ohms-perturbed/expect.json").is_file()
+    assert Path("eval/gold/explain/kvl-viva/expect.json").is_file()

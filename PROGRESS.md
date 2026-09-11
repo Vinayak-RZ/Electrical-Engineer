@@ -49,7 +49,7 @@ Live status. Research phase completed on `cursor/ee-research-phase-7e0c`. Produc
 | 2026-09-10 | Compiled nawab project plan + execution graph + 25 node plans; Gate 0 closed |
 | 2026-09-10 | DESIGN-coinbase locked as UI visual system; ADR-0008 seeded; Wave 0 waits on owner start |
 | 2026-09-10 | Owner start: D0+A1 executed; Spec Kit scaffolded; product `src/` begins Wave 1 |
-| 2026-09-10 | Product graph executed through M1: CLI+UI+MCP+RAG wired; packs have solve+explain or cannot-do |
+| 2026-09-11 | IITR EE book catalog + CC-BY Kuphaldt seed; retrieve ranks chapter; explain/Q&A gold |
 
 ## Handoff
 

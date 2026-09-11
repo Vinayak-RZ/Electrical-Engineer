@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "path": "eval/fixtures/oer/kuphaldt-dc-ch2-ohms-law.md",
+      "book_id": "kuphaldt-dc",
+      "chapter_id": "2",
+      "domain_tag": "circuits",
+      "folder_tag": "oer-seed",
+      "licence_tag": "CC-BY",
+      "title": "Lessons In Electric Circuits Vol I Ch 2 Ohm's Law",
+      "page": "2"
+    },
+    {
+      "path": "eval/fixtures/oer/kuphaldt-dc-ch6-kirchhoff.md",
+      "book_id": "kuphaldt-dc",
+      "chapter_id": "6",
+      "domain_tag": "circuits",
+      "folder_tag": "oer-seed",
+      "licence_tag": "CC-BY",
+      "title": "Lessons In Electric Circuits Vol I Ch 6 Divider Circuits and Kirchhoff's Laws",
+      "page": "6"
+    }
+  ]
+}
