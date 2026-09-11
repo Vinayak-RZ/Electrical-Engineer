@@ -6,11 +6,11 @@ uv run ruff check .
 uv run pytest -q
 uv run electrical-engineer eval --pack circuits
 # Bind must never be 0.0.0.0 in product code.
-if grep -R --include='*.py' --include='*.js' --include='*.jsx' --include='*.ts' --include='*.tsx' -n '0.0.0.0' src ui 2>/dev/null | grep -v test; then
+if grep -R --include='*.py' --include='*.js' --include='*.jsx' --include='*.ts' --include='*.tsx' --exclude-dir=node_modules --exclude-dir=dist -n '0.0.0.0' src ui 2>/dev/null | grep -v test; then
   echo "refusing 0.0.0.0 bind" >&2
   exit 1
 fi
-if grep -R -nE '@deepseek-ai|from cordis|require\(.cordis' src ui pyproject.toml 2>/dev/null | grep -v test; then
+if grep -R --exclude-dir=node_modules --exclude-dir=dist -nE '@deepseek-ai|from cordis|require\(.cordis' src ui pyproject.toml 2>/dev/null | grep -v test; then
   echo "refusing Cordis/DSH runtime" >&2
   exit 1
 fi
