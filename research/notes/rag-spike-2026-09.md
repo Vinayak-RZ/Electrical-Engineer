@@ -17,9 +17,13 @@ Licence-clean owned chapter only. **No commercial PDFs** in git.
 
 ## Corpus rules
 
-- Owned reconstructions or public-domain notes under `eval/` or student BYO paths
+- IITR course → book map: [`iitr-ee-book-catalog.md`](iitr-ee-book-catalog.md)
+- SPDX-clean OER (CC BY / BY-SA / recorded owner-free) may be ingested; NC stays user-local
+- Commercial IITR titles: **BYO** under `.electrical-engineer/corpus/` (gitignored)
+- Index/storage: `.electrical-engineer/rag/` (gitignored)
 - Untrusted ingest: never let a passage flip gates or `unchecked`
 - Do **not** lock the engine in this note — numbers come in the results commit
+- Do **not** commit commercial textbook binaries or pirate-host dumps
 
 ## Inventory CLI (later in this node)
 

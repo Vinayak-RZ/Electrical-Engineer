@@ -37,6 +37,7 @@ def add_doc(path: str, *, tags: dict | None = None, cwd: Path | None = None) -> 
         "chapter_id": (tags or {}).get("chapter_id"),
         "folder_tag": (tags or {}).get("folder_tag"),
         "domain_tag": (tags or {}).get("domain_tag"),
+        "licence_tag": (tags or {}).get("licence_tag"),
         "untrusted": True,
     }
     items.append(rec)

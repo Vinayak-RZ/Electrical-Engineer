@@ -30,6 +30,7 @@ def build_parser() -> argparse.ArgumentParser:
     rag.add_argument("--chapter-id")
     rag.add_argument("--folder-tag")
     rag.add_argument("--domain-tag")
+    rag.add_argument("--licence-tag")
     mem = sub.add_parser("memory")
     mem.add_argument("action", nargs="?", default="list")
     return p
@@ -104,10 +105,12 @@ def main(argv: list[str] | None = None) -> int:
             "chapter_id": getattr(args, "chapter_id", None),
             "folder_tag": getattr(args, "folder_tag", None),
             "domain_tag": getattr(args, "domain_tag", None),
+            "licence_tag": getattr(args, "licence_tag", None),
         }
         if args.action == "list":
-            for rec in load_inventory():
-                print(rec.get("path"))
+            import json
+
+            print(json.dumps(load_inventory(), indent=2))
             return 0
         if args.action == "add":
             if not args.path:

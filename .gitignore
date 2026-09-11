@@ -10,3 +10,7 @@ __pycache__/
 *.egg-info/
 dist/
 .electrical-engineer/memory/
+.electrical-engineer/corpus/
+.electrical-engineer/rag/
+.electrical-engineer/rag_storage/
+
