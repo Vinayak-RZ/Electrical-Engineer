@@ -33,6 +33,8 @@ Lead merges. Critics were readonly. Owner intake (ChatGPT desktop first-class, d
 ### Rejected (reason)
 
 - Drop Chat/Work from FR4 first-class — owner intake. Degradation is documented, not a demotion to “supported MCP only.”
+- Reopen research D5 “MATLAB MCP is the primary verifier” as product identity — PRD: OSS first-class, MATLAB optional.
+
 ## Loop 3 — cut (ponytail / sibling / unchecked)
 
 ### Accepted
@@ -47,3 +49,16 @@ Lead merges. Critics were readonly. Owner intake (ChatGPT desktop first-class, d
 - New Kirchhoff residual engine as a separate v1 FR — `check-numeric` / spice already are the predicates.
 - Canonical artifact schema framework and eval/gold code rewrite this pass — later plan.
 - Demote Chat/Work again — already handled in loop 2.
+
+## Loop 4 — consistency (PID / ARCHITECTURE / shipped)
+
+### Accepted
+
+- Proposed PID (next commit) must: public category **lab**, internal **domain kernel**, mode co-solver; hosts = Cursor, Claude Code, Codex inner-loop, ChatGPT desktop Chat/Work contract; web excluded; host picks recipe id; two-band; FR17–FR22.
+- Proposed ARCHITECTURE outline must: four layers; runner-law host clause; 5–7 ACI target vs as-built two tools; ChatGPT desktop in the map; two-band `summary.json`; classifier only when no host driving.
+- Inventory honesty: sim nodes are seams; `_solve_value` mint is a defect; omitted-id classifier unwired; divider gold is not live SPICE.
+
+### Rejected (reason)
+
+- Silent new engines in this PRD — none added. Control/LF/spice **implementations** stay a later code plan; contracts remain.
+- Rewriting eval gold or MCP framing in this docs pass — FR9/FR22 name the defects; code later.

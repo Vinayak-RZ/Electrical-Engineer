@@ -3,7 +3,7 @@
 **Status:** Proposed (2026-09-12). Supersedes Accepted D0 (2026-09-10) pending owner review.  
 **Date:** 2026-09-12  
 **Licence of this product’s code:** Apache License 2.0  
-**Identity:** [`PID.md`](PID.md) (still Accepted until the PID commit of this pass).  
+**Identity:** [`PID.md`](PID.md) (Proposed, same pass).  
 **This pass does not implement MCP/skill code.** As-built vs target is explicit in §4.
 
 ---
