@@ -104,7 +104,7 @@ Describe this as a **harness-native domain system**, not a “studio.” OpenMon
 
 ## Open questions
 
-- How much of today’s YAML DAG should the **host** drive versus `electrical-engineer run <id>` still executing the whole recipe? (Decision register D16.)
+- How much of today’s YAML DAG should the **host** drive versus `electrical-engineer run <id>` still executing the whole recipe? Answered in `notes/domain-kernel-layering.md` (host narrates and writes the viva; named `run` stays eval/headless rollback). Owner lock is D17.
 - Which artifacts deserve OpenMontage-style JSON schemas in v1 (netlist, `summary.json`, citations) versus later?
 - Whether a tool registry / selector object is needed, or the existing separate `run-spice` / `run-matlab-if-present` / `run-load-flow` nodes are enough.
 
