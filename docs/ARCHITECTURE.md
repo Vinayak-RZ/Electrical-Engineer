@@ -1,12 +1,12 @@
 # Technical architecture — Electrical Engineer
 
-**Status:** Accepted for this graph (A1, 2026-09-10).  
-**Date:** 2026-09-10  
-**Authority:** [`PID.md`](PID.md) (Accepted), [`PRD.md`](PRD.md) (Accepted for this graph)
+**Status:** Proposed (2026-09-12) overlay on Accepted A1 (2026-09-10). Aligns with Proposed [`PRD.md`](PRD.md) / [`PID.md`](PID.md).  
+**Date:** 2026-09-12  
+**Authority:** [`PID.md`](PID.md) (Proposed), [`PRD.md`](PRD.md) (Proposed)
 
-There is **no shipped product yet**; this file is the implementer contract. Do not invent LangGraph, Temporal, Cordis, or a second agent loop.
+Do not invent LangGraph, Temporal, Cordis, or a second agent loop (H5). YAML runner, unmatched, `unchecked`, and MCP-never-waits stay.
 
-Recipes exist so the agent gives **better answers** (RAG, citations, verified numbers, explanations), not so a graph merely runs. Named workflows are the default. The runner is **not** an LLM loop.
+Recipes attach physics so answers are retrieved, cited, and checked. They are **genre contracts** and **eval rollback**, not the host’s chat brain.
 
 ---
 
@@ -17,6 +17,7 @@ flowchart TB
   subgraph hosts [Hosts]
     Student[Student]
     Cursor[Cursor_Claude_Codex]
+    ChatDesk[ChatGPT_desktop]
   end
   subgraph cli [H3_glue]
     CLI[electrical-engineer_CLI]
@@ -50,7 +51,8 @@ flowchart TB
   Student --> UI
   Cursor --> MCP
   Cursor --> CLI
-  CLI --> Router
+  ChatDesk --> MCP
+  Student --> CLI
   Router --> Gates
   Gates --> Runner
   CLI --> UI
@@ -75,21 +77,28 @@ flowchart TB
 
 ---
 
-## 2. Layers
+## 2. Layers (four-layer domain kernel)
 
 | Layer | Owns | Must not own |
 |-------|------|----------------|
-| CLI | Defaults (co-solver, ug, `unchecked`), router, DAG runner, eval, `ui`, `rag` inventory, gates | A unique multi-turn agent loop (H5) |
-| Skills | Pedagogy, named workflow intent | Secrets, commercial books |
-| MCP | `list_workflows`, `run_workflow` (stdio) | Sessions, waiting on humans |
-| Persistent UI | Shared understanding: runs, artifacts, diagrams, plots, citations, RAG inventory, memory excerpts | A second brain; WAN bind; KiCad clone |
-| RAG sidecar | Ingest/index (RAG-Anything, proposed), tagged retrieval | Harness / agent loop |
-| Nodes | One activity each | Inventing workflows |
-| Hosts | Their LLM loops | Our textbook corpus |
+| 0 Host (rented) | Inner loop, viva / argument band, permissions | Kirchhoff as numeric truth; spice DAG invention; `unchecked` |
+| 1 Attach | CLI inner; MCP outer (as-built: `list_workflows`, `run_workflow`; target: 5–7 verbs, FR17); skills progressive disclosure | 1:1 node MCP; waiting on humans; PTC on spice writes |
+| 2 Domain kernel | Engines, YAML genre contracts, gates, eval rollback, RAG store, `unchecked` | A unique host-incompatible chat loop (H5) |
+| 3 Surfaces | Localhost UI; two-band artifacts (evidentiary vs argument) | ChatGPT-clone UI; WAN bind; KiCad clone |
+
+As-built sub-pieces (still true): CLI glue, pack `SKILL.md` stubs, stdio MCP, UI, RAG sidecar, registered nodes. Target attach and two-band: [`PRD.md`](PRD.md) §5–§6.
 
 **H3 falsifier:** if the CLI grows a custom harness hosts cannot share, stop and return to the owner.
 
-**Runner law:** no model calls except through **registered nodes**, plus one **pre-runner** classifier when the workflow id is omitted. The DAG runner itself is deterministic.
+**Runner law:** no model calls inside the DAG runner except through **registered nodes**, plus one **pre-runner** classifier when the workflow id is omitted **and no host is driving**. The DAG runner itself is deterministic. Host-path recipes **must not** invoke `solve-explain` (FR21). `solve-explain` must not mint checked numbers (FR9).
+
+### Context contract (always-on vs on-demand)
+
+Always-on: root skill (triggers, 5–7 verbs, `unchecked` law) + MCP tool schemas + optional `./runs/<id>/` pointer. Never the textbook corpus, never every pack skill, never gold fixtures.
+
+On-demand: matching `skills/<pack>/SKILL.md`, one-level `reference/`, RAG `retrieve` (book/chapter/page), run-dir evidentiary files.
+
+ChatGPT **web** is not a host. Chat/Work: pin root skill until Skills-over-MCP is verified. Peer MATLAB MCP: untrusted until an EE engine recomputes (FR20).
 
 ---
 
@@ -103,14 +112,14 @@ flowchart TB
 | MATLAB | **Optional.** Product and CI must work with OSS only (ngspice, python-control, pandapower, sympy) |
 | Later CLI skin | Owner also allowed a Go or Rust CLI wrapping this Python runner. Not the Proposed freeze. Revisit after PRD accept if a static binary is needed |
 
-Main LLM work lives in **Cursor / Claude Code / Codex** (or another configured model). The CLI is deterministic glue: YAML recipes, Python nodes, files, UI, eval.
+Main LLM work lives in **Cursor / Claude Code / Codex / ChatGPT desktop** (or a local/BYO model). The CLI is deterministic glue: YAML recipes, Python nodes, files, UI, eval. ChatGPT web is not a host.
 
 ---
 
 ## 4. Hybrid router
 
 1. If the user passes an explicit workflow id (`electrical-engineer run solve-circuit-problem`), **skip** classify.
-2. If the id is omitted, one **small classifier LLM** call ranks named recipes.
+2. If the id is omitted **and no host is driving**, one **small classifier LLM** call ranks named recipes. If a first-class host is driving, the **host** picks the named id (FR10/FR17); do not also classify.
 3. If top-1 and top-2 scores differ by **less than 0.15**, **ask the student** (counts as an interrupt).
 4. Otherwise run that named YAML recipe.
 5. If nothing matches: **`unmatched-cosolver` only**. No auto-simulate. Numerics that lack a verifier artifact use the exact token `unchecked`.
