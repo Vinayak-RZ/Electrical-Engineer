@@ -26,9 +26,14 @@ configuration. Configure once.
 6. Run `electrical-engineer ui` in a terminal for photo confirm, plots, and
    gates that must not block MCP.
 
-Until Skills-over-MCP is implemented, paste or pin the **root** skill text
-once per project (progressive disclosure: verb map + `unchecked` law only).
-Do not paste textbooks.
+Until Skills-over-MCP is implemented **and verified** on desktop Chat, paste
+or pin the **root** skill text once per project (verb map + `unchecked` law
+only). That pin is **not** FR19 pack-on-demand. Do not paste textbooks.
+Chat/Work must not be used as the gold runner (`eval` stays CLI).
+
+The argument band (FR21) on Chat/Work may live in the transcript; copy or
+write it next to `./runs/<id>/` when the student needs a file. Codex view
+can write the run dir directly.
 
 ## Must not
 

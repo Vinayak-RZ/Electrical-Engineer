@@ -41,7 +41,7 @@ Rejected public nickname: “Agentic UG EE Studio”. “Bench” is not the pub
 
 - Help UG students finish **and understand** EE assignments: correct enough to use, explained enough for a viva, **visible** in a local UI.
 - Run **locally** as a CLI without requiring any AI host. Spice/control/load-flow numbers work with **no** model. A probeable viva on the CLI-without-host path needs a configured local model or BYO key (`solve-explain`); without a model the evidentiary band is still complete and the argument band is `unchecked` or omitted — that is honest, not a silent fail.
-- Also run **inside** Cursor, Claude Code, Codex, and **ChatGPT desktop** under the same kernel contract (skills + MCP + CLI). ChatGPT **web** is not a host.
+- Also run **inside** Cursor, Claude Code, Codex, and **ChatGPT desktop** under the same kernel contract (MCP + CLI; skills folders where the host loads them; MCP-served or pinned root skill on Chat/Work). ChatGPT **web** is not a host.
 - Spend the host on method, viva, and missing-data interview. Clamp numbers, invented spice DAGs, and photo confirm in the kernel.
 - Invoke **named workflows** a student understands; fall through to a short co-solver that never auto-simulates.
 - Accept **BYO API keys**, **local models**, and **BYO textbooks** (tagged; inventoryable).
@@ -67,6 +67,7 @@ Rejected public nickname: “Agentic UG EE Studio”. “Bench” is not the pub
 | UG coursework **lab** (domain kernel) | Optional `--profile` for PG; not advertised |
 | H3 CLI + MCP + **persistent localhost UI** on four first-class hosts | Skills-over-MCP protocol polish; HTTP MCP |
 | Split host ACI (5–7 verbs); `run_workflow` as eval/headless rollback | Code Mode / PTC on **reads** only if retrieve tools proliferate |
+| Chat/Work method: pin root skill; Skills-over-MCP required for pack-on-demand parity with Cursor | Skills-over-MCP implemented and verified on a desktop Chat install |
 | Named circuits + control + **solve+explain for every curriculum pack** | Deeper gold / BYOK |
 | OSS verifiers first-class; MATLAB optional **engine** and optional **peer MCP** | Deeper Simulink when licence exists |
 | Photo-to-netlist **stub** (UI confirm, no sim) | Simulate the confirmed netlist |
@@ -263,7 +264,11 @@ FR1–FR16 are the D0 floor and stay in force. FR17–FR21 are the host-path res
 
 **FR3 Branded CLI.** A student can run `electrical-engineer` on Linux, macOS, or Windows (`pip` / `uv`, Python 3.11+) for the same EE tasks without an AI host. Commands: `run`, `workflows`, `mcp`, `eval`, `ui`, `rag`, `memory`. Deterministic engines work with no model. Local `solve-explain` (argument band) requires a configured local model or BYO key; without one, skip the essay and keep the evidentiary band.
 
-**FR4 Host adapters.** The same kernel contract loads in **Cursor**, **Claude Code**, **Codex** (CLI / IDE / desktop Codex view), and **ChatGPT desktop** (Chat / Work **and** Codex view). ChatGPT **web** and **mobile** are not hosts. First-class means the same verbs, gates, and `unchecked` law — not identical IDE UX. Chat/Work must receive method via MCP-served skills if they cannot load `SKILL.md` folders.
+**FR4 Host adapters.** The same kernel **contract** (verbs, gates, `unchecked`) loads in **Cursor**, **Claude Code**, **Codex** (CLI / IDE / desktop Codex view), and **ChatGPT desktop Chat / Work**. ChatGPT **web** and **mobile** are not hosts. First-class means that contract, not identical IDE UX and not identical skill loaders.
+
+- Codex view is the OpenAI **inner-loop** host (skill folders + MCP + CLI), same shape as Cursor / Claude Code.
+- Chat/Work is first-class **contract** with a weaker editor: MCP STDIO + pinned root skill until Skills-over-MCP is verified on that app; `ui` / `eval` in a side terminal. Pack-on-demand (FR19) on Chat/Work is not claimed until resources work. Do not count ChatGPT desktop as a fifth harness separate from Codex view — they share `~/.codex/config.toml`.
+- This **repo’s** root `AGENTS.md` is the Electrical-Engineer **coding** SDLC. Do not overload it with student lab instructions. Student Cursor attach is [`hosts/cursor.md`](hosts/cursor.md): symlink **root + active pack** into the **student’s** `~/.cursor/skills` or their homework repo, never into this repo’s `.cursor/skills/` (vendored coding skills).
 
 **FR5 Model adapters.** Support (a) the host’s subscription model, (b) user API keys, (c) local models. Architecture must not lock a single vendor. The DAG **runner** does not own a hidden LLM loop.
 
@@ -295,7 +300,7 @@ FR1–FR16 are the D0 floor and stay in force. FR17–FR21 are the host-path res
 
 **FR19 Pack specialists.** Ship a short **root** skill plus per-pack specialist skills (`skills/<pack>/SKILL.md`) with optional one-level `reference/` files. Load pack chapters on domain match only. v1 promise is the skill pack, not a custom multi-agent orchestrator. Host-native subagents may call the same EE MCP.
 
-**FR20 Dual MATLAB MCP.** When a MathWorks licence exists, the host **may** run MATLAB MCP / Copilot **and** Electrical Engineer MCP together. EE is the only authority for checked numbers. MATLAB peer output is untrusted until EE `simulate` / `label` (including `run-matlab-if-present`) accepts it. The entire product and CI **work without MATLAB**. MATLAB Copilot is not the product identity.
+**FR20 Dual MATLAB MCP.** When a MathWorks licence exists, the host **may** run MATLAB MCP / Copilot **and** Electrical Engineer MCP together. EE is the only authority for checked numbers. `label` / `summary` may set `unchecked: false` **only** when a **child EE verifier artifact** exists (`run-spice`, `check-numeric`, `run-python-control`, `run-load-flow`, `run-matlab-if-present`). Host-typed and peer-MCP/Copilot scalars are **not ingest**; they stay `unchecked` until an EE engine recomputes them. Provenance must not name Copilot or the host as verifier. Peer MATLAB MCP is for tools we do not wrap (Simulink editor, live scripts), not a second sim that satisfies FR2. The entire product and CI **work without MATLAB**. MATLAB Copilot is not the product identity.
 
 **FR21 Host-path viva.** On first-class hosts, the host writes the explanation. Host-path `simulate` / named recipes **must not** invoke `solve-explain`. CLI-without-host and gold **rollback** may keep `solve-explain` in the YAML. Starving the host by running the essay inside `run_workflow` on the host path violates this FR.
 

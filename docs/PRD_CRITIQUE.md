@@ -19,4 +19,16 @@ Lead merges. Critics were readonly. Owner intake (ChatGPT desktop first-class, d
 - Printable Given/Find lab-report template as v1 FR — later; `summary.json` + argument band is the v1 leave-behind.
 - Cut H3 vocabulary and split ACI from the PRD — implementers need them; student README is a later pass.
 - Treat Skills-over-MCP as already shipped — FR22 + host doc: pin root skill until resources exist.
-- LLM-as-judge of viva — not added.
+## Loop 2 — attach (ChatGPT / dual-MCP / Cursor)
+
+### Accepted
+
+- Chat/Work is first-class **contract**, not skill-loader parity; pin ≠ FR19; Skills-over-MCP stays a Chat/Work method requirement; `eval` is CLI.
+- Codex view is the OpenAI inner-loop host; do not market “four harnesses” as if ChatGPT desktop were a fifth runtime. Shared `~/.codex/config.toml`.
+- FR20: `label` cannot ingest Copilot/host scalars; only child EE verifier artifacts mint checked numbers.
+- This repo `AGENTS.md` stays coding SDLC. Student Cursor: symlink into the student’s skills path; optional ≤10-line homework `AGENTS.md`.
+
+### Rejected (reason)
+
+- Drop Chat/Work from FR4 first-class — owner intake. Degradation is documented, not a demotion to “supported MCP only.”
+- Reopen research D5 “MATLAB MCP is the primary verifier” as product identity — PRD: OSS first-class, MATLAB optional, EE wraps MATLAB when we drive it.

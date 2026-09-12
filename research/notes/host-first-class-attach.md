@@ -50,7 +50,7 @@ When the student has a MathWorks licence they may enable MATLAB MCP / Copilot **
 | MathWorks MCP / Copilot chat | Peer agent | **No.** Treat as untrusted evidence |
 | Host fluent essay | Engineering-argument band | **No** |
 
-Skill law for dual MCP: if MATLAB MCP returns a number, the specialist skill must call EE `simulate` or EE `label`. Until then the student-facing answer uses the exact token `unchecked`. EE wrapping MATLAB internally (`run-matlab-if-present`) stays the preferred path when we can drive MATLAB ourselves. Peer MCP exists so the host can use MathWorks tools we do not wrap (Simulink editor, live scripts). It does not bypass gates.
+Skill law for dual MCP: if MATLAB MCP returns a number, the specialist skill must call EE `simulate` (an EE engine recomputes). Until then the student-facing answer uses the exact token `unchecked`. `label` is a gate over child EE artifacts, not ingest of Copilot scalars. EE wrapping MATLAB internally (`run-matlab-if-present`) stays the preferred path when we can drive MATLAB ourselves. Peer MCP exists so the host can use MathWorks tools we do not wrap (Simulink editor, live scripts). It does not bypass gates.
 
 Product and CI still work with **zero** MATLAB.
 
