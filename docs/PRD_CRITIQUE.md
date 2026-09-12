@@ -31,4 +31,17 @@ Lead merges. Critics were readonly. Owner intake (ChatGPT desktop first-class, d
 ### Rejected (reason)
 
 - Drop Chat/Work from FR4 first-class — owner intake. Degradation is documented, not a demotion to “supported MCP only.”
-- Reopen research D5 “MATLAB MCP is the primary verifier” as product identity — PRD: OSS first-class, MATLAB optional, EE wraps MATLAB when we drive it.
+## Loop 3 — cut (ponytail / sibling / unchecked)
+
+### Accepted
+
+- Pin is v1 Chat/Work method; Skills-over-MCP verify is later. Unify verb count to 5–7. Drop PTC column and v1 Code Mode sentence. `eval_run` is CLI on Chat/Work.
+- FR19: skills teach Kirchhoff; they do not enforce FR2 (not Topology A).
+- FR9: gold checked only with named EE verifier; `solve-explain` must not mint checked; as-built `ohms-perturbed` is a later eval defect, not a PRD exception.
+
+### Rejected (reason)
+
+- Delete C8, FR10 0.15, reliability §9 restatement — D0 floor / student-facing policy.
+- New Kirchhoff residual engine as a separate v1 FR — `check-numeric` / spice already are the predicates.
+- Canonical artifact schema framework and eval/gold code rewrite this pass — later plan.
+- Demote Chat/Work again — already handled in loop 2.

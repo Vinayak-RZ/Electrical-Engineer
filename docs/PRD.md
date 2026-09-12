@@ -65,9 +65,9 @@ Rejected public nickname: “Agentic UG EE Studio”. “Bench” is not the pub
 | Now (public promise) | Later (same repo, unpublished until promised) |
 |----------------------|-----------------------------------------------|
 | UG coursework **lab** (domain kernel) | Optional `--profile` for PG; not advertised |
-| H3 CLI + MCP + **persistent localhost UI** on four first-class hosts | Skills-over-MCP protocol polish; HTTP MCP |
+| H3 CLI + MCP + **persistent localhost UI**; Cursor, Claude Code, Codex inner-loop, Chat/Work contract | HTTP MCP |
 | Split host ACI (5–7 verbs); `run_workflow` as eval/headless rollback | Code Mode / PTC on **reads** only if retrieve tools proliferate |
-| Chat/Work method: pin root skill; Skills-over-MCP required for pack-on-demand parity with Cursor | Skills-over-MCP implemented and verified on a desktop Chat install |
+| Chat/Work method: pin root skill (pack-on-demand not claimed) | Skills-over-MCP implemented and verified on a desktop Chat install |
 | Named circuits + control + **solve+explain for every curriculum pack** | Deeper gold / BYOK |
 | OSS verifiers first-class; MATLAB optional **engine** and optional **peer MCP** | Deeper Simulink when licence exists |
 | Photo-to-netlist **stub** (UI confirm, no sim) | Simulate the confirmed netlist |
@@ -164,7 +164,7 @@ Never always-on:
 - Gold eval fixtures
 - MATLAB Copilot system prompts
 
-Token intent: a decent root skill plus six tool schemas should stay on the order of **small thousands of tokens**, not hundreds of thousands (Code Mode lesson: do not enumerate 2,500 endpoints).
+Token intent: root skill plus the always-on tool schemas stay small. Do not enumerate every node.
 
 ### 6.3 On-demand context (load when the task matches)
 
@@ -182,14 +182,14 @@ Empty RAG is **visible**. Do not silently proceed as if the book was retrieved.
 
 **Always-on ACI (target, 5–7 verbs).** Names are illustrative; implementation is a later plan. As-built today is `list_workflows` + `run_workflow`.
 
-| Verb | Kind | Direct | PTC / Code Mode later | Notes |
-|------|------|--------|------------------------|-------|
-| `list_workflows` | read | yes | yes | Catalog of named recipe ids |
-| `retrieve` | read | yes | yes | Tagged RAG; citations evidentiary |
-| `open_ui` / `clarify` | read (+ questions) | yes | list yes; blocking no | MCP **never waits**. Returns `ui_url` |
-| `simulate` | write | yes | **no** | **Named recipe id only.** Never a session-invented DAG |
-| `label` / `summary` | write | yes | **no** | Mints checked vs `unchecked` |
-| `eval_run` | write | yes | **no** | Gold replay |
+| Verb | Kind | Direct | Notes |
+|------|------|--------|-------|
+| `list_workflows` | read | yes | Catalog of named recipe ids |
+| `retrieve` | read | yes | Tagged RAG; citations evidentiary |
+| `open_ui` / `clarify` | read (+ questions) | yes | MCP **never waits**. Returns `ui_url` |
+| `simulate` | write | yes | **Named recipe id only.** Never a session-invented DAG |
+| `label` / `summary` | write | yes | Gate over child EE artifacts only (FR20) |
+| `eval_run` | write | yes | Gold replay. **CLI** on Chat/Work; not required as an MCP tool there |
 
 `run_workflow` (as-built mega-apply) remains valid as **headless/eval rollback** and as `electrical-engineer run <id>` for students who want one command. On the **host path** it must not own `solve-explain`.
 
@@ -202,7 +202,7 @@ Empty RAG is **visible**. Do not silently proceed as if the book was retrieved.
 1. Root skill lists the six verbs and when to use them.
 2. `list_workflows` (or the skill’s recipe table) picks a **named** id (`simulate-circuit`, `solve-control-problem`, …).
 3. Pack specialist skill names the id in fully qualified form (`electrical-engineer:simulate` with `workflow_id=…`) so hosts with several MCP servers do not miss it.
-4. There is **no** v1 tool-search over 45 node schemas and **no** v1 Code Mode sandbox. If read tools later proliferate, add `search` + `execute` over **reads only**.
+4. There is **no** v1 tool-search over 45 node schemas.
 
 ### 6.6 Simulation
 
@@ -278,7 +278,7 @@ FR1–FR16 are the D0 floor and stay in force. FR17–FR21 are the host-path res
 
 **FR8 Ug policy.** Public profile is `ug-coursework`. Out-of-pack questions: try with **unchecked** or state out of enabled packs — not a silent PG mode.
 
-**FR9 Eval runner.** `electrical-engineer eval` (and `--pack`) against [`../eval/gold/`](../eval/gold/README.md). Gold items name a `recipe_id`. CI must not require MATLAB. `EE_ALLOW_ALL` may skip gates in CI; it must **not** disable `unchecked`. Gold scores the **evidentiary** band, not the essay.
+**FR9 Eval runner.** `electrical-engineer eval` (and `--pack`) against [`../eval/gold/`](../eval/gold/README.md). Gold items name a `recipe_id`. CI must not require MATLAB. `EE_ALLOW_ALL` may skip gates in CI; it must **not** disable `unchecked`. Gold scores the **evidentiary** band, not the essay. `unchecked: false` in gold is legal **only** when `summary.verifier` is an EE engine on the FR20 allowlist. `solve-explain` must not mint checked values (it may write the argument band). As-built gold that scores an LLM/node-minted `value` as checked is a **defect to fix in a later eval plan**, not a PRD exception.
 
 **FR10 Named workflows.** Default CLI path is a named recipe from [`WORKFLOWS.md`](WORKFLOWS.md) (`electrical-engineer run <id>`). Explicit id skips classify. On the CLI-without-host path, if id omitted, one classifier call; if top-1 and top-2 are within 0.15, ask the student. On the **host path**, the host picks the named id (FR17). Unmatched text always uses `unmatched-cosolver` (no auto-simulate). The router **never invents** a new DAG. New graphs only via `compose-from-parts --advanced`.
 
@@ -294,11 +294,11 @@ FR1–FR16 are the D0 floor and stay in force. FR17–FR21 are the host-path res
 
 **FR16 Photo stub.** `photo-to-netlist`: phone or textbook screenshot → detect → connect → OCR → draft `.cir` + JSON graph → one UI confirm → **stop** (no sim in the stub). Low-confidence OCR always flagged. `control-diagram-to-model` stays a stub in catalog.
 
-**FR17 Split host ACI.** Always-on MCP verbs are **5–7** (§6.4): list, retrieve, open_ui/clarify, simulate (named id only), label/summary, eval_run. Do not 1:1 wrap registered nodes. `run_workflow` executing a whole YAML DAG that includes `solve-explain` is **headless/eval rollback**, not the host-path viva. Code Mode / programmatic tool calling is **not** a v1 requirement; if added later, **reads only**.
+**FR17 Split host ACI.** Always-on MCP verbs are **5–7** (§6.4): list, retrieve, open_ui/clarify, simulate (named id only), label/summary, and eval_run (CLI-equivalent on Chat/Work). Do not 1:1 wrap registered nodes. `run_workflow` executing a whole YAML DAG that includes `solve-explain` is **headless/eval rollback**, not the host-path viva.
 
 **FR18 Two-band artifacts.** Each run produces (a) an **evidentiary** band (numbers, citations, `unchecked`, plots, netlists) assembled by engines/gates, and (b) an **engineering-argument** band (host-authored viva, or local `solve-explain` fallback) that **must not** mint checked scalars. Merging the bands so fluent text flips `unchecked` to false is a product fail. Any numeral in the argument band that is not bound to an evidentiary key (verifier id + value) must be written with the exact token `unchecked` or omitted. Displaying an unlabeled numeral in the argument band is a fail (do not ship a “the essay agreed” path). Checked provenance names the verifier (`run-spice`, `check-numeric`, `run-python-control`, `run-matlab-if-present`, …), never the host.
 
-**FR19 Pack specialists.** Ship a short **root** skill plus per-pack specialist skills (`skills/<pack>/SKILL.md`) with optional one-level `reference/` files. Load pack chapters on domain match only. v1 promise is the skill pack, not a custom multi-agent orchestrator. Host-native subagents may call the same EE MCP.
+**FR19 Pack specialists.** Ship a short **root** skill plus per-pack specialist skills (`skills/<pack>/SKILL.md`) with optional one-level `reference/` files. Load pack chapters on domain match only. Skills **teach** method (including Kirchhoff-before-SPICE); they **do not enforce** FR2. A fluent KCL paragraph in a skill or chat is never a checked number. v1 promise is the skill pack, not a custom multi-agent orchestrator. Host-native subagents may call the same EE MCP.
 
 **FR20 Dual MATLAB MCP.** When a MathWorks licence exists, the host **may** run MATLAB MCP / Copilot **and** Electrical Engineer MCP together. EE is the only authority for checked numbers. `label` / `summary` may set `unchecked: false` **only** when a **child EE verifier artifact** exists (`run-spice`, `check-numeric`, `run-python-control`, `run-load-flow`, `run-matlab-if-present`). Host-typed and peer-MCP/Copilot scalars are **not ingest**; they stay `unchecked` until an EE engine recomputes them. Provenance must not name Copilot or the host as verifier. Peer MATLAB MCP is for tools we do not wrap (Simulink editor, live scripts), not a second sim that satisfies FR2. The entire product and CI **work without MATLAB**. MATLAB Copilot is not the product identity.
 
