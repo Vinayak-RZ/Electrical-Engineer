@@ -34,6 +34,12 @@ Every open research question for this phase. Status: `open` | `answered` | `defe
 | Q28 | Photo stub contract (C4 still P1)? | WS-C | answered | Detect → connect → OCR → draft netlist → persistent UI confirm; `.cir` + JSON; no sim after confirm — `notes/architecture-qa-gate.md` |
 | Q29 | Resume-after-crash via run-dir vs always restart? | WS-A | answered | No crash-resume. Run dir is audit only. New run after process death — `notes/architecture-qa-gate.md` |
 | Q30 | May a node invoke another named recipe (child)? | WS-A | answered | Yes: `run-recipe`, max depth 3, cycles rejected — `notes/architecture-qa-gate.md` |
+| Q31 | What product *class* is Electrical Engineer relative to OpenMontage (not MCP/CLI/plugin/harness)? | WS-G | answered | Same class: harness-native domain system. Vertical: undergraduate EE lab. — `notes/similar-agentic-domain-systems.md`, `notes/naming-and-positioning.md` |
+| Q32 | Reopen PID Q1 — rename the product off Electrical Engineer? | WS-G | answered | No. Keep Electrical Engineer. Coined lab/bench names collide (EEBench, CircuitLab, Fuse). — `notes/naming-and-positioning.md` |
+| Q33 | What category noun replaces the rejected “Agentic UG EE Studio”? | WS-G | answered | Public: **lab**. Internal: harness-native domain system. Mode stays co-solver. — `notes/naming-and-positioning.md` |
+| Q34 | Topology A (markdown control plane) vs B (YAML as brain) vs C (hybrid)? | WS-G | answered | C. Host agent orchestrates the work; Python owns physics. — `notes/domain-system-architecture-patterns.md` |
+| Q35 | Does C reopen H3 or drop the YAML runner? | WS-G | answered | No. H3 stays. Runner remains the deterministic backbone and genre contract. Host must not invent spice DAGs. — `notes/domain-system-architecture-patterns.md`; D16 |
+| Q36 | GTM: GATE homepage vs host clubs vs CLI-only? | WS-G | answered | Host clubs first; divider eval as demo; GATE stays eval overlay; CLI-only remains a complete path. — `notes/student-gtm-ug-ee.md` |
 
 ## Sources
 
