@@ -88,11 +88,13 @@ The kernel spine already exists. This PRD mostly **restructures** how the host t
 | Exact token `unchecked`; `label-unchecked` in code | `nodes/registry.py` |
 | Photo/compose/control-diagram fail closed on MCP with `ui_url` | `mcp/server.py` |
 | Persistent UI on `127.0.0.1`; student need not use Cursor | `electrical-engineer ui` |
-| Gold eval (`eval/gold/`, including divider-dc-01) | `electrical-engineer eval` |
-| OSS spice / python-control / load-flow; MATLAB-if-present as a **node** | nodes |
+| Gold eval CLI and `eval/gold/` layout | `electrical-engineer eval` (divider gold is not a live SPICE proof) |
+| Registered sim seams: spice / python-control / load-flow / matlab-if-present | nodes (bodies may fail closed) |
 | Tagged local RAG + memory markdown | CLI `rag`, `memory` |
-| Pack skill files exist (`skills/<pack>/SKILL.md`) | pedagogy stubs today |
+| Pack skill files exist (`skills/<pack>/SKILL.md`) | pedagogy stubs today; no root `skills/SKILL.md` |
 | Run dir `./runs/<id>/` is audit, not crash-resume | ARCHITECTURE Q29 |
+
+Honesty about seams (keep the **contracts**, do not advertise them as proven gold engines): `run-spice` / `run-python-control` / `run-load-flow` / `run-matlab-if-present` are **registered nodes**. As-built bodies may fail closed or set `ok` on import. `solve-explain` is not only an LLM node: `_solve_value` can mint `unchecked: false` (ohms/divider) — that mint is a **defect** under FR9/FR18/FR21, not a kept engine. CLI `run` with omitted id does **not** yet call the hybrid classifier (exits usage); the classifier is specified, not wired.
 
 ### Restructure (requirements in this PRD; code in a later plan)
 
@@ -100,7 +102,8 @@ The kernel spine already exists. This PRD mostly **restructures** how the host t
 |----------|--------|
 | MCP tools: `list_workflows`, `run_workflow` (whole DAG including `solve-explain`) | 5–7 always-on verbs; host writes the viva; `run_workflow` = headless/eval rollback |
 | Pack `SKILL.md` files are four-line stubs | Root skill + pack specialists with one-level `reference/` |
-| `solve-explain` is a registered LLM node on the host path | Host-path argument band; node remains CLI-without-host fallback |
+| `solve-explain` LLM **and** `_solve_value` minting checked ohms/divider | Host-path argument band; node must not mint checked; CLI-without-host essay only |
+| Hybrid classifier specified; CLI omitted-id not wired | Wire classifier on CLI-without-host only; host picks the id |
 | ChatGPT / OpenAI documented as Codex-shaped only; completeness “does not require this host” | ChatGPT **desktop** first-class; ChatGPT **web** excluded |
 | MATLAB only as `run-matlab-if-present` | Also allow MathWorks MCP as a **peer**; EE still owns checked numbers |
 | `summary.json` folds numbers + citations | Two bands: evidentiary vs engineering argument |
@@ -256,7 +259,7 @@ Detail: [`hosts/README.md`](hosts/README.md).
 
 ## 7. Functional requirements
 
-FR1–FR16 are the D0 floor and stay in force. FR17–FR21 are the host-path restructure (code in a later plan).
+FR1–FR16 are the D0 floor and stay in force. FR17–FR22 are the host-path restructure (code in a later plan).
 
 **FR1 Co-solver.** Default behaviour is full working + final answer + assumptions. Not hint-first tutor. Not faculty mode. Mathematics in answers is valid LaTeX plus a plaintext fallback.
 
@@ -425,7 +428,7 @@ MATLAB if present else OSS first-class; the **entire product works without MATLA
 | [`../research/notes/host-first-class-attach.md`](../research/notes/host-first-class-attach.md) | ChatGPT desktop, dual MCP, specialists |
 | [`../research/notes/domain-kernel-layering.md`](../research/notes/domain-kernel-layering.md) | Four-layer wrap |
 | [`../research/synthesis/vision-lock-sheet.md`](../research/synthesis/vision-lock-sheet.md) | D14–D17 (owner checkboxes) |
-| [`hosts/README.md`](hosts/README.md) | First-class host install |
+| [`PRD_CRITIQUE.md`](PRD_CRITIQUE.md) | Four critique loops; accepted vs rejected |
 
 ## Owner review checkpoint
 

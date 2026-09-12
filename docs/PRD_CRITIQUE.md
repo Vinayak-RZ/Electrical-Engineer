@@ -19,6 +19,8 @@ Lead merges. Critics were readonly. Owner intake (ChatGPT desktop first-class, d
 - Printable Given/Find lab-report template as v1 FR — later; `summary.json` + argument band is the v1 leave-behind.
 - Cut H3 vocabulary and split ACI from the PRD — implementers need them; student README is a later pass.
 - Treat Skills-over-MCP as already shipped — FR22 + host doc: pin root skill until resources exist.
+- LLM-as-judge of viva — not added.
+
 ## Loop 2 — attach (ChatGPT / dual-MCP / Cursor)
 
 ### Accepted
