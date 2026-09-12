@@ -40,7 +40,7 @@ Rejected public nickname: “Agentic UG EE Studio”. “Bench” is not the pub
 ### Goals
 
 - Help UG students finish **and understand** EE assignments: correct enough to use, explained enough for a viva, **visible** in a local UI.
-- Run **locally** as a CLI without requiring any AI host; fully offline when a local model is configured; spice/control/load-flow with **no** model.
+- Run **locally** as a CLI without requiring any AI host. Spice/control/load-flow numbers work with **no** model. A probeable viva on the CLI-without-host path needs a configured local model or BYO key (`solve-explain`); without a model the evidentiary band is still complete and the argument band is `unchecked` or omitted — that is honest, not a silent fail.
 - Also run **inside** Cursor, Claude Code, Codex, and **ChatGPT desktop** under the same kernel contract (skills + MCP + CLI). ChatGPT **web** is not a host.
 - Spend the host on method, viva, and missing-data interview. Clamp numbers, invented spice DAGs, and photo confirm in the kernel.
 - Invoke **named workflows** a student understands; fall through to a short co-solver that never auto-simulates.
@@ -261,7 +261,7 @@ FR1–FR16 are the D0 floor and stay in force. FR17–FR21 are the host-path res
 
 **FR2 Label unchecked.** If a number did not come from an **EE kernel** verifier, the student-facing answer **and** the evidentiary run summary must contain the exact token `unchecked`. Synonyms are not the contract. Never present it as a simulation or lab result. Peer MATLAB MCP / Copilot output does not satisfy this FR until it re-enters EE `simulate` / `label`.
 
-**FR3 Branded CLI.** A student can run `electrical-engineer` on Linux, macOS, or Windows (`pip` / `uv`, Python 3.11+) for the same EE tasks without an AI host. Commands: `run`, `workflows`, `mcp`, `eval`, `ui`, `rag`, `memory`. This path includes local `solve-explain` when no host is configured.
+**FR3 Branded CLI.** A student can run `electrical-engineer` on Linux, macOS, or Windows (`pip` / `uv`, Python 3.11+) for the same EE tasks without an AI host. Commands: `run`, `workflows`, `mcp`, `eval`, `ui`, `rag`, `memory`. Deterministic engines work with no model. Local `solve-explain` (argument band) requires a configured local model or BYO key; without one, skip the essay and keep the evidentiary band.
 
 **FR4 Host adapters.** The same kernel contract loads in **Cursor**, **Claude Code**, **Codex** (CLI / IDE / desktop Codex view), and **ChatGPT desktop** (Chat / Work **and** Codex view). ChatGPT **web** and **mobile** are not hosts. First-class means the same verbs, gates, and `unchecked` law — not identical IDE UX. Chat/Work must receive method via MCP-served skills if they cannot load `SKILL.md` folders.
 
@@ -291,13 +291,15 @@ FR1–FR16 are the D0 floor and stay in force. FR17–FR21 are the host-path res
 
 **FR17 Split host ACI.** Always-on MCP verbs are **5–7** (§6.4): list, retrieve, open_ui/clarify, simulate (named id only), label/summary, eval_run. Do not 1:1 wrap registered nodes. `run_workflow` executing a whole YAML DAG that includes `solve-explain` is **headless/eval rollback**, not the host-path viva. Code Mode / programmatic tool calling is **not** a v1 requirement; if added later, **reads only**.
 
-**FR18 Two-band artifacts.** Each run produces (a) an **evidentiary** band (numbers, citations, `unchecked`, plots, netlists) assembled by engines/gates, and (b) an **engineering-argument** band (host-authored viva, or local `solve-explain` fallback) that **must not** mint checked scalars. Merging the bands so fluent text flips `unchecked` to false is a product fail.
+**FR18 Two-band artifacts.** Each run produces (a) an **evidentiary** band (numbers, citations, `unchecked`, plots, netlists) assembled by engines/gates, and (b) an **engineering-argument** band (host-authored viva, or local `solve-explain` fallback) that **must not** mint checked scalars. Merging the bands so fluent text flips `unchecked` to false is a product fail. Any numeral in the argument band that is not bound to an evidentiary key (verifier id + value) must be written with the exact token `unchecked` or omitted. Displaying an unlabeled numeral in the argument band is a fail (do not ship a “the essay agreed” path). Checked provenance names the verifier (`run-spice`, `check-numeric`, `run-python-control`, `run-matlab-if-present`, …), never the host.
 
 **FR19 Pack specialists.** Ship a short **root** skill plus per-pack specialist skills (`skills/<pack>/SKILL.md`) with optional one-level `reference/` files. Load pack chapters on domain match only. v1 promise is the skill pack, not a custom multi-agent orchestrator. Host-native subagents may call the same EE MCP.
 
 **FR20 Dual MATLAB MCP.** When a MathWorks licence exists, the host **may** run MATLAB MCP / Copilot **and** Electrical Engineer MCP together. EE is the only authority for checked numbers. MATLAB peer output is untrusted until EE `simulate` / `label` (including `run-matlab-if-present`) accepts it. The entire product and CI **work without MATLAB**. MATLAB Copilot is not the product identity.
 
-**FR21 Host-path viva.** On first-class hosts, the host writes the explanation. `solve-explain` remains a registered node for the CLI-without-host path. Starving the host by running the essay inside `run_workflow` on the host path violates this FR.
+**FR21 Host-path viva.** On first-class hosts, the host writes the explanation. Host-path `simulate` / named recipes **must not** invoke `solve-explain`. CLI-without-host and gold **rollback** may keep `solve-explain` in the YAML. Starving the host by running the essay inside `run_workflow` on the host path violates this FR.
+
+**FR22 MCP transport.** `electrical-engineer mcp` must speak the JSON-RPC stdio framing first-class hosts actually send (Content-Length / MCP SDK), and must not crash the process on `ping`, `resources/*`, or unknown methods. Fail closed with a JSON-RPC error. Skills-over-MCP (resources) is the Chat/Work method channel; until it ships, Chat/Work pins the root skill text (see [`hosts/chatgpt-desktop.md`](hosts/chatgpt-desktop.md)). Tool arguments must accept a problem/netlist/`run_id` so the host is not limited to cwd `problem.json`.
 
 ---
 
@@ -308,6 +310,8 @@ FR1–FR16 are the D0 floor and stay in force. FR17–FR21 are the host-path res
 **GATE is not the bound.** GATE EE section tags are an **eval overlay**. Do not drop a programme core because GATE weights it lightly. Do not skip a taught lab genre because GATE omitted it. Extra GATE trick items that programmes do not teach are optional eval spice, not the syllabus.
 
 **Packs in the public promise:** circuits, signals, electronics, machines, power (study-level), control, power electronics, measurements, UG EM/fields, maths for EE. Labs attached to those cores are in-scope as assignment/lab-report genre, not a separate product.
+
+**v1 enabled depth** is not the same as the bound. Circuits first, then control, then every remaining pack’s solve+explain **or** a cannot-do row. A 2nd-year signals problem on a circuits-only install uses `unmatched-cosolver` / `unchecked` — that is labeled, not a silent PG mode. Do not advertise ten packs as equally gold-backed in v1.
 
 **Out of the bound:** civil, mechanical, manufacturing. **Out of the public promise:** PG-only courses. Expansion stays in this repo via packs + unpublished later profiles — never a second git repo.
 
@@ -415,6 +419,7 @@ MATLAB if present else OSS first-class; the **entire product works without MATLA
 | [`WORKFLOWS.md`](WORKFLOWS.md) | Named workflow catalog |
 | [`../research/notes/host-first-class-attach.md`](../research/notes/host-first-class-attach.md) | ChatGPT desktop, dual MCP, specialists |
 | [`../research/notes/domain-kernel-layering.md`](../research/notes/domain-kernel-layering.md) | Four-layer wrap |
+| [`../research/synthesis/vision-lock-sheet.md`](../research/synthesis/vision-lock-sheet.md) | D14–D17 (owner checkboxes) |
 | [`hosts/README.md`](hosts/README.md) | First-class host install |
 
 ## Owner review checkpoint
