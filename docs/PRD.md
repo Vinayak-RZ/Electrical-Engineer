@@ -384,6 +384,25 @@ PG is not a public promise. Optional unpublished profile may exist later in **th
 
 ---
 
+## 12. Hosts and models
+
+Install detail: [`hosts/README.md`](hosts/README.md). Contract: §6.10 and FR4.
+
+| Path | Requirement |
+|------|-------------|
+| Local CLI | Works with a configured local model **or** BYO key; deterministic nodes work with **no** model; local `solve-explain` is the fallback brain |
+| Persistent UI | Same machine, `127.0.0.1`; required for photo/compose/control-diagram confirms |
+| Cursor | First-class: skills + MCP documented |
+| Claude Code | First-class: skills + MCP documented |
+| Codex (CLI / IDE / desktop Codex view) | First-class: skills + MCP documented |
+| ChatGPT desktop Chat / Work | First-class **contract**; MCP STDIO; served skills; side terminal for CLI/UI |
+| ChatGPT web / mobile | **Not a host** |
+| No AI host | Still a complete v1 path via CLI + UI |
+
+MATLAB if present else OSS first-class; the **entire product works without MATLAB**. Local RAG with BYO PDFs/scans and tags. Dual MATLAB MCP: FR20.
+
+---
+
 ## Related artifacts
 
 | Doc | Role |
@@ -396,7 +415,7 @@ PG is not a public promise. Optional unpublished profile may exist later in **th
 | [`WORKFLOWS.md`](WORKFLOWS.md) | Named workflow catalog |
 | [`../research/notes/host-first-class-attach.md`](../research/notes/host-first-class-attach.md) | ChatGPT desktop, dual MCP, specialists |
 | [`../research/notes/domain-kernel-layering.md`](../research/notes/domain-kernel-layering.md) | Four-layer wrap |
-| [`../research/synthesis/vision-lock-sheet.md`](../research/synthesis/vision-lock-sheet.md) | D14–D17 (owner checkboxes) |
+| [`hosts/README.md`](hosts/README.md) | First-class host install |
 
 ## Owner review checkpoint
 
