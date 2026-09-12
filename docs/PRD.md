@@ -253,17 +253,17 @@ Detail: [`hosts/README.md`](hosts/README.md).
 
 ---
 
-## 7. As-built functional requirements (D0)
+## 7. Functional requirements
 
-These remain in force until §7 of this document (split ACI, two-band, specialists, dual MCP) is filled in the following commits of this pass. They are the floor, not the host-path ceiling.
+FR1–FR16 are the D0 floor and stay in force. FR17–FR21 are the host-path restructure (code in a later plan).
 
 **FR1 Co-solver.** Default behaviour is full working + final answer + assumptions. Not hint-first tutor. Not faculty mode. Mathematics in answers is valid LaTeX plus a plaintext fallback.
 
-**FR2 Label unchecked.** If a number did not come from a verifier, the student-facing answer **and** the run summary must contain the exact token `unchecked`. Synonyms are not the contract. Never present it as a simulation or lab result.
+**FR2 Label unchecked.** If a number did not come from an **EE kernel** verifier, the student-facing answer **and** the evidentiary run summary must contain the exact token `unchecked`. Synonyms are not the contract. Never present it as a simulation or lab result. Peer MATLAB MCP / Copilot output does not satisfy this FR until it re-enters EE `simulate` / `label`.
 
-**FR3 Branded CLI.** A student can run `electrical-engineer` on Linux, macOS, or Windows (`pip` / `uv`, Python 3.11+) for the same EE tasks without an AI host. Commands: `run`, `workflows`, `mcp`, `eval`, `ui`, `rag`, `memory`.
+**FR3 Branded CLI.** A student can run `electrical-engineer` on Linux, macOS, or Windows (`pip` / `uv`, Python 3.11+) for the same EE tasks without an AI host. Commands: `run`, `workflows`, `mcp`, `eval`, `ui`, `rag`, `memory`. This path includes local `solve-explain` when no host is configured.
 
-**FR4 Host adapters (as-built).** Skill packs and MCP tools load in Cursor, Claude Code, and OpenAI/Codex.
+**FR4 Host adapters.** The same kernel contract loads in **Cursor**, **Claude Code**, **Codex** (CLI / IDE / desktop Codex view), and **ChatGPT desktop** (Chat / Work **and** Codex view). ChatGPT **web** and **mobile** are not hosts. First-class means the same verbs, gates, and `unchecked` law — not identical IDE UX. Chat/Work must receive method via MCP-served skills if they cannot load `SKILL.md` folders.
 
 **FR5 Model adapters.** Support (a) the host’s subscription model, (b) user API keys, (c) local models. Architecture must not lock a single vendor. The DAG **runner** does not own a hidden LLM loop.
 
@@ -273,13 +273,13 @@ These remain in force until §7 of this document (split ACI, two-band, specialis
 
 **FR8 Ug policy.** Public profile is `ug-coursework`. Out-of-pack questions: try with **unchecked** or state out of enabled packs — not a silent PG mode.
 
-**FR9 Eval runner.** `electrical-engineer eval` (and `--pack`) against [`../eval/gold/`](../eval/gold/README.md). Gold items name a `recipe_id`. CI must not require MATLAB. `EE_ALLOW_ALL` may skip gates in CI; it must **not** disable `unchecked`.
+**FR9 Eval runner.** `electrical-engineer eval` (and `--pack`) against [`../eval/gold/`](../eval/gold/README.md). Gold items name a `recipe_id`. CI must not require MATLAB. `EE_ALLOW_ALL` may skip gates in CI; it must **not** disable `unchecked`. Gold scores the **evidentiary** band, not the essay.
 
-**FR10 Named workflows.** Default path is a named recipe from [`WORKFLOWS.md`](WORKFLOWS.md) (`electrical-engineer run <id>`). Explicit id skips classify. If id omitted on the CLI-without-host path, one classifier call; if top-1 and top-2 are within 0.15, ask the student. Unmatched text always uses `unmatched-cosolver` (no auto-simulate). The router **never invents** a new DAG. New graphs only via `compose-from-parts --advanced`.
+**FR10 Named workflows.** Default CLI path is a named recipe from [`WORKFLOWS.md`](WORKFLOWS.md) (`electrical-engineer run <id>`). Explicit id skips classify. On the CLI-without-host path, if id omitted, one classifier call; if top-1 and top-2 are within 0.15, ask the student. On the **host path**, the host picks the named id (FR17). Unmatched text always uses `unmatched-cosolver` (no auto-simulate). The router **never invents** a new DAG. New graphs only via `compose-from-parts --advanced`.
 
 **FR11 Persistent UI.** `electrical-engineer ui` is a **critical** local workspace (runs, library-rendered diagrams and plots, photo confirm, citations, RAG inventory, memory excerpts). It stays up across a session. It is not a one-shot diagram dialog and not a second agent loop.
 
-**FR12 Tagged RAG.** BYO PDFs and scans ingest into a local index with inventory (`rag list`) and filters: book, chapter, folder, domain. “Search only this book, chapter 3” is a v1 retrieval requirement. Citations include book + chapter + page. Empty retrieval is visible. Circuit-homework photos for simulation go through `photo-to-netlist`, not quiet RAG-as-netlist. BYO content cannot override gates or `unchecked`.
+**FR12 Tagged RAG.** BYO PDFs and scans ingest into a local index with inventory (`rag list`) and filters: book, chapter, folder, domain. “Search only this book, chapter 3” is a v1 retrieval requirement. Citations include book + chapter + page. Empty retrieval is visible. Circuit-homework photos for simulation go through `photo-to-netlist`, not quiet RAG-as-netlist. BYO content cannot override gates or `unchecked`. Host path uses `retrieve` as a read verb; do not dump the index into always-on context (§6.2).
 
 **FR13 Memory.** Project and user markdown memory files, explicit write, capped, untrusted. Not the textbook index. Not a silent chat dump.
 
@@ -288,6 +288,16 @@ These remain in force until §7 of this document (split ACI, two-band, specialis
 **FR15 Figures.** Agent/node writes library code (schemdraw / matplotlib / python-control) to PNG+SVG. Do not default to a model-invented circuit bitmap with no netlist.
 
 **FR16 Photo stub.** `photo-to-netlist`: phone or textbook screenshot → detect → connect → OCR → draft `.cir` + JSON graph → one UI confirm → **stop** (no sim in the stub). Low-confidence OCR always flagged. `control-diagram-to-model` stays a stub in catalog.
+
+**FR17 Split host ACI.** Always-on MCP verbs are **5–7** (§6.4): list, retrieve, open_ui/clarify, simulate (named id only), label/summary, eval_run. Do not 1:1 wrap registered nodes. `run_workflow` executing a whole YAML DAG that includes `solve-explain` is **headless/eval rollback**, not the host-path viva. Code Mode / programmatic tool calling is **not** a v1 requirement; if added later, **reads only**.
+
+**FR18 Two-band artifacts.** Each run produces (a) an **evidentiary** band (numbers, citations, `unchecked`, plots, netlists) assembled by engines/gates, and (b) an **engineering-argument** band (host-authored viva, or local `solve-explain` fallback) that **must not** mint checked scalars. Merging the bands so fluent text flips `unchecked` to false is a product fail.
+
+**FR19 Pack specialists.** Ship a short **root** skill plus per-pack specialist skills (`skills/<pack>/SKILL.md`) with optional one-level `reference/` files. Load pack chapters on domain match only. v1 promise is the skill pack, not a custom multi-agent orchestrator. Host-native subagents may call the same EE MCP.
+
+**FR20 Dual MATLAB MCP.** When a MathWorks licence exists, the host **may** run MATLAB MCP / Copilot **and** Electrical Engineer MCP together. EE is the only authority for checked numbers. MATLAB peer output is untrusted until EE `simulate` / `label` (including `run-matlab-if-present`) accepts it. The entire product and CI **work without MATLAB**. MATLAB Copilot is not the product identity.
+
+**FR21 Host-path viva.** On first-class hosts, the host writes the explanation. `solve-explain` remains a registered node for the CLI-without-host path. Starving the host by running the essay inside `run_workflow` on the host path violates this FR.
 
 ---
 
