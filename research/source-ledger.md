@@ -117,6 +117,18 @@ Every external or authoritative source used in research notes. Add a row when yo
 | S111 | Student GTM UG EE note | `research/notes/student-gtm-ug-ee.md` | 2026-09-12 | primary |
 | S112 | Domain-system recommendation memo | `research/synthesis/domain-system-recommendation.md` | 2026-09-12 | primary |
 | S113 | Vision lock sheet | `research/synthesis/vision-lock-sheet.md` | 2026-09-12 | primary |
+| S114 | Owner-uploaded agentic kernel 2026 memo (Stamped; harvest only) | `research/notes/agentic-kernel-2026.md` | 2026-09-12 | primary |
+| S115 | Addy Osmani — Agent Harness Engineering | https://addyosmani.com/blog/agent-harness-engineering/ | 2026-09-12 | secondary |
+| S116 | Addy Osmani — Own the Outer Loop | https://addyosmani.com/blog/own-the-outer-loop/ | 2026-09-12 | secondary |
+| S117 | Cloudflare — Code Mode | https://blog.cloudflare.com/code-mode-mcp/ | 2026-09-12 | vendor |
+| S118 | Anthropic — Code execution with MCP | https://www.anthropic.com/engineering/code-execution-with-mcp | 2026-09-12 | primary |
+| S119 | Anthropic — Programmatic tool calling | https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling | 2026-09-12 | primary |
+| S120 | Firecrawl — MCP vs CLI in 2026 | https://www.firecrawl.dev/blog/mcp-vs-cli | 2026-09-12 | secondary |
+| S121 | Thoughtworks — skill is not an anti-corruption layer | https://www.thoughtworks.com/insights/blog/generative-ai/your-agent-skill-not-anti-corruption-layer | 2026-09-12 | secondary |
+| S122 | KAIJU | https://arxiv.org/abs/2604.02375 | 2026-09-12 | paper |
+| S123 | HEART / ToolFace | https://arxiv.org/abs/2609.01736 | 2026-09-12 | paper |
+| S124 | GraSP | https://arxiv.org/abs/2604.17870 | 2026-09-12 | paper |
+| S125 | Domain-kernel layering note | `research/notes/domain-kernel-layering.md` | 2026-09-12 | primary |
 
 ## Reliability tiers
 

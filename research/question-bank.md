@@ -40,6 +40,10 @@ Every open research question for this phase. Status: `open` | `answered` | `defe
 | Q34 | Topology A (markdown control plane) vs B (YAML as brain) vs C (hybrid)? | WS-G | answered | C. Host agent orchestrates the work; Python owns physics. — `notes/domain-system-architecture-patterns.md` |
 | Q35 | Does C reopen H3 or drop the YAML runner? | WS-G | answered | No. H3 stays. Runner remains the deterministic backbone and genre contract. Host must not invent spice DAGs. — `notes/domain-system-architecture-patterns.md`; D16 |
 | Q36 | GTM: GATE homepage vs host clubs vs CLI-only? | WS-G | answered | Host clubs first; divider eval as demo; GATE stays eval overlay; CLI-only remains a complete path. — `notes/student-gtm-ug-ee.md` |
+| Q37 | Internal class: harness-native domain system vs **domain kernel** vs executive kernel vs studio? | WS-G | answered | Domain kernel. Host owns the loop. Steal no-bypass writes, not KAIJU’s runtime. Public noun stays lab. — `notes/agentic-kernel-2026.md` |
+| Q38 | Attach order: MCP-first vs CLI-first vs Code Mode first? | WS-G | answered | CLI inner, MCP outer, PTC/Code Mode later on reads only. — `notes/domain-kernel-layering.md` |
+| Q39 | Keep mega `run_workflow` (YAML DAG including `solve-explain`) as the host’s only write? | WS-G | answered | No on the host path (starves the viva). Yes as headless eval rollback and one-command CLI. — `notes/domain-kernel-layering.md` |
+| Q40 | One artifact blob vs two bands (evidentiary vs engineering argument)? | WS-G | answered | Two bands. Host explanation cannot mint checked scalars. — `notes/agentic-kernel-2026.md` |
 
 ## Sources
 
