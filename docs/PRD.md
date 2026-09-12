@@ -131,7 +131,129 @@ Layer 3  Surfaces           localhost UI · two-band artifacts
 
 ---
 
-## 6. As-built functional requirements (D0)
+## 6. Agent interaction
+
+This chapter is the host-path contract. It answers: who loops, what is in context, which tools exist, how the agent finds the rest, how RAG and simulation attach, and how other agents (pack specialists, MATLAB MCP) collaborate. Normative attach research: [`../research/notes/host-first-class-attach.md`](../research/notes/host-first-class-attach.md).
+
+### 6.1 Who owns the loop
+
+| Situation | Loop owner | EE kernel role |
+|-----------|------------|----------------|
+| Cursor / Claude Code / Codex / ChatGPT desktop Codex view | The **host** agent | Tools, skills, gates, artifacts |
+| ChatGPT desktop Chat / Work | The **host** chat agent (weaker editor) | Same MCP verbs + served skills; CLI in a side terminal for `ui` / `eval` |
+| No AI host (PID complete path) | None. CLI `run` / local `solve-explain` | Engines, YAML, UI, eval |
+| ChatGPT **web** / mobile | Not supported | Student uses CLI + UI or desktop |
+
+The host plans, interviews the student, chooses KCL vs nodal vs phasor, and writes the **engineering-argument** band. The kernel never needs a second multi-turn chat product. Local `solve-explain` is the fallback brain when no host is configured. It is not the host-path viva.
+
+### 6.2 Always-on context (every EE turn)
+
+Feed **only**:
+
+1. **Root skill** (`skills/SKILL.md` once it exists; until then `_cross` + pack stub): triggers (this is an EE lab, not a generic coder), the 5–7 verb map, unmatched law, `unchecked` law, “do not invent a spice DAG.” Keep this short (progressive disclosure).
+2. **MCP tool schemas** for the always-on verbs (not every registered node).
+3. **Optional pointer** to the current `./runs/<id>/` if the student already started a run.
+4. Host-native project files the student already opened (assignment PDF, netlist). We do not auto-dump [`ARCHITECTURE.md`](ARCHITECTURE.md) or [`WORKFLOWS.md`](WORKFLOWS.md) into the system prompt.
+
+Never always-on:
+
+- The textbook corpus or the vector index
+- Every pack `SKILL.md`
+- Full YAML of every recipe
+- Gold eval fixtures
+- MATLAB Copilot system prompts
+
+Token intent: a decent root skill plus six tool schemas should stay on the order of **small thousands of tokens**, not hundreds of thousands (Code Mode lesson: do not enumerate 2,500 endpoints).
+
+### 6.3 On-demand context (load when the task matches)
+
+| Trigger | Load | How |
+|---------|------|-----|
+| Domain match (circuits, control, …) | `skills/<pack>/SKILL.md` | Host skill loader, or MCP resource (Chat/Work) |
+| Specialist chapter | `skills/<pack>/reference/*.md` (one level deep from the pack skill) | Host reads the linked file; do not nest |
+| Needs a citation or formula from a book the student has rights to | RAG `retrieve` with book/chapter/folder/domain filters | MCP read verb; max passages as today (3) |
+| Continuing a run | `./runs/<id>/summary.json`, netlist, plots | Host or CLI reads files |
+| Eval | gold item + recipe id | `eval_run` / CLI `eval`, not chat paste of gold |
+
+Empty RAG is **visible**. Do not silently proceed as if the book was retrieved.
+
+### 6.4 Tools the host may call
+
+**Always-on ACI (target, 5–7 verbs).** Names are illustrative; implementation is a later plan. As-built today is `list_workflows` + `run_workflow`.
+
+| Verb | Kind | Direct | PTC / Code Mode later | Notes |
+|------|------|--------|------------------------|-------|
+| `list_workflows` | read | yes | yes | Catalog of named recipe ids |
+| `retrieve` | read | yes | yes | Tagged RAG; citations evidentiary |
+| `open_ui` / `clarify` | read (+ questions) | yes | list yes; blocking no | MCP **never waits**. Returns `ui_url` |
+| `simulate` | write | yes | **no** | **Named recipe id only.** Never a session-invented DAG |
+| `label` / `summary` | write | yes | **no** | Mints checked vs `unchecked` |
+| `eval_run` | write | yes | **no** | Gold replay |
+
+`run_workflow` (as-built mega-apply) remains valid as **headless/eval rollback** and as `electrical-engineer run <id>` for students who want one command. On the **host path** it must not own `solve-explain`.
+
+**Never a host tool:** invent spice DAG; confirm photo topology without UI; present fluent `Vout` as checked; session-defined `lookup_vout_guess`; PTC on spice/MATLAB/load-flow writes.
+
+**Do not** wrap `run-spice`, `run-matlab-if-present`, `run-load-flow`, `retrieve-passage`, `solve-explain` as extra MCP tools. Named recipes already compose those nodes.
+
+### 6.5 How the agent searches tools
+
+1. Root skill lists the six verbs and when to use them.
+2. `list_workflows` (or the skill’s recipe table) picks a **named** id (`simulate-circuit`, `solve-control-problem`, …).
+3. Pack specialist skill names the id in fully qualified form (`electrical-engineer:simulate` with `workflow_id=…`) so hosts with several MCP servers do not miss it.
+4. There is **no** v1 tool-search over 45 node schemas and **no** v1 Code Mode sandbox. If read tools later proliferate, add `search` + `execute` over **reads only**.
+
+### 6.6 Simulation
+
+- Physics attaches through **named YAML genre contracts** ([`WORKFLOWS.md`](WORKFLOWS.md)).
+- Router **never invents** a DAG. Unmatched → `unmatched-cosolver` only (no auto-simulate).
+- New graphs only via `compose-from-parts --advanced` (typed ports, 16 nodes / 24 edges) with a human gate.
+- `repair_max: 2` then `label-unchecked` or ask-human — never a fake pass.
+- MCP simulation that would wait on a human **fails closed** with `ui_url`.
+- Gold eval scores **evidentiary** artifacts (example: `Vout = 5.0` on divider-dc-01), not the essay.
+
+### 6.7 RAG
+
+- Local index. BYO PDFs/scans. Inventory (`rag list`). Filters: book, chapter, folder, domain.
+- Host path: `retrieve` is a **read verb**. CLI path: `retrieve-passage` node inside a named recipe.
+- Citations: book + chapter + page the student has rights to use.
+- Circuit-homework **photos** go through `photo-to-netlist`, not RAG-as-netlist.
+- BYO content cannot override gates or `unchecked`.
+- Do not inject top-k passages into the system prompt on every turn. Retrieve when the specialist skill says the claim needs a source.
+
+### 6.8 Collaboration with other agents
+
+**Pack specialists (v1 we ship).** One root skill plus per-pack skills. The host (or its native subagents) loads the matching pack. We do **not** ship a custom multi-agent runtime. Claude Code Task / Cursor / Codex subagents may all call the **same** EE MCP; that is the host’s feature, not a second product.
+
+**MATLAB (optional peer).** The host may run MathWorks MCP / Copilot **beside** EE MCP when the student has a licence. Skill law: MATLAB MCP numbers are **untrusted evidence**. They become checked only if EE `simulate` / `label` accepts them (including via `run-matlab-if-present`). Product and CI work with **zero** MATLAB.
+
+**Not v1:** multi-student shared cloud projects; faculty agents; plant-floor agents; MATLAB Copilot as the product identity.
+
+### 6.9 Two-band artifacts
+
+| Band | Who writes | May contain | Must not |
+|------|------------|-------------|----------|
+| Evidentiary | Engines + gates | Numbers, `.cir`, plots, citations, `unchecked`, gold diffs | Host judgment presented as SPICE |
+| Engineering argument | Host, or local `solve-explain` fallback | Method, viva, labeled inference | Minting a checked scalar |
+
+`write-run-summary` / `summary.json` is the seed of the evidentiary band. A host-authored markdown file next to it must not flip `unchecked` to false.
+
+### 6.10 Per-host attach (summary)
+
+| Host | Skills | EE MCP | CLI | First-class |
+|------|--------|--------|-----|-------------|
+| Cursor | `.cursor/skills` or project skills | `.cursor/mcp.json` stdio `electrical-engineer mcp` | yes | yes |
+| Claude Code | project / user skills | `.mcp.json` stdio | yes | yes |
+| Codex CLI / IDE / desktop Codex view | Codex skills / `$skill` | `~/.codex/config.toml` | yes | yes |
+| ChatGPT desktop Chat / Work | Served via MCP resources | Settings → MCP servers, STDIO | side terminal | yes (same **contract**, weaker editor) |
+| ChatGPT web / mobile | no | no local stdio | yes, separately | **no** |
+| CLI + UI only | n/a | n/a | yes | yes (complete path) |
+
+Detail: [`hosts/README.md`](hosts/README.md).
+
+---
+
+## 7. As-built functional requirements (D0)
 
 These remain in force until §7 of this document (split ACI, two-band, specialists, dual MCP) is filled in the following commits of this pass. They are the floor, not the host-path ceiling.
 
@@ -169,7 +291,7 @@ These remain in force until §7 of this document (split ACI, two-band, specialis
 
 ---
 
-## 7. Curriculum and capabilities
+## 8. Curriculum and capabilities
 
 **Bound.** The public promise is the **union of representative UG EE / EEE programmes** (Indian institutes first, global institutes first-class). Source of truth: [`curriculum-map.md`](curriculum-map.md). A question is in-scope if it is normal coursework in that union (assignment, lab numerical, diagram, exam-style), not only if it appears on GATE.
 
@@ -196,7 +318,7 @@ Claimable bar: on a published UG task set, with tools on, match gold **or label 
 
 **Pack depth:** circuits first, then control, then solve+explain for every remaining pack or a cannot-do row in [`CANNOT_DO.md`](CANNOT_DO.md).
 
-## 8. Reliability, integrity, exam-item legal policy
+## 9. Reliability, integrity, exam-item legal policy
 
 ### Reliability
 
@@ -220,7 +342,7 @@ Exam-style items are **in-scope** for corpus and evals (GATE-style, midterm-styl
 
 This is a **legal** policy, not a pedagogy policy. Students may still *use* their own papers locally. Redistribution of scanned GATE/university papers in this repository is forbidden.
 
-## 9. Non-functional requirements
+## 10. Non-functional requirements
 
 | NFR | Requirement |
 |-----|-------------|
@@ -233,7 +355,7 @@ This is a **legal** policy, not a pedagogy policy. Students may still *use* thei
 | India-first, globally competent | Copy, examples, and packs must not treat non-Indian UG EE as an afterthought. |
 | Secrets | API keys via environment / host secret stores only. Redact keys/tokens from run dirs. |
 
-## 10. Out of scope
+## 11. Out of scope
 
 Never this product (not “later in another repo”):
 
