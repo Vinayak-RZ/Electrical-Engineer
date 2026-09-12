@@ -115,6 +115,8 @@ Every external or authoritative source used in research notes. Add a row when yo
 | S109 | Sibling domain systems catalog | `research/notes/similar-agentic-domain-systems.md` | 2026-09-12 | primary |
 | S110 | Naming and positioning note | `research/notes/naming-and-positioning.md` | 2026-09-12 | primary |
 | S111 | Student GTM UG EE note | `research/notes/student-gtm-ug-ee.md` | 2026-09-12 | primary |
+| S112 | Domain-system recommendation memo | `research/synthesis/domain-system-recommendation.md` | 2026-09-12 | primary |
+| S113 | Vision lock sheet | `research/synthesis/vision-lock-sheet.md` | 2026-09-12 | primary |
 
 ## Reliability tiers
 
